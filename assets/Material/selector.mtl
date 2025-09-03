@@ -1,6 +1,6 @@
 {
   "__type__": "cc.Material",
-  "_name": "cell",
+  "_name": "selector",
   "_objFlags": 0,
   "_native": "",
   "_effectAsset": {
@@ -11,19 +11,7 @@
     "0": {
       "props": {
         "diffuseTexture": {
-          "__uuid__": "7b504e69-a2bc-44d3-9340-8627a7b48c23"
-        },
-        "diffuseColor": {
-          "__type__": "cc.Color",
-          "r": 189,
-          "g": 189,
-          "b": 189,
-          "a": 255
-        },
-        "mainTiling": {
-          "__type__": "cc.Vec2",
-          "x": 1,
-          "y": 1
+          "__uuid__": "27ca9f30-1aba-4831-8cad-4b6942290e1b"
         }
       },
       "defines": {

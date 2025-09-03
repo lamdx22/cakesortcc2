@@ -5,10 +5,12 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/2.4/manual/en/scripting/life-cycle-callbacks.html
 
-const CakeController = require("CakeController");
-
-cc.Class({
+let GameManager = cc.Class({
     extends: cc.Component,
+
+    statics: {
+        instance: null,
+    },
 
     properties: {
         // foo: {
@@ -55,18 +57,28 @@ cc.Class({
         isWaitingCompleteCake: false,
         isSpawnUp: false,
         isSpawnRight: false,
+        camera: cc.Camera,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        this.cakeUsing = [1, 2, 3, 4];
+        //GameManager.instance = this;
+        if (GameManager.instance == null) {
+            GameManager.instance = this;
+        } else {
+            this.destroy();
+        }
+
+        cc.director.getPhysics3DManager().enabled = true;
     },
 
     start () {
-        
+        this.cakeUsing = [1, 2, 3];
+
         this.init(6, 4);
         this.checkAndSpawnCake();
+        
     },
 
     update (dt) {
@@ -81,15 +93,19 @@ cc.Class({
     },
 
     checkAndSpawnCake: function() {
-        let cake;
+        //let cake;
 
         for (let i = 0; i < this.spawnSlot.length; i++) {
             if (this.spawnSlot[i].childrenCount === 0) {
-                cake = cc.instantiate(this.cakePrefab);
-                cake.parent = this.spawnSlot[i];
+                let cakeNode = cc.instantiate(this.cakePrefab);
+                cakeNode.parent = this.spawnSlot[i];
+                cakeNode.setPosition(0, 0, 0);
+
+                let cake = cakeNode.getComponent("CakeController");
+                cake.init();
+
             }
 
-            cake.setPosition(0, 0, 0);
         }
 
         this.isSpawnUp = false;
@@ -97,3 +113,5 @@ cc.Class({
         
     },
 });
+
+module.exports = GameManager;

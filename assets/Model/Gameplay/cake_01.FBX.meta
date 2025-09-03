@@ -1,6 +1,6 @@
 {
   "ver": "1.1.3",
-  "uuid": "a0f34ba6-e095-444c-92ad-d9783362bd09",
+  "uuid": "0fde4972-be2a-4a94-9718-50b8c7dee772",
   "importer": "fbx",
   "scaleFactor": 1,
   "boneCount": 0,
@@ -9,14 +9,14 @@
   "subMetas": {
     "buffer.bin": {
       "ver": "1.0.2",
-      "uuid": "4436ca7f-116b-4f96-9ef5-69ddaabc2a40",
+      "uuid": "928834c0-564b-4521-b49a-5039b204c1d9",
       "importer": "buffer",
       "name": "buffer.bin",
       "subMetas": {}
     },
     "cake_01.mesh": {
       "ver": "1.0.3",
-      "uuid": "7fd3acd4-1a09-4192-93bd-06b7777d6baf",
+      "uuid": "8c0f7f62-7d1b-48b0-b930-a731e37e248a",
       "importer": "mesh",
       "verts": 76,
       "tris": 123,
@@ -43,7 +43,7 @@
     },
     "cake_01.prefab": {
       "ver": "1.3.2",
-      "uuid": "424b71bb-1d06-45a7-a2d4-02eb22c3fa26",
+      "uuid": "37fd6293-dd91-4942-8dd5-c5cf4f6bd9ab",
       "importer": "prefab",
       "optimizationPolicy": "AUTO",
       "asyncLoadAssets": false,
@@ -162,9 +162,9 @@
     },
     "cake_01.mtl": {
       "ver": "1.0.5",
-      "uuid": "99c38024-5240-4681-8145-7613d6afe81e",
+      "uuid": "a104e690-bba3-4d0d-8c33-691eb4467e09",
       "importer": "material",
-      "dataAsSubAsset": "{\n  \"__type__\": \"cc.Material\",\n  \"_name\": \"\",\n  \"_objFlags\": 0,\n  \"_native\": \"\",\n  \"_effectAsset\": {\n    \"__uuid__\": \"abc2cb62-7852-4525-a90d-d474487b88f2\"\n  },\n  \"_techniqueIndex\": 0,\n  \"_techniqueData\": {\n    \"0\": {\n      \"props\": {\n        \"diffuseColor\": {\n          \"__type__\": \"cc.Color\",\n          \"r\": 255,\n          \"g\": 255,\n          \"b\": 255,\n          \"a\": 255\n        },\n        \"diffuseTexture\": {\n          \"__uuid__\": \"5bf7cb81-8de6-4a5e-bb8d-d60f5c377ece\"\n        }\n      },\n      \"defines\": {\n        \"USE_DIFFUSE_TEXTURE\": true\n      }\n    }\n  }\n}",
+      "dataAsSubAsset": null,
       "name": "cake_01.mtl",
       "subMetas": {}
     }

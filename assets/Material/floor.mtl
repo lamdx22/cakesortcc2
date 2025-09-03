@@ -17,8 +17,7 @@
           "__type__": "cc.Vec2",
           "x": 20,
           "y": 20
-        },
-        "glossiness": 10
+        }
       },
       "defines": {
         "USE_DIFFUSE_TEXTURE": true
