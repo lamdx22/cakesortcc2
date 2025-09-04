@@ -86,6 +86,7 @@ let CakeController = cc.Class({
         this._cakePieces = new Array(this.cakeAmount);
         this.isInCell = false;
         this.lastMovingPiece = null;
+        this.anglePerPiece = 360 / this.cakeAmount;
 
         let typeCakes = [];
 
@@ -218,6 +219,138 @@ let CakeController = cc.Class({
             cake = cakes[0];
             return {type: this.NOT_COMPLETE_CAKE, cake};
         }
+    },
+
+    async processPull(cakes, color, holdSlot = 0) {
+        while (this.freeSlot() > 0 && this.freeSlot() > holdSlot && cakes.length > 0) {
+            GameManager.instance.connectCake(this, cake[0]);
+            await this.pushCake(color, cakes[0], true, holdSlot);
+            cakes = cakes.filter(x => x.amountOfType(color) > 0);
+            //this.offEdge();
+        }
+    },
+
+    getAngle(angle, oldAngle) {
+        if (angle < 0) {
+            angle += 360;
+        }
+        if (oldAngle < 0) {
+            oldAngle += 360;
+        }
+
+        if (angle> oldAngle && angle - oldAngle > 180) {
+            angle -= 360;
+        }
+        return angle;
+    },
+
+    async pushCake(color, cake, isPushAll = true, holdSlot = 0, isMainCake = false) {
+        let pieces = cake.popCake3(color, this.freeSlot() - holdSlot, isPushAll? 0 : 1);
+        let number = cakes.length;
+
+        if (number > 0) {
+            let pieceSwap = [];
+            let eulers = [];
+            let oldEulers = [];
+            let localPos = [];
+            let freeIndex = -1;
+            let startIndex = -1;
+            let startIndex2 = -1;
+            let lastPiece = null;
+            let isIgnoreSwap = false;
+
+            for (let i = 0; i < this.cakeAmount; i++) {
+                if (this._cakePieces[i] != null) {
+                    lastPiece = this._cakePieces[i];
+                    break;
+                }
+            }
+
+            for (let i = this.cakeAmount - 1; i >= 0; i--) {
+                if (this._cakePieces[i] != null && this._cakePieces[i].Type === color) {
+                    startIndex = i + 1;
+                    if (startIndex >= this.cakeAmount) {
+                        startIndex -= this.cakeAmount;
+                    }
+                }
+
+                if (this._cakePieces[startIndex] == null) {
+                    for (let j = 0; j < this.cakeAmount && number > 0; j++) {
+                        freeIndex = startIndex + j;
+                        if (freeIndex >= this.cakeAmount) freeIndex -= this.cakeAmount;
+
+                        if (this._cakePieces[freeIndex] == null) {
+                            this._cakePieces[freeIndex] = pieces[number - 1];
+                            this.dictCakeObject[color].push(pieces[number - 1]);
+                            pieces[number - 1].node.parent = this.cakeGroup;
+                            
+                            eulers.push(cc.v3(0, this.getAngle(freeIndex * this.anglePerPiece, pieces[number -1].node.eulerAngles.y), 0));
+                            oldEulers.push(pieces[number - 1].node.eulerAngles.clone());
+                            localPos.push(pieces[number - 1].node.position.clone());
+
+                            number--;
+                            if (number === 0) {
+                                startIndex2 = freeIndex + 1;
+                                if (startIndex2 >= this.cakeAmount) {
+                                    startIndex2 -= this.cakeAmount;
+                                }
+                            }
+                        }
+                    }
+                } else if (this._cakePieces[startIndex].Type !== color) {
+                    for (let j = 0; j < this.cakeAmount; j++) {
+                        freeIndex = startIndex + j;
+                        if (freeIndex >= this.cakeAmount) freeIndex -= this.cakeAmount;
+
+                        if (this._cakePieces[freeIndex] == null) {
+                            isIgnoreSwap = true;
+                        } else if (!isIgnoreSwap && this._cakePieces[freeIndex].Type !== color) {
+                            pieceSwap.push(this._cakePieces[freeIndex]);
+                        }
+
+                        if (number > 0) {
+                            this._cakePieces[freeIndex] = pieces[number -1];
+                            this.dictCakeObject[color].push(pieces[number - 1]);
+                            pieces[number - 1].node.parent = this.cakeGroup;
+
+                            eulers.push(cc.v3(0, this.getAngle(freeIndex * this.anglePerPiece, pieces[number - 1].node.eulerAngles.y), 0));
+                            oldEulers.push(pieces[number - 1].node.eulerAngles.clone());
+                            localPos.push(pieces[number - 1].node.position.clone());
+
+                            number--;
+                            if (number ===  0) {
+                                startIndex2 = freeIndex + 1;
+                                if (startIndex2 >= this.cakeAmount) startIndex2 -= this.cakeAmount;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        for (let j = 0; j < pieceSwap.length; j++) {
+            freeIndex = startIndex2 + j;
+            if (freeIndex >= this.cakeAmount) freeIndex -= this.cakeAmount;
+            this._cakePieces[freeIndex] = pieceSwap[j];
+            this.moveCake(cc.v3(0, freeIndex * this.anglePerPiece, 0), this._cakePieces[freeIndex], j * 0.1);
+        }
+
+        // animation thời gian
+        let totalTime = pieces.length * 0.5;
+        let elapsedTime = -(totalTime - (pieces.length - 1) * 0.25);
+        let elapsedExactTime = -totalTime;
+
+        if (this.amountOfType(this._cakePieces.find(x => x != null).Type === this.cakeAmount)) {
+            this.isFinish = true;
+        }
+
+        for (let i = 0; i < pieces.length; i++) {
+            pieces[i].stopAllActions();
+        }
+
+        let isStartMove = false;
+        let numberCakeMoveLast = pieces.length - 1;
+
     },
 
     pushToCake(cake, color) {
