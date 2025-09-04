@@ -6,7 +6,7 @@ let CakeController = cc.Class({
     extends: cc.Component,
 
     properties: {
-        cakePieces: [cc.Component],
+        //cakePieces: [cc.Component],
         cakeGroup: cc.Node,
         upEdge: cc.Node,
         rightEdge: cc.Node,
@@ -23,11 +23,17 @@ let CakeController = cc.Class({
         
         this.lastMovingPiece = null;
         this.cakeArounds = [],
+        this._cakePieces = [],
         this.cakeUp = null,
         this.cakeRight = null,
         this.cakeDown = null;
         this.cakeLeft = null;
         this.parents = null;
+        this.NOT_COMPLETE_CAKE = 0;
+        this.COMPLETE_CAKE_WITH_ONLY_COLOR = 1;
+        this.COMPLETE_CAKE_WITH_OTHER_COLOR = 2;
+        this.UNCOMPLETE_CAKE_WITH_ONLY_COLOR = 3;
+        this.UNCOMPLETE_CAKE_WITH_OTHER_COLOR = 4;
     },
 
     start () {
@@ -77,7 +83,7 @@ let CakeController = cc.Class({
         this.isFinish = false;
         this.cakeAmount = 6;
         this.dictCakeObject = new Map();
-        this.cakePieces = new Array(this.cakeAmount);
+        this._cakePieces = new Array(this.cakeAmount);
         this.isInCell = false;
         this.lastMovingPiece = null;
 
@@ -129,12 +135,169 @@ let CakeController = cc.Class({
                 pieceNode.position = cc.v3(0, 0, 0);
                 //pieceNode.scale = cc.v3(1, 1, 1);
 
-                this.cakePieces[index] = piece;
+                this._cakePieces[index] = piece;
             } else {
-                this.cakePieces[index] = null;
+                this._cakePieces[index] = null;
             }
         }
     },
+
+    amountType() {
+        return this.getColors().length;
+    },
+
+    getColors() {
+        //let list = this._cakePieces.filter(x => x != null).map(x => x.Type);
+        let list = Array.from(
+            new Set(
+                this._cakePieces
+                    .filter(x => x != null)
+                    .map(x => x.Type)
+            )
+        );
+        return list;
+    },
+
+    freeSlot() {
+        return this._cakePieces.filter(x => x == null).length;
+    },
+
+    amountOfType(type) {
+        return this._cakePieces.filter(x => x != null && x.Type === type).length;
+    },
+
+    isCanCompleteCake(cakes, color) {
+        let cake = null;
+        let totalCake = cakes.reduce((sum, x) => sum + x.amountOfType(color), 0) + this.amountOfType(color);
+
+        if (totalCake >= 6) {
+            for (let i = 0; i < cakes.length; i++) {
+                if (cakes[i].amountType() === 1) {
+                    cake = cakes[i];
+                    return { type: this.COMPLETE_CAKE_WITH_ONLY_COLOR, cake};
+                } else {
+                    let isCanPullColor = false;
+                    let colors = cakes[i].getColors();
+                    for (let j = 0; j < colors.length; j++) {
+                        if (this.amountOfType(colors[j]) > 0) {
+                            cake = cakes[i];
+                            isCanPullColor = true;
+                            break;
+                        }
+                    }
+                    if (isCanPullColor) {
+                        return {type: this.COMPLETE_CAKE_WITH_OTHER_COLOR, cake};
+                    }
+                }
+            }
+        } else {
+            for (let i = 0; i < cakes.length; i++) {
+                if (cakes[i].amountType === 1) {
+                    cake = cakes[i];
+                    return {type: this.UNCOMPLETE_CAKE_WITH_ONLY_COLOR, cake};
+                } else {
+                    let isCanPullColor = false;
+                    let colors = cakes[i].getColors();
+                    for (let j = 0; j < colors.length; j ++) {
+                        if (this.amountOfType(colors[j]) > 0) {
+                            cake = cakes[i];
+                            if (colors[j] !== color) {
+                                isCanPullColor = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (isCanPullColor) {
+                        return {type: this.UNCOMPLETE_CAKE_WITH_OTHER_COLOR, cake};
+                    }
+                }
+            }
+        }
+
+        if (cakes.length > 0) {
+            cake = cakes[0];
+            return {type: this.NOT_COMPLETE_CAKE, cake};
+        }
+    },
+
+    pushToCake(cake, color) {
+        let pieces = this._cakePieces.filter(x => x && x.Type === color);
+        for (let i = 0; i < pieces.length; i++) {
+            cake.addPiece(pieces[i]);
+            let index = this._cakePieces.indexOf(pieces[i]);
+            this._cakePieces[index] = null;
+        }
+    },
+
+    addPiece(piece) {
+        this.dictCakeObject.get(piece.Type).push(piece);
+
+        // Gán vào CakeGroup
+        piece.node.parent = this.cakeGroup;
+        piece.node.position = cc.v3(0, 0, 0);
+        //pieceNode.scale = cc.v3(1, 1, 1);
+
+        for (let i = 0; i < this._cakePieces.length; i++) {
+            if (this._cakePieces[i] == null) {
+                this._cakePieces[i] = piece;
+                piece.node.eulerAngles = cc.v3(0, i * 60, 0);
+                break;
+            }
+        }
+        //this._cakePieces[(6 - this.freeSlot())] = piece;
+    },
+
+    //async 
+    connectAround(cakeArounds) {
+        this.isInCell = true;
+        let pieces = this._cakePieces.filter(x => x != null);
+        let colors = this.getColors();
+        let indexColor = 0;
+        let cakeVisible = null;
+        let cakeCheckings = [];
+        let cakeSameType = [];
+        let colorCount = 0;
+        let dem = 0;
+
+        //await new Promise(resolve => setTimeout(resolve, 160));
+
+        while (colors.length > 0 && indexColor < colors.length && this.freeSlot() < this.cakeAmount && !this.isFinish && dem < 100) {
+            dem++;
+            colors = this.getColors();
+            if (colorCount !== colors.length) {
+                colorCount = colors.length;
+                indexColor = 0;
+            }
+
+            cakeSameType = cakeArounds
+                .filter(x => x && !x.isFinish && x.freeSlot() < this.cakeAmount && x.amountOfType(colors[indexColor]) > 0 && x.amountOfType(colors[indexColor]) < this.cakeAmount)
+                .sort((a, b) => b.amountOfType(colors[indexColor]) - a.amountOfType(colors[indexColor]));
+
+            if (cakeSameType.length === 0) {
+                indexColor++;
+                if (indexColor >= colors.length) break;
+                continue;
+            }
+
+            //await new Promise(resolve => setTimeout(resolve, 0));
+
+            if (this.amountType() === 1) {
+                cakeCheckings = cakeSameType
+                    .filter(x => x && !x.isFinish && x.amountOfType(colors[indexColor]) > 0)
+                    .sort((a, b) => a.amountType() - b.amountType() || b.amountOfType(colors[indexColor]) - a.amountOfType(colors[indexColor]));
+                
+                let complete = this.isCanCompleteCake(cakeCheckings, colors[indexColor]);
+                let completeType = complete.type;
+                cakeVisible = complete.cake;
+
+                this.pushToCake(cakeVisible, colors[indexColor]);
+
+                if (completeType == this.COMPLETE_CAKE_WITH_ONLY_COLOR) {
+                    //await this.Pro
+                }
+            }
+        }
+    }
 
 });
 

@@ -13,40 +13,16 @@ let GameManager = cc.Class({
     },
 
     properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
-        // bulletSprite: cc.SpriteFrame,
-        // gun: cc.Node,
-        // score: {
-        //     default: 0,
-        //     displayName: "Score (player)",
-        //     tooltip: "The score of player",
-        // }
         cells: {
             default: [],
             type: [cc.Node],
         },
         spawnSlot: [cc.Node],
         matrixSlot: [cc.Node],
-        cakes: [cc.Component],
         processing: [cc.Component],
         cakeUsing: [cc.Integer],
         row: 0,
         col: 0,
-        cakeArround: [cc.Component],
         cakePrefab: cc.Prefab,
 
         currentSelector: cc.Node,
@@ -74,6 +50,9 @@ let GameManager = cc.Class({
     },
 
     start () {
+        //this._cakes = [];
+        //cakeArround: [cc.Component],
+
         this.cakeUsing = [1, 2, 3];
 
         this.init(6, 4);
@@ -88,8 +67,8 @@ let GameManager = cc.Class({
     init: function(row, col) {
         this.row = row;
         this.col = col;
-        this.cakes = new Array(row * col);
-        this.cakeArround = new Array(4);
+        this._cakes = new Array(row * col);
+        this._cakeArround = new Array(4);
     },
 
     checkAndSpawnCake: function() {
@@ -112,6 +91,63 @@ let GameManager = cc.Class({
         this.isSpawnRight = false;
         
     },
+
+    isCanSnap(cell, cake) {
+        let index = this.cells.indexOf(cell);
+        let cakeCheck = null;
+
+        if (index < 0) {
+            return false;
+        }
+
+        if (this._cakes[index] != null) {
+            return false;
+        }
+
+        let cellY = Math.floor(index / this.col);
+        let cellX = index % this.col;
+
+        return true;
+    },
+
+    onSnapTo(cell, cake) {
+        let index = this.cells.indexOf(cell);
+
+        if (index >= 0 && this._cakes[index] == null) {
+            cake.node.parent = cell;
+            cake.node.position = cc.v3(0, 0, 0);
+            this._cakes[index] = cake;
+            this.checkCakeAround(index);
+        }
+
+        this.checkAndSpawnCake();
+    },
+
+    checkCakeAround(index) {
+        let cellY = Math.floor(index/ this.col);
+        let cellX = index % this.col;
+
+        if (cellY > 0) {
+            this._cakeArround[0] = this._cakes[index - this.col];
+        }
+        if (cellY < this.row - 1) {
+            this._cakeArround[1] = this._cakes[index + this.col];
+        }
+        if (cellX > 0)
+        {
+            this._cakeArround[2] = this._cakes[index - 1];
+        }
+        if (cellX < this.col - 1)
+        {
+            this._cakeArround[3] = this._cakes[index + 1];
+        }
+        this._cakes[index].connectAround(this._cakeArround);
+
+        this._cakeArround[0] = null;
+        this._cakeArround[1] = null;
+        this._cakeArround[2] = null;
+        this._cakeArround[3] = null;
+    }
 });
 
 module.exports = GameManager;
