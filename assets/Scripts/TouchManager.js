@@ -58,6 +58,8 @@ cc.Class({
 
             
         }
+        this.test();
+        
         //let touchLoc = event.touch.getLocation();
         //let ray = this.camera.getRay(touchLoc);
         let maxDistance = 10000;
@@ -67,6 +69,12 @@ cc.Class({
              console.log("hit");
         }
         
+    },
+
+    async test() {
+        for (let i = 0; i < dem; i++) {
+            await new Promise(resolve => setTimeout(resolve, 0)); // chờ 1 frame
+        }
     },
 
     onTouchMove(event) {
@@ -86,7 +94,7 @@ cc.Class({
                     let cur = this.currSelectCake.node.position;
                     //cc.log(this.currSelectCake.node.position);
                     let localPos = this.currSelectCake.node.parent.convertToNodeSpaceAR(hitPoint);
-                    this.currSelectCake.node.setPosition(localPos.x, this.currSelectCake.node.y, localPos.z);
+                    this.currSelectCake.node.setPosition(localPos.x, localPos.y, localPos.z);
                 }
 
                 if (obj.group === "cell") {
@@ -110,6 +118,8 @@ cc.Class({
             GameManager.instance.onSnapTo(this.currHoverCell, this.currSelectCake);
             this.currSelectCake = null;
             this.currHoverCell = null;
+        } else if (this.currSelectCake) {
+            this.currSelectCake.return(cc.v3(0, 0, 0));
         }
     },
 

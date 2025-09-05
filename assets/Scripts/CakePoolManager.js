@@ -51,6 +51,16 @@ let CakePoolManager = cc.Class({
         piece.node.active = true;
         return piece;
     },
+
+    despawnCakeSlot(cake) {
+        cake.node.destroy();
+        //this._cakeSlotCycle.push(cake);
+    },
+
+    despawnPiece(piece) {
+        piece.node.destroy();
+        //this._pieceCycle[piece.Type].push(piece);
+    }
 });
 
 module.exports = CakePoolManager;
