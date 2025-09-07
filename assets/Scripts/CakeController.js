@@ -227,7 +227,8 @@ let CakeController = cc.Class({
     async processPull(cakes, color, holdSlot = 0) {
         while (this.freeSlot() > 0 && this.freeSlot() > holdSlot && cakes.length > 0) {
             GameManager.instance.connectCake(this, cakes[0]);
-            await this.pushCake(color, cakes[0], true, holdSlot);
+            //await 
+            this.pushCake(color, cakes[0], true, holdSlot);
             cakes = cakes.filter(x => x.amountOfType(color) > 0);
             this.offEdge();
         }
@@ -499,28 +500,28 @@ let CakeController = cc.Class({
                 elapsedTime += cc.director.getDeltaTime();
                 elapsedExactTime += cc.director.getDeltaTime();
 
-                //await new Promise(resolve => setTimeout(resolve, 0)); // chờ 1 frame
-                // await new Promise(resolve => {
-                //     cc.director.once(cc.Director.EVENT_AFTER_UPDATE, resolve);
-                // });
+                await new Promise(resolve => setTimeout(resolve, 0)); // chờ 1 frame
+                await new Promise(resolve => {
+                    cc.director.once(cc.Director.EVENT_AFTER_UPDATE, resolve);
+                });
 
-                // for (let i = 0; i < pieces.length; i++) {
-                //     if (!isStartMove) {
-                //         //GameManager.instance.scheduleOnce(() => {
-                //             //GameManager.instance.playMoveSFX();
-                //         //}, i * 0.25);
-                //     }
+                for (let i = 0; i < pieces.length; i++) {
+                    if (!isStartMove) {
+                        //GameManager.instance.scheduleOnce(() => {
+                            //GameManager.instance.playMoveSFX();
+                        //}, i * 0.25);
+                    }
 
-                //     let value = Math.min(((totalTime + elapsedExactTime) - i * 0.25)/ 0.5, 1);
-                //     value = Math.max(0, value);
+                    let value = Math.min(((totalTime + elapsedExactTime) - i * 0.25)/ 0.5, 1);
+                    value = Math.max(0, value);
 
-                //     let pos = cc.v3();
-                //     cc.Vec3.lerp(pos, localPos[i], cc.v3(0, 0, 0), value);
-                //     let eul = oldEulers[i];
-                //     cc.Vec3.lerp(eul, oldEulers[i], eulers[i], value);
-                //     //pieces[numberCakeMoveLast - i].node.position = pos;// cc.v3().lerp(localPos[i], cc.v3(0, 0, 0), value);
-                //     //pieces[numberCakeMoveLast - i].node.eulerAngles = eul;// = cc.v3().lerp(oldEulers[i], eulers[i], value);
-                // }
+                    let pos = cc.v3();
+                    cc.Vec3.lerp(pos, localPos[i], cc.v3(0, 0, 0), value);
+                    let eul = oldEulers[i];
+                    cc.Vec3.lerp(eul, oldEulers[i], eulers[i], value);
+                    pieces[numberCakeMoveLast - i].node.position = pos;// cc.v3().lerp(localPos[i], cc.v3(0, 0, 0), value);
+                    pieces[numberCakeMoveLast - i].node.eulerAngles = eul;// = cc.v3().lerp(oldEulers[i], eulers[i], value);
+                }
                 isStartMove = true;
             }
 
@@ -648,28 +649,33 @@ let CakeController = cc.Class({
                             for (let i = 0; i < colorPush.length; i++) {
                                 let cakeCheckPush = cakeArounds.find(x => x.amountOfType(colorPush[i]) > 0 && x.freeSlot() > 0 && x !== cakeVisible);
                                 if (cakeCheckPush) {
-                                    await cakeCheckPush.pushCake(colorPush[i], this, false);
+                                    //await 
+                                    cakeCheckPush.pushCake(colorPush[i], this, false);
                                     isPushed = true;
                                     break;
                                 }
                             }
                             if (!isPushed) {
-                                await cakeVisible.pushCake(colors[indexColor], this);
+                                //await 
+                                cakeVisible.pushCake(colors[indexColor], this);
                             }
                         } else {
                             GameManager.instance.connectCake(this, cakeVisible);
-                            await cakeVisible.pushCake(colors[indexColor], this, false);
+                            //await 
+                            cakeVisible.pushCake(colors[indexColor], this, false);
                             this.offEdge();
                         }
                     } else {
                         GameManager.instance.connectCake(this, cakeVisible);
-                        await cakeVisible.pushCake(colors[indexColor], this, true);
+                        //await 
+                        cakeVisible.pushCake(colors[indexColor], this, true);
                         this.offEdge();
                     }
                 } else {
                     for (let i = 0; i < cakeSameType.length; i++) {
                         GameManager.instance.connectCake(this, cakeSameType[i]);
-                        await this.pushCake(colors[0], cakeSameType[i], true, 0, true);
+                        //await 
+                        this.pushCake(colors[0], cakeSameType[i], true, 0, true);
                         this.offEdge();
                         if (this.isFinish) break;
                     }
@@ -694,9 +700,11 @@ let CakeController = cc.Class({
 
                         GameManager.instance.connectCake(this, cakeVisible);
                         if (cakeCheckings.length > 0) {
-                            await cakeVisible.pushCake(colors[indexColor], this, false);
+                            //await 
+                            cakeVisible.pushCake(colors[indexColor], this, false);
                         } else {
-                            await cakeVisible.pushCake(colors[indexColor], this, true);
+                            //await 
+                            cakeVisible.pushCake(colors[indexColor], this, true);
                         }
                         this.offEdge();
                         indexColor--;
@@ -710,7 +718,8 @@ let CakeController = cc.Class({
                                 await this.processPull(cakeCheckings.filter(x => x !== cakeVisible), colors[indexColor]);
                             }
                             GameManager.instance.connectCake(this, cakeVisible);
-                            await this.pushCake(cakeColorPull, cakeVisible, true, 0, true);
+                            //await 
+                            this.pushCake(cakeColorPull, cakeVisible, true, 0, true);
                             this.offEdge();
                             indexColor--;
                         } else {
@@ -718,10 +727,12 @@ let CakeController = cc.Class({
                                 cakeCheckings = cakeCheckings.filter(x => x.amountOfType(colors[indexColor]) > 0 && x !== cakeVisible);
                                 if (cakeCheckings.length > 0) {
                                     await this.processPull(cakeCheckings.filter(x => x !== cakeVisible), colors[indexColor]);
-                                    await cakeVisible.pushCake(colors[indexColor], this, false);
+                                    //await 
+                                    cakeVisible.pushCake(colors[indexColor], this, false);
                                 } else {
                                     GameManager.instance.connectCake(this, cakeVisible);
-                                    await cakeVisible.pushCake(colors[indexColor], this, true);
+                                    //await 
+                                    cakeVisible.pushCake(colors[indexColor], this, true);
                                 }
                                 this.offEdge();
                                 indexColor--;
@@ -734,10 +745,12 @@ let CakeController = cc.Class({
                             cakeCheckings = cakeCheckings.filter(x => x.amountOfType(colors[indexColor]) > 0 && x !== cakeVisible);
                             if (cakeCheckings.length > 0) {
                                 await this.processPull(cakeCheckings.filter(x => x !== cakeVisible), colors[indexColor]);
-                                await cakeVisible.pushCake(colors[indexColor], this, false);
+                                //await 
+                                cakeVisible.pushCake(colors[indexColor], this, false);
                             } else {
                                 GameManager.instance.connectCake(this, cakeVisible);
-                                await cakeVisible.pushCake(colors[indexColor], this, true);
+                                //await 
+                                cakeVisible.pushCake(colors[indexColor], this, true);
                             }
                             this.offEdge();
                             indexColor--;
