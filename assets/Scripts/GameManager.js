@@ -5,6 +5,8 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/2.4/manual/en/scripting/life-cycle-callbacks.html
 
+const SoundManager = require("SoundManager");
+
 let GameManager = cc.Class({
     extends: cc.Component,
 
@@ -111,8 +113,8 @@ let GameManager = cc.Class({
     },
 
     connectCake(cake1, cake2) {
-        let pos1 = cake1.node.position;
-        let pos2 = cake2.node.position;
+        let pos1 = cake1.node.convertToWorldSpaceAR(cc.v3(0, 0, 0));
+        let pos2 = cake2.node.convertToWorldSpaceAR(cc.v3(0, 0, 0));
 
         let direction = cc.v3(pos2.x - pos1.x, pos2.y - pos1.y, pos2.z - pos1.z);
 
@@ -120,8 +122,8 @@ let GameManager = cc.Class({
         let angle = Math.atan2(direction.z, direction.x) * (180 / Math.PI);
 
         // Quy ước góc gần trục nào thì snap về trục đó
-        // Right (0°), Up (90°), Left (180°/-180°), Down (-90°)
-        if (Math.abs(angle - 90) < 1e-2) {
+        // Right (0°), Up (-90°), Left (180°/-180°), Down (90°)
+        if (Math.abs(angle + 90) < 1e-2) {
             cake1.connectEdge(0); // Up
         }
         else if (Math.abs(angle) < 1e-2) {
@@ -130,7 +132,7 @@ let GameManager = cc.Class({
         else if (Math.abs(Math.abs(angle) - 180) < 1e-2) {
             cake1.connectEdge(2); // Left
         }
-        else if (Math.abs(angle + 90) < 1e-2) {
+        else if (Math.abs(angle - 90) < 1e-2) {
             cake1.connectEdge(3); // Down
         }
     },
@@ -168,7 +170,7 @@ let GameManager = cc.Class({
             listIndex.push(index);
 
             //AssetManager.Instance.GetFxPut(cake.node.position);
-            //SoundManager.Instance.SoundPutCake.play();
+            SoundManager.instance.soundPutCake.play();
 
             // // Snap sang phải
             // if (cake.Right != null) {
@@ -252,7 +254,7 @@ let GameManager = cc.Class({
     },
 
     onCompleteCake(cake, index) {
-        //SoundManager.Instance.SoundCompleteCake.play();
+        SoundManager.instance.soundCompleteCake.play();
         //AssetManager.Instance.GetFxComplete(cake.node.position);
 
         this._isContinueCombo = true;

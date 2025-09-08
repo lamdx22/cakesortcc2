@@ -1,4 +1,5 @@
 const GameManager = require("GameManager");
+const SoundManager = require("SoundManager");
 
 cc.Class({
     extends: cc.Component,
@@ -10,6 +11,7 @@ cc.Class({
 
     onLoad () {
         this.currHoverCell = null;
+        this.offsetTouch = 0.12;
 
         // Bật physic3d
         cc.director.getPhysics3DManager().enabled = true;
@@ -38,19 +40,25 @@ cc.Class({
     },
 
     onTouchStart (event) {
-        cc.log("TouchManager nhận TOUCH_START");
+        //cc.log("TouchManager nhận TOUCH_START");
         let touchLoc = event.touch.getLocation();
         let ray = this.camera.getRay(touchLoc);
         let results = cc.geomUtils.intersect.raycast(cc.director.getScene(), ray);
         for (let i = 0; i < results.length; i++) {
-            let t = results[i];
+            let hit = results[i];
             var obj = results[i].node;
             if (obj.group === "cake") {
                 let parentNode = obj.parent;
                 if (parent) {
                     let cake = parentNode.getComponent("CakeController");
-                    if (cake) {
+                    if (cake && !cake.isInCell) {
                         this.currSelectCake = cake;
+                        this.currSelectCake.IEBounce();
+                        SoundManager.instance.soundPickCake.play();
+
+                        let hitPoint = ray.o.add(ray.d.mul(hit.distance));
+                        let localPos = this.currSelectCake.node.parent.convertToNodeSpaceAR(hitPoint);
+                        this.currSelectCake.node.setPosition(localPos.x, localPos.y, localPos.z - this.offsetTouch);
                         //cake.node.setScale(cake.node.scaleX * 1.2);
                     }
                 }
@@ -58,7 +66,6 @@ cc.Class({
 
             
         }
-        this.test();
         
         //let touchLoc = event.touch.getLocation();
         //let ray = this.camera.getRay(touchLoc);
@@ -69,12 +76,6 @@ cc.Class({
              console.log("hit");
         }
         
-    },
-
-    async test() {
-        for (let i = 0; i < dem; i++) {
-            await new Promise(resolve => setTimeout(resolve, 0)); // chờ 1 frame
-        }
     },
 
     onTouchMove(event) {
@@ -88,20 +89,16 @@ cc.Class({
                 let hit = results[i];
                 var obj = results[i].node;
                 if (obj.group === "floor") {
-                    let t = results[i];
-                    let hitPoint = ray.o.add(ray.d.mul(t.distance));
-                    //let pos = hit.
-                    let cur = this.currSelectCake.node.position;
-                    //cc.log(this.currSelectCake.node.position);
+                    let hitPoint = ray.o.add(ray.d.mul(hit.distance));
                     let localPos = this.currSelectCake.node.parent.convertToNodeSpaceAR(hitPoint);
-                    this.currSelectCake.node.setPosition(localPos.x, localPos.y, localPos.z);
+                    this.currSelectCake.node.setPosition(localPos.x, localPos.y, localPos.z - this.offsetTouch);
                 }
 
-                if (obj.group === "cell") {
-                    //cc.log("cell");
-                    this.currHoverCell = obj.parent;
-                    //let t = 1;
-                }
+                // if (obj.group === "cell") {
+                //     //cc.log("cell");
+                //     this.currHoverCell = obj.parent;
+                //     //let t = 1;
+                // }
             }
 
             //let pos = this.touchToWorldPoint(touchLoc, this. camera, 0);
@@ -111,15 +108,32 @@ cc.Class({
     },
 
     onTouchEnd(event) {
-        if (this.currSelectCake && this.currHoverCell) {
-            cc.log("Put");
+        if (this.currSelectCake) {// && this.currHoverCell) {
+            let origin = this.currSelectCake.node.parent.convertToWorldSpaceAR(this.currSelectCake.node.position);
+            let screenPos = cc.v3();
+            this.camera.getWorldToScreenPoint(origin, screenPos);
+
+            let ray = this.camera.getRay(screenPos);
+
+            let results = cc.geomUtils.intersect.raycast(cc.director.getScene(), ray);
+
+            for (let i = 0; i < results.length; i++) {
+                let hit = results[i];
+                var obj = results[i].node;
+                if (hit.node.group === "cell") {
+                    this.currHoverCell = obj.parent;
+                }
+            }
+            if (this.currHoverCell) {
+                GameManager.instance.onSnapTo(this.currHoverCell, this.currSelectCake);
+            } else {
+                this.currSelectCake.return(cc.v3(0, 0, 0));
+            }
+            //cc.log("Put");
             // this.currSelectCake.node.parent = this.currHoverCell;
             // this.currSelectCake.node.position = cc.v3(0, 0, 0);
-            GameManager.instance.onSnapTo(this.currHoverCell, this.currSelectCake);
             this.currSelectCake = null;
             this.currHoverCell = null;
-        } else if (this.currSelectCake) {
-            this.currSelectCake.return(cc.v3(0, 0, 0));
         }
     },
 

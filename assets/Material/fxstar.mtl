@@ -1,0 +1,20 @@
+{
+  "__type__": "cc.Material",
+  "_name": "fxstar",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "829a282c-b049-4019-bd38-5ace8d8a6417"
+  },
+  "_techniqueIndex": 0,
+  "_techniqueData": {
+    "0": {
+      "props": {
+        "mainTexture": {
+          "__uuid__": "c08e198a-96bc-43c4-b2d1-b7de7911a3d8"
+        }
+      },
+      "defines": {}
+    }
+  }
+}

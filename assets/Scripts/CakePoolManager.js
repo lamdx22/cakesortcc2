@@ -54,6 +54,7 @@ let CakePoolManager = cc.Class({
 
     despawnCakeSlot(cake) {
         cake.node.destroy();
+        //cake = null;
         //this._cakeSlotCycle.push(cake);
     },
 
