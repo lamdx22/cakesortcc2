@@ -1,0 +1,20 @@
+{
+  "ver": "1.0.3",
+  "uuid": "1f1d3dfe-5f85-4f27-84c1-f95539d81fd1",
+  "importer": "mesh",
+  "verts": 0,
+  "tris": 0,
+  "submeshes": 0,
+  "attributes": [],
+  "minPos": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "maxPos": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "subMetas": {}
+}

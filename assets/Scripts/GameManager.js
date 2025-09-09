@@ -6,6 +6,7 @@
 //  - https://docs.cocos.com/creator/2.4/manual/en/scripting/life-cycle-callbacks.html
 
 const SoundManager = require("SoundManager");
+const CakePoolManager = require("CakePoolManager");
 
 let GameManager = cc.Class({
     extends: cc.Component,
@@ -37,8 +38,6 @@ let GameManager = cc.Class({
         camera: cc.Camera,
     },
 
-    // LIFE-CYCLE CALLBACKS:
-
     onLoad () {
         //GameManager.instance = this;
         if (GameManager.instance == null) {
@@ -51,10 +50,7 @@ let GameManager = cc.Class({
     },
 
     start () {
-        //this._cakes = [];
-        //cakeArround: [cc.Component],
-
-        this.cakeUsing = [1, 2, 3];
+        //this.cakeUsing = [0, 1, 2];
         this.processing = [];
 
         this.init(5, 4);
@@ -71,20 +67,25 @@ let GameManager = cc.Class({
         this.col = col;
         this._cakes = new Array(row * col);
         this._cakeArround = new Array(4);
+
+        for (let i = 0; i < this._cakes.length; i++) {
+            this._cakes[i] = null;
+        }
     },
 
     checkAndSpawnCake: function() {
-        //let cake;
-
         for (let i = 0; i < this.spawnSlot.length; i++) {
             if (this.spawnSlot[i].childrenCount === 0) {
-                let cakeNode = cc.instantiate(this.cakePrefab);
-                cakeNode.parent = this.spawnSlot[i];
-                cakeNode.setPosition(0, 0, 0);
+                // let cakeNode = CakePoolManager.instance.spawnCakeSlot();//cc.instantiate(this.cakePrefab);
+                // cakeNode.parent = this.spawnSlot[i];
+                // cakeNode.setPosition(0, 0, 0);
 
-                let cake = cakeNode.getComponent("CakeController");
+                // let cake = cakeNode.getComponent("CakeController");
+                // cake.init();
+                let cake = CakePoolManager.instance.spawnCakeSlot();//cc.instantiate(this.cakePrefab);
+                cake.node.parent = this.spawnSlot[i];
+                cake.node.setPosition(0, 0, 0);            
                 cake.init();
-
             }
 
         }
@@ -137,18 +138,14 @@ let GameManager = cc.Class({
         }
     },
 
-    // onSnapTo(cell, cake) {
-    //     let index = this.cells.indexOf(cell);
+    isCanSnapTo(cell, cake) {
+        let index = this.cells.indexOf(cell);
 
-    //     if (index >= 0 && this._cakes[index] == null) {
-    //         cake.node.parent = cell;
-    //         cake.node.position = cc.v3(0, 0, 0);
-    //         this._cakes[index] = cake;
-    //         this.checkCakeAround(index);
-    //     }
-
-    //     this.checkAndSpawnCake();
-    // },
+        if (this._cakes[index] != null) {
+            return false;
+        }
+        return true;
+    },
 
     onSnapTo(cell, cake, isSwapInMatrix = false) {
         let index = this.cells.indexOf(cell);
@@ -170,6 +167,9 @@ let GameManager = cc.Class({
             listIndex.push(index);
 
             //AssetManager.Instance.GetFxPut(cake.node.position);
+            let fxPos = cell.parent.convertToWorldSpaceAR(cell.position);
+            //fxPos.y = 35;
+            CakePoolManager.instance.spawnFxPut(fxPos);
             SoundManager.instance.soundPutCake.play();
 
             // // Snap sang phải
@@ -256,6 +256,8 @@ let GameManager = cc.Class({
     onCompleteCake(cake, index) {
         SoundManager.instance.soundCompleteCake.play();
         //AssetManager.Instance.GetFxComplete(cake.node.position);
+        let fxPos = cake.node.parent.convertToWorldSpaceAR(cake.node.position); 
+        CakePoolManager.instance.spawnFxComplete(fxPos);
 
         this._isContinueCombo = true;
         //Data.combo++;
@@ -292,6 +294,12 @@ let GameManager = cc.Class({
             this.checkAndSpawnCake();
         }
     },
+
+    checkLose() {
+        if (this._cakes.filter(x => x == null).length == 0) {
+            cc.log("Lose!!!!!!!!");
+        }
+    }
 });
 
 module.exports = GameManager;

@@ -74,7 +74,7 @@ let CakeController = cc.Class({
         // }
         max = cakeUsing.length;
 
-        max = Math.min(max, cakeUsing.length - 1);
+        max = Math.min(max, cakeUsing.length);
 
         let cakeIndex = Math.floor(Math.random() * max); 
         return GameManager.instance.cakeUsing[cakeIndex];
@@ -120,7 +120,7 @@ let CakeController = cc.Class({
                 //let pieceNode = cc.instantiate(this.cakePiecePrefab);
                 //let piece = pieceNode.getComponent("PieceController");
                 let cakePool = CakePoolManager.instance;
-                let piece = CakePoolManager.instance.spawnCake(type);
+                let piece = CakePoolManager.instance.spawnPiece(type);
                 let pieceNode = piece.node;
                 piece.Type = type;
 
@@ -222,8 +222,8 @@ let CakeController = cc.Class({
 
         if (cakes.length > 0) {
             cake = cakes[0];
-            return {type: this.NOT_COMPLETE_CAKE, cake};
         }
+        return {type: this.NOT_COMPLETE_CAKE, cake};
     },
 
     getAngle(angle, oldAngle) {
@@ -625,7 +625,7 @@ let CakeController = cc.Class({
 
         await new Promise(resolve => setTimeout(resolve, 160));
 
-        while (colors.length > 0 && indexColor < colors.length && this.freeSlot() < this.cakeAmount && !this.isFinish && dem < 10000) {
+        while (this.node.active && colors.length > 0 && indexColor < colors.length && this.freeSlot() < this.cakeAmount && !this.isFinish && dem < 10000) {
             dem++;
             colors = this.getColors();
             if (colorCount !== colors.length) {
@@ -782,7 +782,7 @@ let CakeController = cc.Class({
         let c = dem;
         c++;
         GameManager.instance.endProcessCake(this);
-        //GameManager.instance.CheckLose();
+        GameManager.instance.checkLose();
         this.offEdge();
     },
 

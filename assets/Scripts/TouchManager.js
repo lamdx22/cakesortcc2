@@ -7,6 +7,7 @@ cc.Class({
     properties: {
         camera: cc.Camera,
         currSelectCake: null,
+        touchY: 30,
     },
 
     onLoad () {
@@ -57,6 +58,7 @@ cc.Class({
                         SoundManager.instance.soundPickCake.play();
 
                         let hitPoint = ray.o.add(ray.d.mul(hit.distance));
+                        hitPoint.y = this.touchY;
                         let localPos = this.currSelectCake.node.parent.convertToNodeSpaceAR(hitPoint);
                         this.currSelectCake.node.setPosition(localPos.x, localPos.y, localPos.z - this.offsetTouch);
                         //cake.node.setScale(cake.node.scaleX * 1.2);
@@ -90,6 +92,7 @@ cc.Class({
                 var obj = results[i].node;
                 if (obj.group === "floor") {
                     let hitPoint = ray.o.add(ray.d.mul(hit.distance));
+                    hitPoint.y = this.touchY;
                     let localPos = this.currSelectCake.node.parent.convertToNodeSpaceAR(hitPoint);
                     this.currSelectCake.node.setPosition(localPos.x, localPos.y, localPos.z - this.offsetTouch);
                 }
@@ -124,8 +127,9 @@ cc.Class({
                     this.currHoverCell = obj.parent;
                 }
             }
-            if (this.currHoverCell) {
+            if (this.currHoverCell && GameManager.instance.isCanSnap(this.currHoverCell, this.currSelectCake)) {
                 GameManager.instance.onSnapTo(this.currHoverCell, this.currSelectCake);
+                this.currSelectCake.IEBounce();
             } else {
                 this.currSelectCake.return(cc.v3(0, 0, 0));
             }

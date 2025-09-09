@@ -11,7 +11,9 @@ let CakePoolManager = cc.Class({
         piecePrefabs: {
             default: [],
             type: [cc.Prefab]
-        }
+        },
+        fxPutPrefab: cc.Prefab,
+        fxCompletePrefab: cc.Prefab,
     },
 
     statics: {
@@ -25,16 +27,19 @@ let CakePoolManager = cc.Class({
             this.destroy();
         }
 
-        this.poolCakes = {};
         this._cakeSlotCycle = [];
         this._pieceCycle = {};
+        this._putFxCycle = [];
+        this._completeFxCycle = [];
     },
 
     start () {
-
+        let fx = this.spawnFxPut(cc.v3(-10000, -10000, 0));
+        //fx.active = false;
+        //this.despawnFx(fx);
     },
 
-    spawnCake(index) {
+    spawnPiece(index) {
         if (!this._pieceCycle[index]) {
             this._pieceCycle[index] = [];
         }
@@ -46,21 +51,103 @@ let CakePoolManager = cc.Class({
             this._pieceCycle[index].push(piece);
         }
 
-        let piece = this._pieceCycle[index][0];
-        this._pieceCycle[index].splice(0, 1);
+        let piece = this._pieceCycle[index].pop();
+        //this._pieceCycle[index].splice(0, 1);
         piece.node.active = true;
         return piece;
     },
 
-    despawnCakeSlot(cake) {
-        cake.node.destroy();
-        //cake = null;
-        //this._cakeSlotCycle.push(cake);
+    despawnPiece(piece) {
+        //piece.node.destroy();
+        piece.node.active = false;
+        this._pieceCycle[piece.Type].push(piece);
     },
 
-    despawnPiece(piece) {
-        piece.node.destroy();
-        //this._pieceCycle[piece.Type].push(piece);
+    spawnCakeSlot() {
+        if (this._cakeSlotCycle.length === 0) {
+            let cakeNode = cc.instantiate(this.cakeSlotPrefab);
+            let cake = cakeNode.getComponent("CakeController");
+            this._cakeSlotCycle.push(cake);
+        }
+        let result = this._cakeSlotCycle.pop();
+        result.node.active = true;
+        return result;
+    },
+
+    despawnCakeSlot(cake) {
+        cake.node.active = false;
+        //cake = null;
+        this._cakeSlotCycle.push(cake);
+    },
+
+    spawnFxPut(pos) {
+        if (this._putFxCycle.length < 1) {
+            this._putFxCycle.push(cc.instantiate(this.fxPutPrefab));
+        }
+
+        let fx = this._putFxCycle.pop();
+        fx.active = true;
+        //let pieceNode = cc.instantiate(this.piecePrefabs[0]);
+        fx.parent = cc.director.getScene();
+        fx.position = pos;
+
+        let particles = fx.getComponentsInChildren(cc.ParticleSystem3D);
+        for (let ps of particles) {
+            //ps.stop();   // đảm bảo dừng hẳn
+            ps.play();   // phát lại từ đầu
+        }
+
+        this.scheduleOnce(() => {
+            this.despawnFx(fx);
+        }, 0.5);
+        return fx;
+    },
+
+    despawnFx(fx) {
+        if (fx && fx.isValid) {
+            fx.active = false;
+            this._putFxCycle.push(fx);
+            let particles = fx.getComponentsInChildren(cc.ParticleSystem3D);
+            for (let ps of particles) {
+                ps.stop();   // đảm bảo dừng hẳn
+                //ps.play();   // phát lại từ đầu
+            }
+        }
+    },
+
+    spawnFxComplete(pos) {
+        if (this._completeFxCycle.length < 1) {
+            this._completeFxCycle.push(cc.instantiate(this.fxCompletePrefab));
+        }
+
+        let fx = this._completeFxCycle.pop();
+        fx.active = true;
+        //let pieceNode = cc.instantiate(this.piecePrefabs[0]);
+        fx.parent = cc.director.getScene();
+        fx.position = pos;
+
+        let particles = fx.getComponentsInChildren(cc.ParticleSystem3D);
+        for (let ps of particles) {
+            //ps.stop();   // đảm bảo dừng hẳn
+            ps.play();   // phát lại từ đầu
+        }
+
+        this.scheduleOnce(() => {
+            this.despawnFxComplete(fx);
+        }, 0.5);
+        return fx;
+    },
+
+    despawnFxComplete(fx) {
+        if (fx && fx.isValid) {
+            fx.active = false;
+            this._completeFxCycle.push(fx);
+            let particles = fx.getComponentsInChildren(cc.ParticleSystem3D);
+            for (let ps of particles) {
+                ps.stop();   // đảm bảo dừng hẳn
+                //ps.play();   // phát lại từ đầu
+            }
+        }
     }
 });
 
