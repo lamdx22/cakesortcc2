@@ -23,11 +23,11 @@ let GameManager = cc.Class({
         spawnSlot: [cc.Node],
         matrixSlot: [cc.Node],
         cakeUsing: [cc.Integer],
+        selectors: [cc.Node],
         row: 0,
         col: 0,
         cakePrefab: cc.Prefab,
 
-        currentSelector: cc.Node,
         isContinueCombo: false,
         isSkipCombo: false,
         isFinishProcess: false,
@@ -52,6 +52,7 @@ let GameManager = cc.Class({
     start () {
         //this.cakeUsing = [0, 1, 2];
         this.processing = [];
+        this._currentSelector = null;
 
         this.init(5, 4);
         this.checkAndSpawnCake();
@@ -299,6 +300,24 @@ let GameManager = cc.Class({
         if (this._cakes.filter(x => x == null).length == 0) {
             cc.log("Lose!!!!!!!!");
         }
+    },
+
+    showSelector(slot, cake) {
+        let indexInCell = this.cells.indexOf(slot);
+        let selector = this.selectors[indexInCell];
+
+        if ((this._currentSelector != null && this._currentSelector != selector) || this.currentSelector == null) {
+            this.offSelector();
+            _currentSelector = selector;
+            selector.active = true;
+        }
+    },
+
+    offSelector() {
+        for (let i = 0; i < this.selectors.length; i++) {
+            this.selectors[i].active = false;
+        }
+        this._currentSelector = null;
     }
 });
 

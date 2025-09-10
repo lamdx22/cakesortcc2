@@ -12,7 +12,7 @@ cc.Class({
 
     onLoad () {
         this.currHoverCell = null;
-        this.offsetTouch = 0.12;
+        this.offsetTouch = 0;
 
         // Bật physic3d
         cc.director.getPhysics3DManager().enabled = true;
@@ -41,7 +41,7 @@ cc.Class({
     },
 
     onTouchStart (event) {
-        //cc.log("TouchManager nhận TOUCH_START");
+        cc.log("TouchManager nhận TOUCH_START");
         let touchLoc = event.touch.getLocation();
         let ray = this.camera.getRay(touchLoc);
         let results = cc.geomUtils.intersect.raycast(cc.director.getScene(), ray);
@@ -104,9 +104,29 @@ cc.Class({
                 // }
             }
 
-            //let pos = this.touchToWorldPoint(touchLoc, this. camera, 0);
-            
+            let origin = this.currSelectCake.node.parent.convertToWorldSpaceAR(this.currSelectCake.node.position);
+            let screenPos = cc.v3();
+            this.camera.getWorldToScreenPoint(origin, screenPos);
 
+            let ray2 = this.camera.getRay(screenPos);
+            let results2 = cc.geomUtils.intersect.raycast(cc.director.getScene(), ray2);
+
+            for (let i = 0; i < results2.length; i++) {
+                let hit2 = results2[i];
+                var obj = results2[i].node;
+                if (hit2.node.group === "cell") {
+                    this.currHoverCell = obj.parent;
+                }
+            }
+            if (this.currHoverCell && GameManager.instance.isCanSnap(this.currHoverCell, this.currSelectCake)) {
+                GameManager.instance.showSelector(this.currHoverCell, this.currSelectCake);
+            } else {
+                GameManager.instance.offSelector();
+            }
+            
+            if (results.length <= 0) {
+                GameManager.instance.offSelector();
+            }
         }
     },
 
@@ -124,6 +144,7 @@ cc.Class({
                 let hit = results[i];
                 var obj = results[i].node;
                 if (hit.node.group === "cell") {
+                    let p = obj.parent.convertToWorldSpaceAR(obj.position);
                     this.currHoverCell = obj.parent;
                 }
             }
@@ -136,9 +157,10 @@ cc.Class({
             //cc.log("Put");
             // this.currSelectCake.node.parent = this.currHoverCell;
             // this.currSelectCake.node.position = cc.v3(0, 0, 0);
-            this.currSelectCake = null;
-            this.currHoverCell = null;
+            GameManager.instance.offSelector();
         }
+        this.currSelectCake = null;
+        this.currHoverCell = null;
     },
 
     update (dt) {},

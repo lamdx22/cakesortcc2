@@ -1,0 +1,31 @@
+{
+  "__type__": "cc.Material",
+  "_name": "cell_2",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "6d91e591-4ce0-465c-809f-610ec95019c6"
+  },
+  "_techniqueIndex": 0,
+  "_techniqueData": {
+    "0": {
+      "props": {
+        "diffuseTexture": {
+          "__uuid__": "b05261dc-d5eb-49d0-bdde-2389ed165f9e"
+        },
+        "diffuseColor": {
+          "__type__": "cc.Color",
+          "r": 255,
+          "g": 255,
+          "b": 255,
+          "a": 255
+        },
+        "alphaThreshold": 0.5
+      },
+      "defines": {
+        "USE_DIFFUSE_TEXTURE": true,
+        "USE_ALPHA_TEST": false
+      }
+    }
+  }
+}
