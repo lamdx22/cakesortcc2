@@ -7,6 +7,7 @@
 
 const SoundManager = require("SoundManager");
 const CakePoolManager = require("CakePoolManager");
+const GameManagerLamDX = require("GameManagerLamDX");
 
 let GameManager = cc.Class({
     extends: cc.Component,
@@ -46,7 +47,7 @@ let GameManager = cc.Class({
             this.destroy();
         }
 
-        cc.director.getPhysics3DManager().enabled = true;
+        //cc.director.getPhysics3DManager().enabled = true;
     },
 
     start () {
@@ -77,23 +78,72 @@ let GameManager = cc.Class({
     checkAndSpawnCake: function() {
         for (let i = 0; i < this.spawnSlot.length; i++) {
             if (this.spawnSlot[i].childrenCount === 0) {
-                // let cakeNode = CakePoolManager.instance.spawnCakeSlot();//cc.instantiate(this.cakePrefab);
-                // cakeNode.parent = this.spawnSlot[i];
-                // cakeNode.setPosition(0, 0, 0);
-
-                // let cake = cakeNode.getComponent("CakeController");
-                // cake.init();
                 let cake = CakePoolManager.instance.spawnCakeSlot();//cc.instantiate(this.cakePrefab);
                 cake.node.parent = this.spawnSlot[i];
                 cake.node.setPosition(0, 0, 0);            
                 cake.init();
+                cake.idSub = i;
+                GameManagerLamDX.instance.cakeSub.push(cake);
             }
 
         }
+        GameManagerLamDX.instance.playRotateTable();
 
         this.isSpawnUp = false;
         this.isSpawnRight = false;
-        
+    },
+
+    checkAndSpawnCakeId(id) {
+        let cake = CakePoolManager.instance.spawnCakeSlot();
+        let cake1 = null;
+        let cake2 = null;
+
+        if (id === 0) {
+            cake1 = GameManagerLamDX.instance.cakeSub[1];
+            cake1.idSub = 0;
+            cake1.node.parent = this.spawnSlot[0];
+            cake1.node.setPosition(cc.Vec3.ZERO);
+
+            cake2 = GameManagerLamDX.instance.cakeSub[2];
+            cake2.idSub = 1;
+            cake2.node.parent = this.spawnSlot[1];
+            cake2.node.setPosition(cc.Vec3.ZERO);
+
+            cake.node.parent = this.spawnSlot[2];
+
+            GameManagerLamDX.instance.cakeSub[0] = cake1;
+            GameManagerLamDX.instance.cakeSub[1] = cake2;
+            GameManagerLamDX.instance.cakeSub[2] = cake;
+
+        } else if (id === 1) {
+            cake1 = GameManagerLamDX.instance.cakeSub[2];
+            cake1.idSub = 1;
+            cake1.node.parent = this.spawnSlot[0];
+            cake1.node.setPosition(cc.Vec3.ZERO);
+
+            cake.node.parent = this.spawnSlot[1];
+
+            GameManagerLamDX.instance.cakeSub[1] = cake1;
+            GameManagerLamDX.instance.cakeSub[2] = cake;
+
+        } else if (id === 2) {
+            cake.node.parent = this.spawnSlot[0];
+            GameManagerLamDX.instance.cakeSub[2] = cake;
+        }
+
+        // Gọi hàm init của cake
+        cake.init();
+
+        cake.node.setPosition(cc.Vec3.ZERO);
+        //cake.node.setScale(cc.v3(1.55, 1.55, 1.55));
+        //cake.node.setRotationFromEuler(this.temp.x, this.temp.y, this.temp.z); // temp là Vec3
+
+        cake.idSub = 2;
+
+        GameManagerLamDX.instance.playRotateTable(id);
+
+        this.isSpawnedRight = false;
+        this.isSpawnedUp = false;
     },
 
     isCanSnap(cell, cake) {
@@ -150,7 +200,7 @@ let GameManager = cc.Class({
 
     onSnapTo(cell, cake, isSwapInMatrix = false) {
         let index = this.cells.indexOf(cell);
-
+        cc. log("scale cake before: " + cake.node.scaleX);
         if (isSwapInMatrix) {
             for (let i = 0; i < this._cakes.length; i++) {
                 if (this._cakes[i] === cake) {
@@ -160,9 +210,15 @@ let GameManager = cc.Class({
         }
 
         if (index >= 0 && this._cakes[index] == null) {
+            //let worldScale = this.getWorldScale(cake.node);
             cake.node.parent = cell;
+            // setTimeout(() => {
+            //     this.setParentKeepWordScale(worldScale, cake.node, cell); 
+            // }, 0.2);
+            //this.setParentKeepWordScale(cake.node, cell); 
             cake.node.setPosition(cc.v3(0, 0, 0));
             this._cakes[index] = cake;
+            cc. log("scale cake after: " + cake.node.scaleX);
 
             let listIndex = [];
             listIndex.push(index);
@@ -173,7 +229,7 @@ let GameManager = cc.Class({
             CakePoolManager.instance.spawnFxPut(fxPos);
             SoundManager.instance.soundPutCake.play();
 
-            // // Snap sang phải
+            // //  Snap sang phải
             // if (cake.Right != null) {
             //     let temp = cake.Right;
             //     cake.FreeCake();
@@ -207,7 +263,57 @@ let GameManager = cc.Class({
 
             //this.CheckCakeAround(listIndex);
             this.checkCakeAround(index);
+            this.checkAndSpawnCakeId(cake.idSub);
         }
+    },
+
+    getWorldScale(node) {
+        // let scale = cc.v3(node.scaleX, node.scaleY, node.scaleZ);
+        // let p = node.parent;
+        // while (p) {
+        //     scale.x *= p.scaleX;
+        //     scale.y *= p.scaleY;
+        //     scale.z *= p.scaleZ;
+        //     p = p.parent;
+        // }
+        // return scale;
+        // _worldMatrix tồn tại trong Cocos 2.4 (ma trận 4x4)
+        
+        let mat = node._worldMatrix;
+        if (!mat) {
+            node._updateWorldMatrix(); // ép update nếu chưa có
+            mat = node._worldMatrix;
+        }
+
+        // Cột X = (m00, m01, m02)
+        let sx = Math.sqrt(mat.m0 * mat.m0 + mat.m1 * mat.m1 + mat.m2 * mat.m2);
+        // Cột Y = (m04, m05, m06)
+        let sy = Math.sqrt(mat.m4 * mat.m4 + mat.m5 * mat.m5 + mat.m6 * mat.m6);
+        // Cột Z = (m08, m09, m10)
+        let sz = Math.sqrt(mat.m8 * mat.m8 + mat.m9 * mat.m9 + mat.m10 * mat.m10);
+
+        return cc.v3(sx, sy, sz);
+    },
+
+    async setParentKeepWordScale(node, newParent) {
+        // Lưu world matrix trướ
+        let worldScale = this.getWorldScale(node);        // scale trước khi đổi parent
+
+
+        let parentWorld = this.getWorldScale(newParent);  // world scale của parent
+
+        node.parent = newParent;                     // đổi parent
+
+        await new Promise(resolve => setTimeout(resolve, 200));
+
+        // tránh chia 0
+        if (parentWorld.x === 0) parentWorld.x = 1;
+        if (parentWorld.y === 0) parentWorld.y = 1;
+        if (parentWorld.z === 0) parentWorld.z = 1;
+
+        node.scaleX = worldScale.x / parentWorld.x;
+        node.scaleY = worldScale.y / parentWorld.y;
+        node.scaleZ = worldScale.z / parentWorld.z;
     },
 
     checkCakeAround(index) {

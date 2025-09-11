@@ -12,7 +12,7 @@ cc.Class({
 
     onLoad () {
         this.currHoverCell = null;
-        this.offsetTouch = 0;
+        this.offsetTouch = -0.12;
 
         // Bật physic3d
         cc.director.getPhysics3DManager().enabled = true;
@@ -50,7 +50,7 @@ cc.Class({
             var obj = results[i].node;
             if (obj.group === "cake") {
                 let parentNode = obj.parent;
-                if (parent) {
+                if (parentNode) {
                     let cake = parentNode.getComponent("CakeController");
                     if (cake && !cake.isInCell) {
                         this.currSelectCake = cake;

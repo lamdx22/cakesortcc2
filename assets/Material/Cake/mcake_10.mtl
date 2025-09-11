@@ -1,6 +1,6 @@
 {
   "__type__": "cc.Material",
-  "_name": "mcake_09",
+  "_name": "mcake_10",
   "_objFlags": 0,
   "_native": "",
   "_effectAsset": {
@@ -14,7 +14,7 @@
       },
       "props": {
         "diffuseTexture": {
-          "__uuid__": "540f5b5a-933e-4651-b626-89aa32a20c5a"
+          "__uuid__": "0a81eed0-396c-4a5d-bd4b-9451b0a2245e"
         }
       }
     }

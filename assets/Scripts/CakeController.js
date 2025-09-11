@@ -35,6 +35,7 @@ let CakeController = cc.Class({
         this.UNCOMPLETE_CAKE_WITH_ONLY_COLOR = 3;
         this.UNCOMPLETE_CAKE_WITH_OTHER_COLOR = 4;
         this.oriScale = this.node.scale;
+        this.idSub = 0;
     },
 
     start () {
