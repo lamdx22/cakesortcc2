@@ -1,10 +1,3 @@
-// Learn cc.Class:
-//  - https://docs.cocos.com/creator/2.4/manual/en/scripting/class.html
-// Learn Attribute:
-//  - https://docs.cocos.com/creator/2.4/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - https://docs.cocos.com/creator/2.4/manual/en/scripting/life-cycle-callbacks.html
-
 const SoundManager = require("SoundManager");
 const CakePoolManager = require("CakePoolManager");
 const GameManagerLamDX = require("GameManagerLamDX");
@@ -54,10 +47,13 @@ let GameManager = cc.Class({
         //this.cakeUsing = [0, 1, 2];
         this.processing = [];
         this._currentSelector = null;
+        this.isShowTutorial = true;
+        this.isSpawnInBoard = false;
 
         this.init(5, 4);
         this.checkAndSpawnCake();
-        
+        this.checkSpawnCakeInBoard(1);
+        let a = 1;
     },
 
     update (dt) {
@@ -75,22 +71,40 @@ let GameManager = cc.Class({
         }
     },
 
+    async spawnLevel2() {
+        GameManagerLamDX.instance.level = 2;
+        this.init(5, 4);
+        GameManagerLamDX.instance.cakeSub = [];
+        this.checkAndSpawnCake();
+        this.checkSpawnCakeInBoard(2);
+    },
+
     checkAndSpawnCake: function() {
-        for (let i = 0; i < this.spawnSlot.length; i++) {
-            if (this.spawnSlot[i].childrenCount === 0) {
-                let cake = CakePoolManager.instance.spawnCakeSlot();//cc.instantiate(this.cakePrefab);
-                cake.node.parent = this.spawnSlot[i];
-                cake.node.setPosition(0, 0, 0);            
-                cake.init();
-                cake.idSub = i;
-                GameManagerLamDX.instance.cakeSub.push(cake);
+        if (GameManagerLamDX.instance.level == 1) { 
+            let cake = CakePoolManager.instance.spawnCakeSlot();//cc.instantiate(this.cakePrefab);
+            cake.node.parent = this.spawnSlot[1];
+            cake.node.setPosition(0, 0, 0);            
+            cake.init();
+            cake.idSub = 1;
+            GameManagerLamDX.instance.cakeSub.push(cake);
+            GameManagerLamDX.instance.playRotateTable1();
+        } else {
+            for (let i = 0; i < this.spawnSlot.length; i++) {
+                if (this.spawnSlot[i].childrenCount === 0) {
+                    let cake = CakePoolManager.instance.spawnCakeSlot();//cc.instantiate(this.cakePrefab);
+                    cake.node.parent = this.spawnSlot[i];
+                    cake.node.setPosition(0, 0, 0);            
+                    cake.init();
+                    cake.idSub = i;
+                    GameManagerLamDX.instance.cakeSub.push(cake);
+                }
+
             }
+            GameManagerLamDX.instance.playRotateTable();
 
+            this.isSpawnUp = false;
+            this.isSpawnRight = false;
         }
-        GameManagerLamDX.instance.playRotateTable();
-
-        this.isSpawnUp = false;
-        this.isSpawnRight = false;
     },
 
     checkAndSpawnCakeId(id) {
@@ -146,6 +160,31 @@ let GameManager = cc.Class({
         this.isSpawnedUp = false;
     },
 
+    checkSpawnCakeInBoard(level) {
+        this.isSpawnInBoard = true;
+        let cake = null;
+        if (level == 1) {
+            for (let i = 0; i < GameManagerLamDX.instance.cells1.length; i++) {
+                cake = CakePoolManager.instance.spawnCakeSlot();
+                cake.node.parent = this.spawnSlot[0];
+                cake.init();
+                cake.node.position = cc.v3(0, 0, 0);
+                this.onSnapTo(GameManagerLamDX.instance.cells1[i], cake, true, true);
+            }
+            this.isShowTutorial = false;
+        } else {
+            for (let i = 0; i < GameManagerLamDX.instance.cells.length; i++) {
+                cake = CakePoolManager.instance.spawnCakeSlot();
+                cake.node.parent = this.spawnSlot[0];
+                cake.init();
+                cake.node.position = cc.v3(0, 0, 0);
+                this.onSnapTo(GameManagerLamDX.instance.cells[i], cake, true, true);
+            }
+            this.isShowTutorial = false;
+        }
+        this.isSpawnInBoard = false;
+    },
+
     isCanSnap(cell, cake) {
         let index = this.cells.indexOf(cell);
         let cakeCheck = null;
@@ -189,16 +228,7 @@ let GameManager = cc.Class({
         }
     },
 
-    isCanSnapTo(cell, cake) {
-        let index = this.cells.indexOf(cell);
-
-        if (this._cakes[index] != null) {
-            return false;
-        }
-        return true;
-    },
-
-    onSnapTo(cell, cake, isSwapInMatrix = false) {
+    onSnapTo(cell, cake, isSwapInMatrix = false, isFirstSpawn = false) {
         let index = this.cells.indexOf(cell);
         cc. log("scale cake before: " + cake.node.scaleX);
         if (isSwapInMatrix) {
@@ -228,42 +258,13 @@ let GameManager = cc.Class({
             //fxPos.y = 35;
             CakePoolManager.instance.spawnFxPut(fxPos);
             SoundManager.instance.soundPutCake.play();
-
-            // //  Snap sang phải
-            // if (cake.Right != null) {
-            //     let temp = cake.Right;
-            //     cake.FreeCake();
-
-            //     this._cakes[index + 1] = temp;
-            //     temp.node.parent = this._cells[index + 1];
-            //     temp.node.setPosition(cc.v3(0, 0, 0));
-
-            //     listIndex.push(index + 1);
-            //     this._isSkipCombo = true;
-
-            //     temp.Bounce();
-            //     AssetManager.Instance.GetFxPut(temp.node.position);
-            // }
-
-            // // Snap lên trên
-            // if (cake.Up != null) {
-            //     let temp = cake.Up;
-            //     cake.FreeCake();
-
-            //     this._cakes[index - this._col] = temp;
-            //     temp.node.parent = this._cells[index - this._col];
-            //     temp.node.setPosition(cc.v3(0, 0, 0));
-
-            //     listIndex.push(index - this._col);
-            //     this._isSkipCombo = true;
-
-            //     temp.Bounce();
-            //     AssetManager.Instance.GetFxPut(temp.node.position);
-            // }
+            GameManagerLamDX.instance.onPutCake();
 
             //this.CheckCakeAround(listIndex);
             this.checkCakeAround(index);
-            this.checkAndSpawnCakeId(cake.idSub);
+            if (!isFirstSpawn && GameManagerLamDX.instance.level == 2) {
+                this.checkAndSpawnCakeId(cake.idSub);
+            }
         }
     },
 
@@ -365,6 +366,11 @@ let GameManager = cc.Class({
         //AssetManager.Instance.GetFxComplete(cake.node.position);
         let fxPos = cake.node.parent.convertToWorldSpaceAR(cake.node.position); 
         CakePoolManager.instance.spawnFxComplete(fxPos);
+        GameManagerLamDX.instance.onCompleteCake();
+
+        if (GameManagerLamDX.instance.level == 1 && GameManagerLamDX.instance.countComplete >= 2) {
+            this.spawnLevel2();
+        }
 
         this._isContinueCombo = true;
         //Data.combo++;
@@ -391,6 +397,7 @@ let GameManager = cc.Class({
     },
 
     endProcessCake(cake) {
+        return; // Circle sub version
         const index = this.processing.indexOf(cake);
         if (index >= 0) {
             this.processing.splice(index, 1);

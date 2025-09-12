@@ -1,5 +1,6 @@
 const GameManager = require("GameManager");
 const SoundManager = require("SoundManager");
+const GameManagerLamDX = require("GameManagerLamDX");
 
 cc.Class({
     extends: cc.Component,
@@ -42,6 +43,8 @@ cc.Class({
 
     onTouchStart (event) {
         cc.log("TouchManager nhận TOUCH_START");
+        if (!GameManagerLamDX.instance.isCanMove) return;
+        
         let touchLoc = event.touch.getLocation();
         let ray = this.camera.getRay(touchLoc);
         let results = cc.geomUtils.intersect.raycast(cc.director.getScene(), ray);

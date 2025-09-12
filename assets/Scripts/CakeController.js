@@ -1,6 +1,8 @@
 const GameManager = require("GameManager");
 const CakePoolManager = require("CakePoolManager");
 const SoundManager = require("SoundManager");
+const GameConstant = require("GameConstant");
+const GameManagerLamDX = require("GameManagerLamDX");
 
 let CakeController = cc.Class({
     extends: cc.Component,
@@ -29,11 +31,11 @@ let CakeController = cc.Class({
         this.cakeDown = null;
         this.cakeLeft = null;
         this.parents = null;
-        this.NOT_COMPLETE_CAKE = 0;
-        this.COMPLETE_CAKE_WITH_ONLY_COLOR = 1;
-        this.COMPLETE_CAKE_WITH_OTHER_COLOR = 2;
-        this.UNCOMPLETE_CAKE_WITH_ONLY_COLOR = 3;
-        this.UNCOMPLETE_CAKE_WITH_OTHER_COLOR = 4;
+        // this.NOT_COMPLETE_CAKE = 0;
+        // this.COMPLETE_CAKE_WITH_ONLY_COLOR = 1;
+        // this.COMPLETE_CAKE_WITH_OTHER_COLOR = 2;
+        // this.UNCOMPLETE_CAKE_WITH_ONLY_COLOR = 3;
+        // this.UNCOMPLETE_CAKE_WITH_OTHER_COLOR = 4;
         this.oriScale = this.node.scale;
         this.idSub = 0;
     },
@@ -100,9 +102,18 @@ let CakeController = cc.Class({
             colors.push(this.randomCakeIndex());
         }
 
-        for (let i = 0; i < numberPiece; i++) {
-            let typeCake = colors[Math.floor(Math.random() * colors.length)];
-            typeCakes.push(typeCake);
+        if (GameManager.instance.isShowTutorial) {
+            if (GameManager.instance.isSpawnInBoard) {
+                typeCakes = this.generateCakeInBoardList();
+            }
+            else {
+                typeCakes = this.generateTutorListAndSize();
+            }
+        } else {
+            for (let i = 0; i < numberPiece; i++) {
+                let typeCake = colors[Math.floor(Math.random() * colors.length)];
+                typeCakes.push(typeCake);
+            }
         }
 
         typeCakes.sort((a,b) => a - b);
@@ -145,6 +156,52 @@ let CakeController = cc.Class({
         }
     },
 
+    generateCakeInBoardList() {
+        if (GameManagerLamDX.instance.level === 1) {
+            let size = 4;
+            let newList = [];
+            for (let i = 0; i <size; i++) {
+                newList.push(GameManagerLamDX.instance.cakeTutorial);
+            }
+            GameManagerLamDX.instance.cakeTutorial++;
+
+            return newList;
+        } else {
+            let size = 4;
+            let newList = [];
+            for (let i = 0; i <size; i++) {
+                newList.push(GameManagerLamDX.instance.cakeTutorial);
+            }
+            GameManagerLamDX.instance.cakeTutorial++;
+
+            return newList;
+        }
+    },
+
+    generateTutorListAndSize() {
+        if (GameManagerLamDX.instance.level === 1) {
+            let size = 4;
+            let newList = [];
+            newList.push(0);
+            newList.push(0);
+            newList.push(1);
+            newList.push(1);
+
+            return newList;
+        } else {
+            let size = 6;
+            let newList = [];
+            newList.push(0);
+            newList.push(0);
+            newList.push(1);
+            newList.push(1);
+            newList.push(2);
+            newList.push(2);
+
+            return newList;
+        }
+    },
+
     amountType() {
         return this.getColors().length;
     },
@@ -181,7 +238,7 @@ let CakeController = cc.Class({
             for (let i = 0; i < cakes.length; i++) {
                 if (cakes[i].amountType() === 1) {
                     cake = cakes[i];
-                    return { type: this.COMPLETE_CAKE_WITH_ONLY_COLOR, cake};
+                    return { type: GameConstant.COMPLETE_CAKE_WITH_ONLY_COLOR, cake};
                 } else {
                     let isCanPullColor = false;
                     let colors = cakes[i].getColors();
@@ -193,7 +250,7 @@ let CakeController = cc.Class({
                         }
                     }
                     if (isCanPullColor) {
-                        return {type: this.COMPLETE_CAKE_WITH_OTHER_COLOR, cake};
+                        return {type: GameConstant.COMPLETE_CAKE_WITH_OTHER_COLOR, cake};
                     }
                 }
             }
@@ -201,7 +258,7 @@ let CakeController = cc.Class({
             for (let i = 0; i < cakes.length; i++) {
                 if (cakes[i].amountType === 1) {
                     cake = cakes[i];
-                    return {type: this.UNCOMPLETE_CAKE_WITH_ONLY_COLOR, cake};
+                    return {type: GameConstant.UNCOMPLETE_CAKE_WITH_ONLY_COLOR, cake};
                 } else {
                     let isCanPullColor = false;
                     let colors = cakes[i].getColors();
@@ -215,7 +272,7 @@ let CakeController = cc.Class({
                         }
                     }
                     if (isCanPullColor) {
-                        return {type: this.UNCOMPLETE_CAKE_WITH_OTHER_COLOR, cake};
+                        return {type: GameConstant.UNCOMPLETE_CAKE_WITH_OTHER_COLOR, cake};
                     }
                 }
             }
@@ -224,7 +281,7 @@ let CakeController = cc.Class({
         if (cakes.length > 0) {
             cake = cakes[0];
         }
-        return {type: this.NOT_COMPLETE_CAKE, cake};
+        return {type: GameConstant.NOT_COMPLETE_CAKE, cake};
     },
 
     getAngle(angle, oldAngle) {
@@ -667,7 +724,7 @@ let CakeController = cc.Class({
 
                 //this.pushToCake(cakeVisible, colors[indexColor]);
 
-                if (completeType == this.COMPLETE_CAKE_WITH_ONLY_COLOR) {
+                if (completeType == GameConstant.COMPLETE_CAKE_WITH_ONLY_COLOR) {
                     await this.processPull(cakeCheckings.filter(x => x !== cakeVisible), colors[indexColor], 1);
 
                     cakeCheckings = cakeCheckings.filter(x => cc.isValid(x) && x !== cakeVisible && x.amountOfType(colors[indexColor]) > 0);
@@ -718,8 +775,8 @@ let CakeController = cc.Class({
                 cakeVisible = complete.cake;
 
                 switch (completeType) {
-                    case this.UNCOMPLETE_CAKE_WITH_ONLY_COLOR:
-                    case this.COMPLETE_CAKE_WITH_ONLY_COLOR:
+                    case GameConstant.UNCOMPLETE_CAKE_WITH_ONLY_COLOR:
+                    case GameConstant.COMPLETE_CAKE_WITH_ONLY_COLOR:
                         await this.processPull(cakeCheckings.filter(x => x !== cakeVisible), colors[indexColor]);
                         cakeCheckings = cakeCheckings.filter(x => cc.isValid(x) && x !== cakeVisible && x.amountOfType(colors[indexColor]) > 0);
 
@@ -733,8 +790,8 @@ let CakeController = cc.Class({
                         indexColor--;
                         break;
 
-                    case this.UNCOMPLETE_CAKE_WITH_OTHER_COLOR:
-                    case this.COMPLETE_CAKE_WITH_OTHER_COLOR:
+                    case GameConstant.UNCOMPLETE_CAKE_WITH_OTHER_COLOR:
+                    case GameConstant.COMPLETE_CAKE_WITH_OTHER_COLOR:
                         let cakeColorPull = cakeVisible.getColors().find(x => x !== colors[indexColor]);
                         if (colors.includes(cakeColorPull)) {
                             if (this.freeSlot() > 0) {
@@ -768,7 +825,7 @@ let CakeController = cc.Class({
                         }
                         break;
 
-                    case this.NOT_COMPLETE_CAKE:
+                    case GameConstant.NOT_COMPLETE_CAKE:
                         if (cakeVisible && cakeVisible.freeSlot() > 0) {
                             cakeCheckings = cakeCheckings.filter(x => cc.isValid(x) && x.amountOfType(colors[indexColor]) > 0 && x !== cakeVisible);
                             if (cakeCheckings.length > 0) {
@@ -847,7 +904,7 @@ let CakeController = cc.Class({
                     let completeType = complete.type;
                     cakeVisible = complete.cake;
 
-                    if (completeType === this.COMPLETE_CAKE_WITH_ONLY_COLOR) {
+                    if (completeType === GameConstant.COMPLETE_CAKE_WITH_ONLY_COLOR) {
                         await this.processPull(
                             cakeCheckings.filter(x => x !== cakeVisible),
                             colors[indexColor],
@@ -907,13 +964,13 @@ let CakeController = cc.Class({
                             return a.amountType() - b.amountType();
                         });
 
-                    let complete = this.IsCanCompleteCake(cakeCheckings, colors[indexColor]);
+                    let complete = this.isCanCompleteCake(cakeCheckings, colors[indexColor]);
                     let completeType = complete.type;
                     cakeVisible = complete.cake;
 
                     switch (completeType) {
-                        case this.UNCOMPLETE_CAKE_WITH_ONLY_COLOR:
-                        case this.COMPLETE_CAKE_WITH_ONLY_COLOR:
+                        case GameConstant.UNCOMPLETE_CAKE_WITH_ONLY_COLOR:
+                        case GameConstant.COMPLETE_CAKE_WITH_ONLY_COLOR:
                             await this.processPull(cakeCheckings.filter(x => x !== cakeVisible), colors[indexColor]);
                             cakeCheckings = cakeCheckings.filter(x => x !== cakeVisible && x.amountOfType(colors[indexColor]) > 0);
                             GameManager.instance.connectCake(this, cakeVisible);
@@ -922,8 +979,8 @@ let CakeController = cc.Class({
                             indexColor--;
                             break;
 
-                        case this.UNCOMPLETE_CAKE_WITH_OTHER_COLOR:
-                        case this.COMPLETE_CAKE_WITH_OTHER_COLOR:
+                        case GameConstant.UNCOMPLETE_CAKE_WITH_OTHER_COLOR:
+                        case GameConstant.COMPLETE_CAKE_WITH_OTHER_COLOR:
                             let cakeColorPull = cakeVisible.getColors().find(x => x !== colors[indexColor]);
                             if (colors.includes(cakeColorPull)) {
                                 if (cakeVisible.freeSlot() > 0) {

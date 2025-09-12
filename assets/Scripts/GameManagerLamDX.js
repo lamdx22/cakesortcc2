@@ -7,7 +7,7 @@ let GameManagerLamDX = cc.Class({
         cells: [cc.Node],
         handTut: cc.Node,
         cakePrefab: cc.Prefab,
-        maxMerger: 50,
+        maxComplete: 50,
         maxPut: 80,
         bgD: cc.Node,
         bgN: cc.Node,
@@ -26,15 +26,19 @@ let GameManagerLamDX = cc.Class({
         GameManagerLamDX.instance = this;
 
         this.countPut = 0;
-        this.countMerger = 0;
+        this.countComplete = 0;
         this.isGameEnd = false;
         this.isCanMove = true;
         this.isFirstHand2 = false;
         this.cakeSub = [];
         this.level = 1;
-        this.vec30 = cc.v3(-90, -30, 0);
-        this.vec31 = cc.v3(-90, 208, 0);
-        this.vec32 = cc.v3(-90, 236, 0);
+        this.cakeTutorial = 0;
+        // this.vec30 = cc.v3(-90, -30, 0);
+        // this.vec31 = cc.v3(-90, 208, 0);
+        // this.vec32 = cc.v3(-90, 236, 0);
+        this.vec30 = cc.v3(0, 28, 0);
+        this.vec31 = cc.v3(0, 28, 0);
+        this.vec32 = cc.v3(0, 28, 0);
 
         // FrameSize
         let frameSize = cc.view.getFrameSize();
@@ -43,8 +47,8 @@ let GameManagerLamDX = cc.Class({
         this.onResize();
 
         //this.tableSub.eulerAngles = cc.v3(-90, 359, 0);
-        this.tableSub.eulerAngles = cc.v3(-90, 263, 0);
-        this.playRotateTable1();
+        //this.tableSub.eulerAngles = cc.v3(-90, 264, 0);
+        //this.playRotateTable1();
     },
 
     onResize () {
@@ -119,8 +123,22 @@ let GameManagerLamDX = cc.Class({
 
     addCoin (coin) {},
 
+    onCompleteCake() {
+        this.countComplete++;
+        if (this.countComplete > this.maxComplete) {
+
+        }
+    },
+
+    onPutCake() {
+        this.countPut++;
+        if (this.countPut > this.maxPut) {
+
+        }
+    },
+
     playRotateTable(id = -1) {
-        if (!this.isFirstHand2 && this.level === 2) {
+        if (this.handTut && !this.isFirstHand2 && this.level === 2) {
             this.isFirstHand2 = true;
             //this.arrow2.active = true;
             this.handTut.active = true;
@@ -129,43 +147,46 @@ let GameManagerLamDX = cc.Class({
         this.isCanMove = false;
 
         if (id == 0) {
-            this.tableSub.eulerAngles = cc.v3(-90, 208, 0);
+            this.tableSub.eulerAngles = cc.v3(-90, -28, 0);
         } else if (id == 1) {
-            this.tableSub.eulerAngles = cc.v3(-90, 236, 0);
+            this.tableSub.eulerAngles = cc.v3(-90, -56, 0);
         } else {
-            this.tableSub.eulerAngles = cc.v3(-90, 264, 0);
+            this.tableSub.eulerAngles = cc.v3(-90, -84, 0);
         }
 
         let targetRotation = null;
-        if (id === 0 || id === -1) {
+        if (id === 0) { // || id === -1) {
             targetRotation = this.vec30;
         } else if (id === 1) {
             targetRotation = this.vec31;
         } else if (id === 2) {
             targetRotation = this.vec32;
+        } else {
+            targetRotation = cc.v3(0, 84, 0);
         }
 
         if (targetRotation) {
             cc.tween(this.tableSub)
-                .to(2.0, { eulerAngles: targetRotation })
+                .by(2.0, { eulerAngles: targetRotation })
                 .call(() => {
                     for (let i = 0; i < this.cakeSub.length; i++) {
                         this.cakeSub[i].node.parent = this.subStatic[i];
                     }
                     this.isCanMove = true;
+                    cc.log(this.tableSub.eulerAngles);
                 })
                 .start();
         }
     },
 
     playRotateTable1(id = -1) {
-        this.tableSub.eulerAngles = cc.v3(-90, 264, 0);
+        this.tableSub.eulerAngles = cc.v3(-90, -84, 0);
 
         this.isCanMove = false;
 
         cc.log(this.tableSub.eulerAngles);
         cc.tween(this.tableSub)
-            .by(2.0, { eulerAngles: cc.v3(0, 60, 0) })
+            .by(2.0, { eulerAngles: cc.v3(0, 84, 0) })
             .call(() => {
                 this.cakeSub[0].node.parent = this.subStatic[1];
                 this.isCanMove = true;
