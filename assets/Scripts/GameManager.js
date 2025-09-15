@@ -50,10 +50,13 @@ let GameManager = cc.Class({
         this.isShowTutorial = true;
         this.isSpawnInBoard = false;
 
-        this.init(5, 4);
-        this.checkAndSpawnCake();
-        this.checkSpawnCakeInBoard(1);
-        let a = 1;
+        // this.init(5, 4);
+        // this.checkSpawnCakeInBoard(1);
+        // this.checkAndSpawnCake();
+        // let a = 1;
+        //if (GameManagerLamDX.instance.handTut1) GameManagerLamDX.instance.handTut1.active = true;
+        //if (GameManagerLamDX.instance.handTut2) GameManagerLamDX.instance.handTut2.active = false;
+        this.spawnLevel2();
     },
 
     update (dt) {
@@ -75,8 +78,10 @@ let GameManager = cc.Class({
         GameManagerLamDX.instance.level = 2;
         this.init(5, 4);
         GameManagerLamDX.instance.cakeSub = [];
-        this.checkAndSpawnCake();
         this.checkSpawnCakeInBoard(2);
+        this.checkAndSpawnCake();
+        if (GameManagerLamDX.instance.handTut1) GameManagerLamDX.instance.handTut1.active = false;
+        if (GameManagerLamDX.instance.handTut2) GameManagerLamDX.instance.handTut2.active = true;
     },
 
     checkAndSpawnCake: function() {
@@ -115,13 +120,15 @@ let GameManager = cc.Class({
         if (id === 0) {
             cake1 = GameManagerLamDX.instance.cakeSub[1];
             cake1.idSub = 0;
-            cake1.node.parent = this.spawnSlot[0];
-            cake1.node.setPosition(cc.Vec3.ZERO);
+            //cake1.node.parent = this.spawnSlot[0];
+            //cake1.node.setPosition(cc.Vec3.ZERO);
+            GameManagerLamDX.instance.setParentKeepWorldRotation(cake1.node, this.spawnSlot[0]);
 
             cake2 = GameManagerLamDX.instance.cakeSub[2];
             cake2.idSub = 1;
-            cake2.node.parent = this.spawnSlot[1];
-            cake2.node.setPosition(cc.Vec3.ZERO);
+            // cake2.node.parent = this.spawnSlot[1];
+            // cake2.node.setPosition(cc.Vec3.ZERO);
+            GameManagerLamDX.instance.setParentKeepWorldRotation(cake2.node, this.spawnSlot[1]);
 
             cake.node.parent = this.spawnSlot[2];
 
@@ -132,8 +139,9 @@ let GameManager = cc.Class({
         } else if (id === 1) {
             cake1 = GameManagerLamDX.instance.cakeSub[2];
             cake1.idSub = 1;
-            cake1.node.parent = this.spawnSlot[0];
-            cake1.node.setPosition(cc.Vec3.ZERO);
+            //cake1.node.parent = this.spawnSlot[0];
+            //cake1.node.setPosition(cc.Vec3.ZERO);
+            GameManagerLamDX.instance.setParentKeepWorldRotation(cake1.node, this.spawnSlot[0]);
 
             cake.node.parent = this.spawnSlot[1];
 
@@ -171,7 +179,7 @@ let GameManager = cc.Class({
                 cake.node.position = cc.v3(0, 0, 0);
                 this.onSnapTo(GameManagerLamDX.instance.cells1[i], cake, true, true);
             }
-            this.isShowTutorial = false;
+            //this.isShowTutorial = false;
         } else {
             for (let i = 0; i < GameManagerLamDX.instance.cells.length; i++) {
                 cake = CakePoolManager.instance.spawnCakeSlot();
@@ -180,7 +188,7 @@ let GameManager = cc.Class({
                 cake.node.position = cc.v3(0, 0, 0);
                 this.onSnapTo(GameManagerLamDX.instance.cells[i], cake, true, true);
             }
-            this.isShowTutorial = false;
+            //this.isShowTutorial = false;
         }
         this.isSpawnInBoard = false;
     },
@@ -196,6 +204,20 @@ let GameManager = cc.Class({
         if (this._cakes[index] != null) {
             return false;
         }
+
+        // if ((GameManagerLamDX.instance.handTut1 && GameManagerLamDX.instance.handTut1.active)) {
+        //     let handTut = GameManagerLamDX.instance.handTut1.getComponent("HandTutorial");
+        //     if (cell != handTut.targetCell) {
+        //         return false;
+        //     }
+        // }
+
+        // if ((GameManagerLamDX.instance.handTut2 && GameManagerLamDX.instance.handTut2.active)) {
+        //     let handTut = GameManagerLamDX.instance.handTut2.getComponent("HandTutorial");
+        //     if (cell != handTut.targetCell) {
+        //         return false;
+        //     }
+        // }
 
         let cellY = Math.floor(index / this.col);
         let cellX = index % this.col;
@@ -258,7 +280,6 @@ let GameManager = cc.Class({
             //fxPos.y = 35;
             CakePoolManager.instance.spawnFxPut(fxPos);
             SoundManager.instance.soundPutCake.play();
-            GameManagerLamDX.instance.onPutCake();
 
             //this.CheckCakeAround(listIndex);
             this.checkCakeAround(index);
@@ -431,7 +452,7 @@ let GameManager = cc.Class({
             this.selectors[i].active = false;
         }
         this._currentSelector = null;
-    }
+    },
 });
 
 module.exports = GameManager;

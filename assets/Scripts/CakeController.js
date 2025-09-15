@@ -94,26 +94,28 @@ let CakeController = cc.Class({
 
         let typeCakes = [];
 
-        let numberPiece = Math.floor(Math.random() * (5 - 1)) + 1 // Random range 1 - 5
-        let numberColor = this.numberColorRandom(numberPiece);
-
-        let colors = [];
-        for (let i = 0; i < numberColor; i++) {
-            colors.push(this.randomCakeIndex());
-        }
-
         if (GameManager.instance.isShowTutorial) {
             if (GameManager.instance.isSpawnInBoard) {
                 typeCakes = this.generateCakeInBoardList();
             }
             else {
-                typeCakes = this.generateTutorListAndSize();
+                GameManagerLamDX.instance.countSpawnCake++;
+                if (GameManagerLamDX.instance.countSpawnCake == 2) typeCakes = this.generateTutorListAndSize();
+                else typeCakes = this.generateRandomListAndSize();
             }
         } else {
-            for (let i = 0; i < numberPiece; i++) {
-                let typeCake = colors[Math.floor(Math.random() * colors.length)];
-                typeCakes.push(typeCake);
-            }
+            // let numberPiece = Math.floor(Math.random() * (5 - 1)) + 1 // Random range 1 - 5
+            // let numberColor = this.numberColorRandom(numberPiece);
+
+            // let colors = [];
+            // for (let i = 0; i < numberColor; i++) {
+            //     colors.push(this.randomCakeIndex());
+            // }
+            // for (let i = 0; i < numberPiece; i++) {
+            //     let typeCake = colors[Math.floor(Math.random() * colors.length)];
+            //     typeCakes.push(typeCake);
+            // }
+            typeCakes = this.generateRandomListAndSize();
         }
 
         typeCakes.sort((a,b) => a - b);
@@ -169,16 +171,28 @@ let CakeController = cc.Class({
         } else {
             let size = 4;
             let newList = [];
-            for (let i = 0; i <size; i++) {
-                newList.push(GameManagerLamDX.instance.cakeTutorial);
+            if (GameManagerLamDX.instance.cakeTutorial < 3) { 
+                for (let i = 0; i <size; i++) {
+                    newList.push(GameManagerLamDX.instance.cakeTutorial);
+                }
+                GameManagerLamDX.instance.cakeTutorial++;
+            } else {
+                let numberColor = this.numberColorRandom(size);
+                let colors = [];
+                for (let i = 0; i < numberColor; i++) {
+                    colors.push(this.randomCakeIndex());
+                }
+                for (let i = 0; i < size; i++) {
+                    let typeCake = colors[Math.floor(Math.random() * colors.length)];
+                    newList.push(typeCake);
+                }
             }
-            GameManagerLamDX.instance.cakeTutorial++;
-
             return newList;
         }
     },
 
     generateTutorListAndSize() {
+        GameManager.instance.isShowTutorial = false;
         if (GameManagerLamDX.instance.level === 1) {
             let size = 4;
             let newList = [];
@@ -200,6 +214,21 @@ let CakeController = cc.Class({
 
             return newList;
         }
+    },
+
+    generateRandomListAndSize() {
+        let numberPiece = Math.floor(Math.random() * (5 - 1)) + 1 // Random range 1 - 5
+        let newList = [];
+        let numberColor = this.numberColorRandom(numberPiece);
+        let colors = [];
+        for (let i = 0; i < numberColor; i++) {
+            colors.push(this.randomCakeIndex());
+        }
+        for (let i = 0; i < numberPiece; i++) {
+            let typeCake = colors[Math.floor(Math.random() * colors.length)];
+            newList.push(typeCake);
+        }
+        return newList;
     },
 
     amountType() {
@@ -342,29 +371,59 @@ let CakeController = cc.Class({
     },
 
     async IECompleteCake(type = -1) {
+        // if (type >= 0) {
+        //     GameManager.instance.waitingCompleteCake();
+        // }
+
+        // cc.log(this.uuid);
+        // GameManager.instance.onDestroyCake(this);
+
+        // let elapsedTime = 0.2;
+        // while (elapsedTime > 0) {
+        //     // giảm thời gian theo deltaTime
+        //     elapsedTime -= cc.director.getDeltaTime();
+
+        //     // scale object (giả sử node = this.node)
+        //     let t = 1 - (elapsedTime / 0.2);
+        //     let scaleValue = 1 + 0.2 * t;
+        //     //this.node.setScale(scaleValue, scaleValue, scaleValue);
+
+        //     // chờ 1 frame
+        //     await new Promise(resolve => setTimeout(resolve, 0));
+        // }
+
+        // this.onCompleteCake(type);
+        // //GameplayManager.Instance.CheckPopupStack();
+
+        // Bỏ qua 1 frame
+        //await new Promise(resolve => setTimeout(resolve, 0));
+
         if (type >= 0) {
             GameManager.instance.waitingCompleteCake();
         }
 
-        cc.log(this.uuid);
-        GameManager.instance.onDestroyCake(this);
+        // Lấy góc hiện tại
+        let currentEuler = this.node.eulerAngles;
+        let targetEuler = cc.v3(
+            currentEuler.x,
+            currentEuler.y -270,
+            currentEuler.z
+        );
 
-        let elapsedTime = 0.2;
-        while (elapsedTime > 0) {
-            // giảm thời gian theo deltaTime
-            elapsedTime -= cc.director.getDeltaTime();
-
-            // scale object (giả sử node = this.node)
-            let t = 1 - (elapsedTime / 0.2);
-            let scaleValue = 1 + 0.2 * t;
-            //this.node.setScale(scaleValue, scaleValue, scaleValue);
-
-            // chờ 1 frame
-            await new Promise(resolve => setTimeout(resolve, 0));
-        }
-
-        this.onCompleteCake(type);
-        //GameplayManager.Instance.CheckPopupStack();
+        let originScale = cc.v3();
+        this.node.getScale(originScale);
+        cc.tween(this.node)
+            // Xoay
+            .to(0.5, { eulerAngles: targetEuler }, { easing: "sineInOut" }) // thay "sineInOut" bằng easing bạn muốn
+            // Scale
+            .to(0.35, { scale: 0 }, { easing: "backIn" })
+            // Callback
+            .call(() => {
+                GameManager.instance.onDestroyCake(this);
+                this.onCompleteCake(type);
+                //GameManager.instance.checkPopupStack();
+            })
+            .start();
     },
 
     onCheckCompleteMove() {
@@ -574,7 +633,6 @@ let CakeController = cc.Class({
                 elapsedExactTime += cc.director.getDeltaTime();
 
                 //await new Promise(resolve => setTimeout(resolve, 400)); // chờ 1 frame
-                //await this.delaySec(0);
                 await new Promise(resolve => {
                     cc.director.once(cc.Director.EVENT_AFTER_UPDATE, resolve);
                 });
@@ -657,20 +715,20 @@ let CakeController = cc.Class({
     // },
 
     connectEdge(direction) {
-        switch (direction) {
-            case 0:
-                this.upEdge.active = true;
-                break;
-            case 1:
-                this.rightEdge.active = true;
-                break;
-            case 2:
-                this.leftEdge.active = true;
-                break;
-            case 3:
-                this.downEdge.active = true;
-                break;
-        }
+        // switch (direction) {
+        //     case 0:
+        //         this.upEdge.active = true;
+        //         break;
+        //     case 1:
+        //         this.rightEdge.active = true;
+        //         break;
+        //     case 2:
+        //         this.leftEdge.active = true;
+        //         break;
+        //     case 3:
+        //         this.downEdge.active = true;
+        //         break;
+        // }
     },
 
     async connectAround(cakeArounds) {

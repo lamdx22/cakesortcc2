@@ -44,6 +44,11 @@ cc.Class({
     onTouchStart (event) {
         cc.log("TouchManager nhận TOUCH_START");
         if (!GameManagerLamDX.instance.isCanMove) return;
+
+        if (this.currSelectCake) {
+            this.currSelectCake.return(cc.v3(0, 0, 0));
+            this.currSelectCake = null;
+        }
         
         let touchLoc = event.touch.getLocation();
         let ray = this.camera.getRay(touchLoc);
@@ -153,6 +158,7 @@ cc.Class({
             }
             if (this.currHoverCell && GameManager.instance.isCanSnap(this.currHoverCell, this.currSelectCake)) {
                 GameManager.instance.onSnapTo(this.currHoverCell, this.currSelectCake);
+                GameManagerLamDX.instance.onPutCake();
                 this.currSelectCake.IEBounce();
             } else {
                 this.currSelectCake.return(cc.v3(0, 0, 0));

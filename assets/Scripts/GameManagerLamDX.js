@@ -5,7 +5,8 @@ let GameManagerLamDX = cc.Class({
     properties: {
         cells1: [cc.Node],
         cells: [cc.Node],
-        handTut: cc.Node,
+        handTut1: cc.Node,
+        handTut2: cc.Node,
         cakePrefab: cc.Prefab,
         maxComplete: 50,
         maxPut: 80,
@@ -27,6 +28,7 @@ let GameManagerLamDX = cc.Class({
 
         this.countPut = 0;
         this.countComplete = 0;
+        this.countSpawnCake = 0;
         this.isGameEnd = false;
         this.isCanMove = true;
         this.isFirstHand2 = false;
@@ -132,6 +134,8 @@ let GameManagerLamDX = cc.Class({
 
     onPutCake() {
         this.countPut++;
+        if (this.handTut1 && this.handTut1.active) this.handTut1.active = false;
+        if (this.handTut2 && this.handTut2.active) this.handTut2.active = false;
         if (this.countPut > this.maxPut) {
 
         }
@@ -170,7 +174,8 @@ let GameManagerLamDX = cc.Class({
                 .by(2.0, { eulerAngles: targetRotation })
                 .call(() => {
                     for (let i = 0; i < this.cakeSub.length; i++) {
-                        this.cakeSub[i].node.parent = this.subStatic[i];
+                        this.setParentKeepWorldRotation(this.cakeSub[i].node, this.subStatic[i])
+                        //this.cakeSub[i].node.parent = this.subStatic[i];
                     }
                     this.isCanMove = true;
                     cc.log(this.tableSub.eulerAngles);
@@ -188,11 +193,39 @@ let GameManagerLamDX = cc.Class({
         cc.tween(this.tableSub)
             .by(2.0, { eulerAngles: cc.v3(0, 84, 0) })
             .call(() => {
-                this.cakeSub[0].node.parent = this.subStatic[1];
+                //this.cakeSub[0].node.parent = this.subStatic[1];
+                this.setParentKeepWorldRotation(this.cakeSub[0].node, this.subStatic[1])
                 this.isCanMove = true;
                 cc.log(this.tableSub.eulerAngles);
             })
             .start();
+    },
+
+    setParentKeepWorldRotation(node, newParent) {
+        let worldMat = cc.mat4();
+        //cc.log(worldMat)
+        node.getWorldMatrix(worldMat);
+
+        node.setParent(newParent);
+
+        let parentWorldMat = cc.mat4();
+        newParent.getWorldMatrix(parentWorldMat);
+        let invParentMat = cc.mat4();
+        cc.Mat4.invert(invParentMat, parentWorldMat);
+
+        let localMat = cc.mat4();
+        cc.Mat4.multiply(localMat, invParentMat, worldMat);
+
+        let pos = cc.v3();
+        let rot = cc.quat();
+        let scale = cc.v3();
+        cc.Mat4.getTranslation(pos, localMat);
+        cc.Mat4.getRotation(rot, localMat);
+        //cc.Mat4.getScale(scale, localMat);
+
+        //node.setPosition(pos);
+        node.setRotation(rot);
+        //node.setScale(scale);
     }
 
 });

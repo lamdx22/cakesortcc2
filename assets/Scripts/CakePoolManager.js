@@ -31,6 +31,9 @@ let CakePoolManager = cc.Class({
         this._pieceCycle = {};
         this._putFxCycle = [];
         this._completeFxCycle = [];
+        this.cakeOriginScale = 0;
+        this.cakeOrriginAngle = cc.v3(0, 0, 0);
+        this.isFirstCake = false;
     },
 
     start () {
@@ -66,10 +69,17 @@ let CakePoolManager = cc.Class({
     spawnCakeSlot() {
         if (this._cakeSlotCycle.length === 0) {
             let cakeNode = cc.instantiate(this.cakeSlotPrefab);
+            if (!this.isFirstCake) {
+                this.cakeOriginScale = cakeNode.scale;
+                this.cakeOrriginAngle = cakeNode.eulerAngles;
+            }
             let cake = cakeNode.getComponent("CakeController");
             this._cakeSlotCycle.push(cake);
+            this.isFirstCake = true;
         }
         let result = this._cakeSlotCycle.pop();
+        result.node.scale = this.cakeOriginScale;
+        result.node.eulerAngles = this.cakeOrriginAngle;
         result.node.active = true;
         return result;
     },
@@ -99,7 +109,7 @@ let CakePoolManager = cc.Class({
 
         this.scheduleOnce(() => {
             this.despawnFx(fx);
-        }, 0.5);
+        }, 1.5);
         return fx;
     },
 
@@ -134,7 +144,7 @@ let CakePoolManager = cc.Class({
 
         this.scheduleOnce(() => {
             this.despawnFxComplete(fx);
-        }, 0.5);
+        }, 1.5);
         return fx;
     },
 
