@@ -105,6 +105,7 @@ let GameManager = cc.Class({
                 }
 
             }
+            GameManagerLamDX.instance.tableSub.eulerAngles = cc.v3(-90, -84, 0);
             GameManagerLamDX.instance.playRotateTable();
 
             this.isSpawnUp = false;
@@ -117,18 +118,26 @@ let GameManager = cc.Class({
         let cake1 = null;
         let cake2 = null;
 
+        if (id == 0) {
+            GameManagerLamDX.instance.tableSub.eulerAngles = cc.v3(-90, -28, 0);
+        } else if (id == 1) {
+            GameManagerLamDX.instance.tableSub.eulerAngles = cc.v3(-90, -56, 0);
+        } else {
+            GameManagerLamDX.instance.tableSub.eulerAngles = cc.v3(-90, -84, 0);
+        }
+
         if (id === 0) {
             cake1 = GameManagerLamDX.instance.cakeSub[1];
             cake1.idSub = 0;
-            //cake1.node.parent = this.spawnSlot[0];
-            //cake1.node.setPosition(cc.Vec3.ZERO);
             GameManagerLamDX.instance.setParentKeepWorldRotation(cake1.node, this.spawnSlot[0]);
+            //cake1.node.parent = this.spawnSlot[0];
+            cake1.node.setPosition(cc.Vec3.ZERO);
 
             cake2 = GameManagerLamDX.instance.cakeSub[2];
             cake2.idSub = 1;
-            // cake2.node.parent = this.spawnSlot[1];
-            // cake2.node.setPosition(cc.Vec3.ZERO);
             GameManagerLamDX.instance.setParentKeepWorldRotation(cake2.node, this.spawnSlot[1]);
+            //cake2.node.parent = this.spawnSlot[1];
+            cake2.node.setPosition(cc.Vec3.ZERO);
 
             cake.node.parent = this.spawnSlot[2];
 
@@ -139,9 +148,9 @@ let GameManager = cc.Class({
         } else if (id === 1) {
             cake1 = GameManagerLamDX.instance.cakeSub[2];
             cake1.idSub = 1;
-            //cake1.node.parent = this.spawnSlot[0];
-            //cake1.node.setPosition(cc.Vec3.ZERO);
             GameManagerLamDX.instance.setParentKeepWorldRotation(cake1.node, this.spawnSlot[0]);
+            //cake1.node.parent = this.spawnSlot[0];
+            cake1.node.setPosition(cc.Vec3.ZERO);
 
             cake.node.parent = this.spawnSlot[1];
 

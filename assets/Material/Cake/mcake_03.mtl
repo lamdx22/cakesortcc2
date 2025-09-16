@@ -15,7 +15,8 @@
       "props": {
         "diffuseTexture": {
           "__uuid__": "ed586043-6a03-444c-a851-9c657e5cf2f5"
-        }
+        },
+        "glossiness": 10
       }
     }
   }

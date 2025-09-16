@@ -19,10 +19,19 @@
         },
         "diffuseTexture": {
           "__uuid__": "028e9b4d-a090-4522-89fd-5f2e84f363ed"
+        },
+        "emissiveColor": {
+          "__type__": "cc.Color",
+          "r": 20,
+          "g": 52,
+          "b": 255,
+          "a": 0
         }
       },
       "defines": {
-        "USE_DIFFUSE_TEXTURE": true
+        "USE_DIFFUSE_TEXTURE": true,
+        "USE_EMISSIVE": true,
+        "USE_EMISSIVE_TEXTURE": false
       }
     }
   }

@@ -17,6 +17,7 @@ let GameManagerLamDX = cc.Class({
         tableSub: cc.Node,
         subXoay: [cc.Node],
         subStatic: [cc.Node],
+        useTextFX: true,
     },
 
     statics: {
@@ -150,13 +151,13 @@ let GameManagerLamDX = cc.Class({
 
         this.isCanMove = false;
 
-        if (id == 0) {
-            this.tableSub.eulerAngles = cc.v3(-90, -28, 0);
-        } else if (id == 1) {
-            this.tableSub.eulerAngles = cc.v3(-90, -56, 0);
-        } else {
-            this.tableSub.eulerAngles = cc.v3(-90, -84, 0);
-        }
+        // if (id == 0) {
+        //     this.tableSub.eulerAngles = cc.v3(-90, -28, 0);
+        // } else if (id == 1) {
+        //     this.tableSub.eulerAngles = cc.v3(-90, -56, 0);
+        // } else {
+        //     this.tableSub.eulerAngles = cc.v3(-90, -84, 0);
+        // }
 
         let targetRotation = null;
         if (id === 0) { // || id === -1) {
@@ -202,6 +203,8 @@ let GameManagerLamDX = cc.Class({
     },
 
     setParentKeepWorldRotation(node, newParent) {
+        let oldRot = cc.quat();
+        node.getRotation(oldRot);
         let worldMat = cc.mat4();
         //cc.log(worldMat)
         node.getWorldMatrix(worldMat);
@@ -223,9 +226,19 @@ let GameManagerLamDX = cc.Class({
         cc.Mat4.getRotation(rot, localMat);
         //cc.Mat4.getScale(scale, localMat);
 
+        //await new Promise(resolve => setTimeout(resolve, 400));
+
         //node.setPosition(pos);
-        node.setRotation(rot);
+        node. setRotation(rot);
         //node.setScale(scale);
+    },
+
+    getWorldRotation(node) {
+        let mat = cc.mat4();
+        node.getWorldMatrix(mat);
+        let q = cc.quat();
+        mat.getRotation(q);
+        return q;
     }
 
 });

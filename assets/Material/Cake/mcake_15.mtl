@@ -10,7 +10,8 @@
   "_techniqueData": {
     "0": {
       "defines": {
-        "USE_DIFFUSE_TEXTURE": true
+        "USE_DIFFUSE_TEXTURE": true,
+        "USE_EMISSIVE": false
       },
       "props": {
         "diffuseTexture": {

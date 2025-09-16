@@ -4,7 +4,8 @@
     "cake",
     "floor",
     "cell",
-    "ui"
+    "ui",
+    "background"
   ],
   "collision-matrix": [
     [
@@ -26,6 +27,14 @@
       false
     ],
     [
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    [
+      false,
       false,
       false,
       false,

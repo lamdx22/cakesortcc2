@@ -59,6 +59,8 @@ cc.Class({
             if (obj.group === "cake") {
                 let parentNode = obj.parent;
                 if (parentNode) {
+                    let oldRot = cc.quat();
+                    parentNode.getRotation(oldRot);
                     let cake = parentNode.getComponent("CakeController");
                     if (cake && !cake.isInCell) {
                         this.currSelectCake = cake;
