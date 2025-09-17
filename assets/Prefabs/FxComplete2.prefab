@@ -1417,7 +1417,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 265.35,
+      "width": 212.98,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1471,11 +1471,11 @@
     "_dstBlendFactor": 771,
     "_string": "Wonderful",
     "_N$string": "Wonderful",
-    "_fontSize": 40,
+    "_fontSize": 46,
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": {
-      "__uuid__": "62251667-0ef9-4b96-b88d-dc126f33010f"
+      "__uuid__": "82e6c150-583b-4267-8ed5-1ebd0661489b"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,

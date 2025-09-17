@@ -30,7 +30,7 @@ cc.Class({
                 .delay(0.2)
                 .to(0.3, { scale: 0.08 }, { easing: "backOut" }) // scale to
                 //.to(0.1, {scale: 0.1}, {easing: "backIn"})
-                .delay(0.45)                                    // giữ một lúc
+                .delay(0.5)                                    // giữ một lúc
                 .to(0.3, { scale: 0, opacity: 0 }, { easing: "backIn" }) // scale nhỏ, fade out
                 .start();
         } else {

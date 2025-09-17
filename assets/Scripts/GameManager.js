@@ -1,6 +1,7 @@
 const SoundManager = require("SoundManager");
 const CakePoolManager = require("CakePoolManager");
 const GameManagerLamDX = require("GameManagerLamDX");
+const MainUI = require("MainUI");
 
 let GameManager = cc.Class({
     extends: cc.Component,
@@ -261,7 +262,7 @@ let GameManager = cc.Class({
 
     onSnapTo(cell, cake, isSwapInMatrix = false, isFirstSpawn = false) {
         let index = this.cells.indexOf(cell);
-        cc. log("scale cake before: " + cake.node.scaleX);
+        //cc. log("scale cake before: " + cake.node.scaleX);
         if (isSwapInMatrix) {
             for (let i = 0; i < this._cakes.length; i++) {
                 if (this._cakes[i] === cake) {
@@ -279,7 +280,7 @@ let GameManager = cc.Class({
             //this.setParentKeepWordScale(cake.node, cell); 
             cake.node.setPosition(cc.v3(0, 0, 0));
             this._cakes[index] = cake;
-            cc. log("scale cake after: " + cake.node.scaleX);
+            //cc. log("scale cake after: " + cake.node.scaleX);
 
             let listIndex = [];
             listIndex.push(index);
@@ -296,55 +297,6 @@ let GameManager = cc.Class({
                 this.checkAndSpawnCakeId(cake.idSub);
             }
         }
-    },
-
-    getWorldScale(node) {
-        // let scale = cc.v3(node.scaleX, node.scaleY, node.scaleZ);
-        // let p = node.parent;
-        // while (p) {
-        //     scale.x *= p.scaleX;
-        //     scale.y *= p.scaleY;
-        //     scale.z *= p.scaleZ;
-        //     p = p.parent;
-        // }
-        // return scale;
-        // _worldMatrix tồn tại trong Cocos 2.4 (ma trận 4x4)
-        
-        let mat = node._worldMatrix;
-        if (!mat) {
-            node._updateWorldMatrix(); // ép update nếu chưa có
-            mat = node._worldMatrix;
-        }
-
-        // Cột X = (m00, m01, m02)
-        let sx = Math.sqrt(mat.m0 * mat.m0 + mat.m1 * mat.m1 + mat.m2 * mat.m2);
-        // Cột Y = (m04, m05, m06)
-        let sy = Math.sqrt(mat.m4 * mat.m4 + mat.m5 * mat.m5 + mat.m6 * mat.m6);
-        // Cột Z = (m08, m09, m10)
-        let sz = Math.sqrt(mat.m8 * mat.m8 + mat.m9 * mat.m9 + mat.m10 * mat.m10);
-
-        return cc.v3(sx, sy, sz);
-    },
-
-    async setParentKeepWordScale(node, newParent) {
-        // Lưu world matrix trướ
-        let worldScale = this.getWorldScale(node);        // scale trước khi đổi parent
-
-
-        let parentWorld = this.getWorldScale(newParent);  // world scale của parent
-
-        node.parent = newParent;                     // đổi parent
-
-        await new Promise(resolve => setTimeout(resolve, 200));
-
-        // tránh chia 0
-        if (parentWorld.x === 0) parentWorld.x = 1;
-        if (parentWorld.y === 0) parentWorld.y = 1;
-        if (parentWorld.z === 0) parentWorld.z = 1;
-
-        node.scaleX = worldScale.x / parentWorld.x;
-        node.scaleY = worldScale.y / parentWorld.y;
-        node.scaleZ = worldScale.z / parentWorld.z;
     },
 
     checkCakeAround(index) {
@@ -403,6 +355,9 @@ let GameManager = cc.Class({
         }
 
         this._isContinueCombo = true;
+
+        let scoreIncrease = 10;
+        MainUI.instance.addScore(scoreIncrease);
         //Data.combo++;
 
         //let extraByCombo = (Data.combo === 1 ? 0 : Data.combo) * 0.1;

@@ -18,6 +18,8 @@ let GameManagerLamDX = cc.Class({
         subXoay: [cc.Node],
         subStatic: [cc.Node],
         useTextFX: true,
+        maxScore: 70,
+        isNewCakePopUp: true,
     },
 
     statics: {
@@ -179,7 +181,6 @@ let GameManagerLamDX = cc.Class({
                         //this.cakeSub[i].node.parent = this.subStatic[i];
                     }
                     this.isCanMove = true;
-                    cc.log(this.tableSub.eulerAngles);
                 })
                 .start();
         }

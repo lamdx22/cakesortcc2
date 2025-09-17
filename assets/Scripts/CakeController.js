@@ -510,6 +510,7 @@ let CakeController = cc.Class({
     },
 
     async pushCake(color, cake, isPushAll = true, holdSlot = 0, isMainCake = false) {
+        console.log("this =", this);
         let pieces = cake.popCake3(color, this.freeSlot() - holdSlot, isPushAll? 0 : 1);
         let number = pieces.length;
 
@@ -607,7 +608,13 @@ let CakeController = cc.Class({
             let elapsedTime = -(totalTime - (pieces.length - 1) * 0.25);
             let elapsedExactTime = -totalTime;
 
-            if (this.amountOfType(this._cakePieces.find(x => x != null).Type === this.cakeAmount)) {
+            for (let i = 0; i < this._cakePieces.length; i++) {
+                if (this._cakePieces[i] != null && !this._cakePieces[i].Type) {
+                    let  t =1;
+                    t++;
+                }
+            }
+            if (this.amountOfType(this._cakePieces.find(x => x != null && x.node.active).Type === this.cakeAmount)) {
                 this.isFinish = true;
             }
 
