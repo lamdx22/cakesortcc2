@@ -8,8 +8,8 @@ let GameManagerLamDX = cc.Class({
         handTut1: cc.Node,
         handTut2: cc.Node,
         cakePrefab: cc.Prefab,
-        maxComplete: 50,
-        maxPut: 80,
+        maxComplete: 20,
+        maxPut: 4,
         bgD: cc.Node,
         bgN: cc.Node,
         cam: cc.Camera,
@@ -17,9 +17,12 @@ let GameManagerLamDX = cc.Class({
         tableSub: cc.Node,
         subXoay: [cc.Node],
         subStatic: [cc.Node],
+        rotateDuration: 2,
         useTextFX: true,
         maxScore: 70,
         isNewCakePopUp: true,
+        isLimitPut: false,
+        level: 1,
     },
 
     statics: {
@@ -35,12 +38,9 @@ let GameManagerLamDX = cc.Class({
         this.isGameEnd = false;
         this.isCanMove = true;
         this.isFirstHand2 = false;
+        this.isShowTutorial = false;
         this.cakeSub = [];
-        this.level = 1;
         this.cakeTutorial = 0;
-        // this.vec30 = cc.v3(-90, -30, 0);
-        // this.vec31 = cc.v3(-90, 208, 0);
-        // this.vec32 = cc.v3(-90, 236, 0);
         this.vec30 = cc.v3(0, 28, 0);
         this.vec31 = cc.v3(0, 28, 0);
         this.vec32 = cc.v3(0, 28, 0);
@@ -51,9 +51,6 @@ let GameManagerLamDX = cc.Class({
         this.height = frameSize.height;
         this.onResize();
 
-        //this.tableSub.eulerAngles = cc.v3(-90, 359, 0);
-        //this.tableSub.eulerAngles = cc.v3(-90, 264, 0);
-        //this.playRotateTable1();
     },
 
     onResize () {
@@ -87,8 +84,6 @@ let GameManagerLamDX = cc.Class({
 
     },
 
-    // update (dt) {},
-
     lateUpdate (dt) {
         let frameSize = cc.view.getFrameSize();
         if (this.width !== frameSize.width || this.height !== frameSize.height) {
@@ -107,7 +102,6 @@ let GameManagerLamDX = cc.Class({
 
         let particles = this.fxWin.getComponentsInChildren(cc.ParticleSystem3D);
         for (let ps of particles) {
-            //ps.stop();   // đảm bảo dừng hẳn
             ps.play();   // phát lại từ đầu
         }
 
@@ -130,17 +124,16 @@ let GameManagerLamDX = cc.Class({
 
     onCompleteCake() {
         this.countComplete++;
-        if (this.countComplete > this.maxComplete) {
-
+        if (this.countComplete >= this.maxComplete) {
+            this.endGame();
         }
     },
 
     onPutCake() {
         this.countPut++;
-        if (this.handTut1 && this.handTut1.active) this.handTut1.active = false;
-        if (this.handTut2 && this.handTut2.active) this.handTut2.active = false;
-        if (this.countPut > this.maxPut) {
-
+        if (this.isShowTutorial) this.hideTutorial();
+        if (this.isLimitPut && this.countPut >= this.maxPut) {
+            this.endGame();
         }
     },
 
@@ -174,7 +167,7 @@ let GameManagerLamDX = cc.Class({
 
         if (targetRotation) {
             cc.tween(this.tableSub)
-                .by(2.0, { eulerAngles: targetRotation })
+                .by(this.rotateDuration, { eulerAngles: targetRotation })
                 .call(() => {
                     for (let i = 0; i < this.cakeSub.length; i++) {
                         this.setParentKeepWorldRotation(this.cakeSub[i].node, this.subStatic[i])
@@ -193,7 +186,7 @@ let GameManagerLamDX = cc.Class({
 
         cc.log(this.tableSub.eulerAngles);
         cc.tween(this.tableSub)
-            .by(2.0, { eulerAngles: cc.v3(0, 84, 0) })
+            .by(this.rotateDuration, { eulerAngles: cc.v3(0, 84, 0) })
             .call(() => {
                 //this.cakeSub[0].node.parent = this.subStatic[1];
                 this.setParentKeepWorldRotation(this.cakeSub[0].node, this.subStatic[1])
@@ -201,6 +194,38 @@ let GameManagerLamDX = cc.Class({
                 cc.log(this.tableSub.eulerAngles);
             })
             .start();
+    },
+
+    showTutorial() {
+        this.hideTutorial();
+        if (this.level == 1 && this.handTut1 != null) {
+            this.isShowTutorial = true;
+            let hand = this.handTut1.getComponent("HandTutorial");
+            if (hand) {
+                hand.show();
+            }
+        } else if (this.level == 2 && this.handTut2 != null) {
+            this.isShowTutorial = true;
+            let hand = this.handTut2.getComponent("HandTutorial");
+            if (hand) {
+                hand.show();
+            }
+        }
+    },
+
+    hideTutorial() {
+        this.isShowTutorial = false;
+        if (this.handTut1 != null && this.handTut1.active) {
+            let hand = this.handTut1.getComponent("HandTutorial");
+            if (hand) {
+                hand.hide();
+            }
+        } else if (this.handTut2 != null && this.handTut2.active) {
+            let hand = this.handTut2.getComponent("HandTutorial");
+            if (hand) {
+                hand.hide();
+            }
+        }
     },
 
     setParentKeepWorldRotation(node, newParent) {
@@ -240,6 +265,15 @@ let GameManagerLamDX = cc.Class({
         let q = cc.quat();
         mat.getRotation(q);
         return q;
+    },
+
+    endGame() {
+        this.isGameEnd = true;
+        cc.log("Game End");
+    },
+
+    goToStore() {
+        cc.log("Go To Store");
     }
 
 });

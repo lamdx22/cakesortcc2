@@ -27,7 +27,7 @@ cc.Class({
 
             // tween: scale to lên -> đợi -> scale nhỏ -> biến mất
             cc.tween(n)
-                .delay(0.2)
+                .delay(0.15)
                 .to(0.3, { scale: 0.08 }, { easing: "backOut" }) // scale to
                 //.to(0.1, {scale: 0.1}, {easing: "backIn"})
                 .delay(0.5)                                    // giữ một lúc

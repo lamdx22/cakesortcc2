@@ -239,7 +239,7 @@
     "__type__": "cc.CurveRange",
     "mode": 3,
     "constantMin": 4,
-    "constantMax": 26,
+    "constantMax": 24,
     "multiplier": 1
   },
   {
@@ -252,7 +252,7 @@
   {
     "__type__": "cc.CurveRange",
     "mode": 0,
-    "constant": -0.3,
+    "constant": 0.3,
     "multiplier": 1
   },
   {

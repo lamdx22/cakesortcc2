@@ -510,12 +510,13 @@
     "startFrame": {
       "__id__": 36
     },
-    "cycleCount": 0
+    "cycleCount": 1
   },
   {
     "__type__": "cc.CurveRange",
-    "mode": 0,
-    "constant": 9,
+    "mode": 3,
+    "constantMin": 0,
+    "constantMax": 9,
     "multiplier": 1
   },
   {
@@ -976,13 +977,13 @@
     "startFrame": {
       "__id__": 73
     },
-    "cycleCount": 0
+    "cycleCount": 1
   },
   {
     "__type__": "cc.CurveRange",
     "mode": 3,
     "constantMin": 0,
-    "constantMax": 3,
+    "constantMax": 4,
     "multiplier": 1
   },
   {

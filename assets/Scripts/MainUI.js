@@ -53,12 +53,14 @@ const MainUI = cc.Class({
     },
 
     showPopUpNewCake() {
+        GameManagerLamDX.instance.endGame();
         if (this.popUpNewCake) {
             this.popUpNewCake.active = true;
         }
     },
 
     showPopUpLose() {
+        GameManagerLamDX.instance.endGame();
         if (this.popUpNewCake) {
             this.popUpNewCake.active = false;
         }

@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "e73fe1a4-0fa6-4b29-b54b-f40346c83f9e",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 5376,
+  "height": 3584,
+  "platformSettings": {},
+  "subMetas": {
+    "anime-style-clouds": {
+      "ver": "1.0.6",
+      "uuid": "de844f0e-a4be-46ef-a697-a0b7504884ba",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "e73fe1a4-0fa6-4b29-b54b-f40346c83f9e",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 5376,
+      "height": 3584,
+      "rawWidth": 5376,
+      "rawHeight": 3584,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

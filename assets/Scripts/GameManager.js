@@ -3,6 +3,8 @@ const CakePoolManager = require("CakePoolManager");
 const GameManagerLamDX = require("GameManagerLamDX");
 const MainUI = require("MainUI");
 
+cc.macro.ENABLE_WEBGL_ANTIALIAS = true;         // Bật khử răng cưa
+
 let GameManager = cc.Class({
     extends: cc.Component,
 
@@ -50,14 +52,9 @@ let GameManager = cc.Class({
         this._currentSelector = null;
         this.isShowTutorial = true;
         this.isSpawnInBoard = false;
+        this.isFirstLevel = true;
 
-        // this.init(5, 4);
-        // this.checkSpawnCakeInBoard(1);
-        // this.checkAndSpawnCake();
-        // let a = 1;
-        //if (GameManagerLamDX.instance.handTut1) GameManagerLamDX.instance.handTut1.active = true;
-        //if (GameManagerLamDX.instance.handTut2) GameManagerLamDX.instance.handTut2.active = false;
-        this.spawnLevel2();
+        this.spawnLevel();
     },
 
     update (dt) {
@@ -75,14 +72,39 @@ let GameManager = cc.Class({
         }
     },
 
-    async spawnLevel2() {
-        GameManagerLamDX.instance.level = 2;
+    // spawnLevel1() {
+    //     this.init(5, 4);
+    //     this.checkSpawnCakeInBoard(1);
+    //     this.checkAndSpawnCake();
+    //     if (GameManagerLamDX.instance.handTut1) GameManagerLamDX.instance.handTut1.active = true;
+    //     if (GameManagerLamDX.instance.handTut2) GameManagerLamDX.instance.handTut2.active = false;
+    // },
+
+    async spawnLevel() {
+        //GameManagerLamDX.instance.level = 2;
         this.init(5, 4);
+        this.isShowTutorial = true;
         GameManagerLamDX.instance.cakeSub = [];
-        this.checkSpawnCakeInBoard(2);
+        GameManagerLamDX.instance.countSpawnCake = 0;
+        GameManagerLamDX.instance.cakeTutorial = 0;
+
+        // if (GameManagerLamDX.instance.level == 1) {
+        //     if (GameManagerLamDX.instance.handTut1) GameManagerLamDX.instance.handTut1.active = true;
+        //     if (GameManagerLamDX.instance.handTut2) GameManagerLamDX.instance.handTut2.active = false;
+        // } else {
+        //     if (GameManagerLamDX.instance.handTut1) GameManagerLamDX.instance.handTut1.active = false;
+        //     if (GameManagerLamDX.instance.handTut2) GameManagerLamDX.instance.handTut2.active = true;
+        // }
+        if (!this.isFirstLevel && GameManagerLamDX.instance.level == 2) {
+            await new Promise(resolve => setTimeout(resolve, 800));
+        }
+
+        GameManagerLamDX.instance.showTutorial();
+        this.checkSpawnCakeInBoard(GameManagerLamDX.instance.level);
         this.checkAndSpawnCake();
-        if (GameManagerLamDX.instance.handTut1) GameManagerLamDX.instance.handTut1.active = false;
-        if (GameManagerLamDX.instance.handTut2) GameManagerLamDX.instance.handTut2.active = true;
+        if (this.isFirstLevel) {
+            this.isFirstLevel = false;
+        }
     },
 
     checkAndSpawnCake: function() {
@@ -215,12 +237,12 @@ let GameManager = cc.Class({
             return false;
         }
 
-        // if ((GameManagerLamDX.instance.handTut1 && GameManagerLamDX.instance.handTut1.active)) {
-        //     let handTut = GameManagerLamDX.instance.handTut1.getComponent("HandTutorial");
-        //     if (cell != handTut.targetCell) {
-        //         return false;
-        //     }
-        // }
+        if ((GameManagerLamDX.instance.handTut1 && GameManagerLamDX.instance.handTut1.active)) {
+            let handTut = GameManagerLamDX.instance.handTut1.getComponent("HandTutorial");
+            if (cell != handTut.targetCell) {
+                return false;
+            }
+        }
 
         // if ((GameManagerLamDX.instance.handTut2 && GameManagerLamDX.instance.handTut2.active)) {
         //     let handTut = GameManagerLamDX.instance.handTut2.getComponent("HandTutorial");
@@ -351,7 +373,8 @@ let GameManager = cc.Class({
         GameManagerLamDX.instance.onCompleteCake();
 
         if (GameManagerLamDX.instance.level == 1 && GameManagerLamDX.instance.countComplete >= 2) {
-            this.spawnLevel2();
+            GameManagerLamDX.instance.level++;
+            this.spawnLevel();
         }
 
         this._isContinueCombo = true;
@@ -395,8 +418,9 @@ let GameManager = cc.Class({
     },
 
     checkLose() {
-        if (this._cakes.filter(x => x == null).length == 0) {
+        if (this._cakes.filter(x => x == null).length == 1) {
             cc.log("Lose!!!!!!!!");
+            GameManagerLamDX.instance.endGame();
         }
     },
 

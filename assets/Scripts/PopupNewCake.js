@@ -18,11 +18,11 @@ cc.Class({
     show() {
         this.node.active = true;
         this.node.getComponent(cc.Widget).updateAlignment();
-        this.node.scale = 0;
-        cc.tween(this.node)
-            .to(0.3, { scale: 1 }) // scale to
-            //.to(0.1, {scale: 0.1}, {easing: "backIn"})
-            .start();
+        //this.node.scale = 0;
+        // cc.tween(this.node)
+        //     .to(0.3, { scale: 1 }) // scale to
+        //     //.to(0.1, {scale: 0.1}, {easing: "backIn"})
+        //     .start();
 
         // let targetEuler = cc.v3(
         //     0,

@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "600974aa-8e7d-4fa0-92f7-8aa3e4815a7b",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 1920,
+  "height": 1080,
+  "platformSettings": {},
+  "subMetas": {
+    "summer_sunflower": {
+      "ver": "1.0.6",
+      "uuid": "e0dab370-2fa6-49cf-a652-124078e1b519",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "600974aa-8e7d-4fa0-92f7-8aa3e4815a7b",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 1920,
+      "height": 1080,
+      "rawWidth": 1920,
+      "rawHeight": 1080,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

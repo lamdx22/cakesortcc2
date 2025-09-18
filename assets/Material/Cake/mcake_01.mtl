@@ -4,18 +4,18 @@
   "_objFlags": 0,
   "_native": "",
   "_effectAsset": {
-    "__uuid__": "abc2cb62-7852-4525-a90d-d474487b88f2"
+    "__uuid__": "6d91e591-4ce0-465c-809f-610ec95019c6"
   },
   "_techniqueIndex": 0,
   "_techniqueData": {
     "0": {
-      "defines": {
-        "USE_DIFFUSE_TEXTURE": true
-      },
       "props": {
         "diffuseTexture": {
           "__uuid__": "50ceecdb-7029-4010-8f0f-cfa5188e8d63"
         }
+      },
+      "defines": {
+        "USE_DIFFUSE_TEXTURE": true
       }
     }
   }

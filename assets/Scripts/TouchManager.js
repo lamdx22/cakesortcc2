@@ -16,7 +16,7 @@ cc.Class({
         this.offsetTouch = -0.12;
 
         // Bật physic3d
-        cc.director.getPhysics3DManager().enabled = true;
+        //cc.director.getPhysics3DManager().enabled = true;
 
         // Listen touch
         //cc.systemEvent.on(cc.SystemEvent.EventType.TOUCH_START, this.onTouchStart, this);
@@ -43,6 +43,11 @@ cc.Class({
 
     onTouchStart (event) {
         cc.log("TouchManager nhận TOUCH_START");
+        if (GameManagerLamDX.instance.isGameEnd) {
+            GameManagerLamDX.instance.goToStore();
+            return;
+        }
+
         if (!GameManagerLamDX.instance.isCanMove) return;
 
         if (this.currSelectCake) {

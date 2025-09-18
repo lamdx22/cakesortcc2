@@ -18,8 +18,6 @@ let CakeController = cc.Class({
         
     },
 
-    // LIFE-CYCLE CALLBACKS:
-
     onLoad () {
         this.isInCell = false;
         
@@ -31,11 +29,6 @@ let CakeController = cc.Class({
         this.cakeDown = null;
         this.cakeLeft = null;
         this.parents = null;
-        // this.NOT_COMPLETE_CAKE = 0;
-        // this.COMPLETE_CAKE_WITH_ONLY_COLOR = 1;
-        // this.COMPLETE_CAKE_WITH_OTHER_COLOR = 2;
-        // this.UNCOMPLETE_CAKE_WITH_ONLY_COLOR = 3;
-        // this.UNCOMPLETE_CAKE_WITH_OTHER_COLOR = 4;
         this.oriScale = this.node.scale;
         this.idSub = 0;
     },
@@ -100,21 +93,10 @@ let CakeController = cc.Class({
             }
             else {
                 GameManagerLamDX.instance.countSpawnCake++;
-                if (GameManagerLamDX.instance.countSpawnCake == 2) typeCakes = this.generateTutorListAndSize();
+                if (GameManagerLamDX.instance.level == 1 || GameManagerLamDX.instance.countSpawnCake == 2) typeCakes = this.generateTutorListAndSize();
                 else typeCakes = this.generateRandomListAndSize();
             }
         } else {
-            // let numberPiece = Math.floor(Math.random() * (5 - 1)) + 1 // Random range 1 - 5
-            // let numberColor = this.numberColorRandom(numberPiece);
-
-            // let colors = [];
-            // for (let i = 0; i < numberColor; i++) {
-            //     colors.push(this.randomCakeIndex());
-            // }
-            // for (let i = 0; i < numberPiece; i++) {
-            //     let typeCake = colors[Math.floor(Math.random() * colors.length)];
-            //     typeCakes.push(typeCake);
-            // }
             typeCakes = this.generateRandomListAndSize();
         }
 
@@ -131,8 +113,6 @@ let CakeController = cc.Class({
 
             if (i < typeCakes.length) {
                 let type = typeCakes[i];
-                //let pieceNode = cc.instantiate(this.cakePiecePrefab);
-                //let piece = pieceNode.getComponent("PieceController");
                 let cakePool = CakePoolManager.instance;
                 let piece = CakePoolManager.instance.spawnPiece(type);
                 let pieceNode = piece.node;
@@ -217,7 +197,15 @@ let CakeController = cc.Class({
     },
 
     generateRandomListAndSize() {
-        let numberPiece = Math.floor(Math.random() * (5 - 1)) + 1 // Random range 1 - 5
+        let numberPiece = 1;
+        let ran = Math.floor(Math.random() * 100) + 1;
+        if (ran <= 40) {
+            numberPiece = 4;
+        } else if (ran > 40 && ran <= 70) {
+            numberPiece = 3;
+        } else if (ran > 70 && ran <= 90) {
+            numberPiece = 2;
+        }
         let newList = [];
         let numberColor = this.numberColorRandom(numberPiece);
         let colors = [];
@@ -236,7 +224,6 @@ let CakeController = cc.Class({
     },
 
     getColors() {
-        //let list = this._cakePieces.filter(x => x != null).map(x => x.Type);
         let list = Array.from(
             new Set(
                 this._cakePieces
@@ -371,32 +358,6 @@ let CakeController = cc.Class({
     },
 
     async IECompleteCake(type = -1) {
-        // if (type >= 0) {
-        //     GameManager.instance.waitingCompleteCake();
-        // }
-
-        // cc.log(this.uuid);
-        // GameManager.instance.onDestroyCake(this);
-
-        // let elapsedTime = 0.2;
-        // while (elapsedTime > 0) {
-        //     // giảm thời gian theo deltaTime
-        //     elapsedTime -= cc.director.getDeltaTime();
-
-        //     // scale object (giả sử node = this.node)
-        //     let t = 1 - (elapsedTime / 0.2);
-        //     let scaleValue = 1 + 0.2 * t;
-        //     //this.node.setScale(scaleValue, scaleValue, scaleValue);
-
-        //     // chờ 1 frame
-        //     await new Promise(resolve => setTimeout(resolve, 0));
-        // }
-
-        // this.onCompleteCake(type);
-        // //GameplayManager.Instance.CheckPopupStack();
-
-        // Bỏ qua 1 frame
-        //await new Promise(resolve => setTimeout(resolve, 0));
 
         if (type >= 0) {
             GameManager.instance.waitingCompleteCake();
@@ -414,7 +375,7 @@ let CakeController = cc.Class({
         this.node.getScale(originScale);
         cc.tween(this.node)
             // Xoay
-            .to(0.5, { eulerAngles: targetEuler }, { easing: "sineInOut" }) // thay "sineInOut" bằng easing bạn muốn
+            .to(0.5, { eulerAngles: targetEuler }, { easing: "sineInOut" }) 
             // Scale
             .to(0.35, { scale: 0 }, { easing: "backIn" })
             // Callback
@@ -451,7 +412,7 @@ let CakeController = cc.Class({
             
             GameManager.instance.setFinishProcess(false);
 
-            // gọi coroutine IECompleteCake
+            // gọi IECompleteCake
             this.IECompleteCake(this._cakePieces[0] != null ? this._cakePieces[0].Type : -1);
 
             return true;
@@ -510,7 +471,7 @@ let CakeController = cc.Class({
     },
 
     async pushCake(color, cake, isPushAll = true, holdSlot = 0, isMainCake = false) {
-        console.log("this =", this);
+        // console.log("this =", this);
         let pieces = cake.popCake3(color, this.freeSlot() - holdSlot, isPushAll? 0 : 1);
         let number = pieces.length;
 
@@ -609,8 +570,9 @@ let CakeController = cc.Class({
             let elapsedExactTime = -totalTime;
 
             for (let i = 0; i < this._cakePieces.length; i++) {
-                if (this._cakePieces[i] != null && !this._cakePieces[i].Type) {
+                if (this._cakePieces[i] != null && (this._cakePieces[i].Type == null || Number.isNaN(this._cakePieces[i].Type))) {
                     let  t =1;
+                    console.log("this =", this._cakePieces[i]);
                     t++;
                 }
             }
@@ -618,22 +580,8 @@ let CakeController = cc.Class({
                 this.isFinish = true;
             }
 
-            // for (let i = 0; i < pieces.length; i++) {
-            //     pieces[i].node.stopAllActions();
-            // }
-
             let isStartMove = false;
             let numberCakeMoveLast = pieces.length - 1;
-            await new Promise(resolve => setTimeout(resolve, 1));
-
-            let dem = -elapsedTime/cc.director.getDeltaTime();
-
-            for (let i = 0; i < dem; i++) {
-                //await new Promise(resolve => setTimeout(resolve, 0)); // chờ 1 frame
-                // await new Promise(resolve => {
-                //     cc.director.once(cc.Director.EVENT_AFTER_UPDATE, resolve);
-                // });
-            }
 
             while (elapsedTime < 0) {
                 elapsedTime += cc.director.getDeltaTime();
@@ -647,9 +595,6 @@ let CakeController = cc.Class({
                 for (let i = 0; i < pieces.length; i++) {
                     if (!isStartMove) {
                         this.IEStartMoveSFX(i * 0.25);
-                        //GameManager.instance.scheduleOnce(() => {
-                            //GameManager.instance.playMoveSFX();
-                        //}, i * 0.25);
                     }
 
                     let value = Math.min(((totalTime + elapsedExactTime) - i * 0.25)/ 0.5, 1);
@@ -693,33 +638,6 @@ let CakeController = cc.Class({
         this.leftEdge.active = false;
         this.downEdge.active = false;
     },
-
-    // pushToCake(cake, color) {
-    //     let pieces = this._cakePieces.filter(x => x && x.Type === color);
-    //     for (let i = 0; i < pieces.length; i++) {
-    //         cake.addPiece(pieces[i]);
-    //         let index = this._cakePieces.indexOf(pieces[i]);
-    //         this._cakePieces[index] = null;
-    //     }
-    // },
-
-    // addPiece(piece) {
-    //     this.dictCakeObject.get(piece.Type).push(piece);
-
-    //     // Gán vào CakeGroup
-    //     piece.node.parent = this.cakeGroup;
-    //     piece.node.position = cc.v3(0, 0, 0);
-    //     //pieceNode.scale = cc.v3(1, 1, 1);
-
-    //     for (let i = 0; i < this._cakePieces.length; i++) {
-    //         if (this._cakePieces[i] == null) {
-    //             this._cakePieces[i] = piece;
-    //             piece.node.eulerAngles = cc.v3(0, i * 60, 0);
-    //             break;
-    //         }
-    //     }
-    //     //this._cakePieces[(6 - this.freeSlot())] = piece;
-    // },
 
     connectEdge(direction) {
         // switch (direction) {
@@ -1261,9 +1179,8 @@ let CakeController = cc.Class({
         this.node.stopAllActions();
 
         let oldPos = this.node.position;
-        let distance = oldPos.sub(pos).mag();  // Vector3.Distance
-        let totalTime = distance / 5;         // tính thời gian giống Unity
-
+        let distance = oldPos.sub(pos).mag();  
+        let totalTime = distance / 5;
         cc.tween(this.node)
             .to(totalTime, { position: pos })  // move từ oldPos -> pos
             .start();
