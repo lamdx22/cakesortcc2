@@ -1,4 +1,4 @@
-const GameManagerLamDX = require("GameManagerLamDX");
+const GameManager = require("GameManager");
 
 const MainUI = cc.Class({
     extends: cc.Component,
@@ -22,11 +22,11 @@ const MainUI = cc.Class({
     },
 
     start () {
-        if (!GameManagerLamDX.instance.isNewCakePopUp) {
+        if (!GameManager.instance.isUsingCakeProgress) {
             this.scoreGroup.active = false;
         } else {
             this.scoreGroup.active = true;
-            this.maxScore = GameManagerLamDX.instance.maxScore;
+            this.maxScore = GameManager.instance.maxScore;
             this.fillSprite.fillRange = this.currentScore / this.maxScore;
             this.scoreText.string = this.currentScore + "/" + this.maxScore;
         }
@@ -35,7 +35,7 @@ const MainUI = cc.Class({
     // update (dt) {},
 
     addScore(score) {
-        if (!GameManagerLamDX.instance.isNewCakePopUp) return;
+        if (!GameManager.instance.isUsingPopUp) return;
 
         this.currentScore += score;
 
@@ -53,19 +53,42 @@ const MainUI = cc.Class({
     },
 
     showPopUpNewCake() {
-        GameManagerLamDX.instance.endGame();
+        if (!GameManager.instance.isUsingPopUp) return;
+
+        GameManager.instance.endGame();
         if (this.popUpNewCake) {
             this.popUpNewCake.active = true;
+            let widgets = this.popUpNewCake.getComponents(cc.Widget);
+            for (let w of widgets) {
+                w.updateAlignment();
+            }
         }
     },
 
     showPopUpLose() {
-        GameManagerLamDX.instance.endGame();
+        if (!GameManager.instance.isUsingPopUp) return;
+
+        GameManager.instance.endGame();
         if (this.popUpNewCake) {
             this.popUpNewCake.active = false;
         }
         if (this.popUpLose) {
             this.popUpLose.active = true;
+            let widgets = this.popUpLose.getComponents(cc.Widget);
+            for (let w of widgets) {
+                w.updateAlignment();
+            }
+            this.popUpLose.scale = 0;
+            this.popUpLose.opacity = 0;
+            // cc.tween(this.popUpLose)
+            // .to(0.25, { scale: 1 }) // 0.5 giây
+            // .start();
+            cc.tween(this.popUpLose)
+                .parallel(
+                    cc.tween().to(0.5, { scale: 1 }, { easing: "backOut" }),
+                    cc.tween().to(0.5, { opacity: 255 }, { easing: "quadOut" })
+                )
+                .start();
         }
     }
 

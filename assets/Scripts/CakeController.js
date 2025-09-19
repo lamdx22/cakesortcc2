@@ -2,7 +2,6 @@ const GameManager = require("GameManager");
 const CakePoolManager = require("CakePoolManager");
 const SoundManager = require("SoundManager");
 const GameConstant = require("GameConstant");
-const GameManagerLamDX = require("GameManagerLamDX");
 
 let CakeController = cc.Class({
     extends: cc.Component,
@@ -58,7 +57,7 @@ let CakeController = cc.Class({
     randomCakeIndex() {
         let max = 2;
         //let score = GameplayManager.instance.Data.score;
-        let cakeUsing = GameManager.instance.cakeUsing;
+        let pieceAvailable = CakePoolManager.instance.piecePrefabs;
         // if (score >= 50) {
         //     max = 3;
         // }
@@ -68,12 +67,12 @@ let CakeController = cc.Class({
         // if (score >= 150) {
         //     max = cakeUsing.length;
         // }
-        max = cakeUsing.length;
+        max = pieceAvailable.length;
 
-        max = Math.min(max, cakeUsing.length);
+        //max = Math.min(max, pieceAvailable.length);
 
         let cakeIndex = Math.floor(Math.random() * max); 
-        return GameManager.instance.cakeUsing[cakeIndex];
+        return cakeIndex;
     },
 
     init () {
@@ -92,8 +91,8 @@ let CakeController = cc.Class({
                 typeCakes = this.generateCakeInBoardList();
             }
             else {
-                GameManagerLamDX.instance.countSpawnCake++;
-                if (GameManagerLamDX.instance.level == 1 || GameManagerLamDX.instance.countSpawnCake == 2) typeCakes = this.generateTutorListAndSize();
+                GameManager.instance.countSpawnCake++;
+                if (GameManager.instance.level == 1 || GameManager.instance.countSpawnCake == 2) typeCakes = this.generateTutorListAndSize();
                 else typeCakes = this.generateRandomListAndSize();
             }
         } else {
@@ -139,56 +138,63 @@ let CakeController = cc.Class({
     },
 
     generateCakeInBoardList() {
-        if (GameManagerLamDX.instance.level === 1) {
+        if (GameManager.instance.level === 1) {
             let size = 4;
             let newList = [];
             for (let i = 0; i <size; i++) {
-                newList.push(GameManagerLamDX.instance.cakeTutorial);
+                newList.push(GameManager.instance.cakeTutorial);
             }
-            GameManagerLamDX.instance.cakeTutorial++;
+            // newList.push(2);
+            // newList.push(0);
+            // newList.push(0);
+            // newList.push(0);
+            GameManager.instance.cakeTutorial++;
 
             return newList;
         } else {
             let size = 4;
             let newList = [];
-            if (GameManagerLamDX.instance.cakeTutorial < 3) { 
+            if (GameManager.instance.cakeTutorial < 3) { 
                 for (let i = 0; i <size; i++) {
-                    newList.push(GameManagerLamDX.instance.cakeTutorial);
+                    newList.push(GameManager.instance.cakeTutorial + 2);
                 }
-                GameManagerLamDX.instance.cakeTutorial++;
+                GameManager.instance.cakeTutorial++;
             } else {
-                let numberColor = this.numberColorRandom(size);
-                let colors = [];
-                for (let i = 0; i < numberColor; i++) {
-                    colors.push(this.randomCakeIndex());
-                }
-                for (let i = 0; i < size; i++) {
-                    let typeCake = colors[Math.floor(Math.random() * colors.length)];
-                    newList.push(typeCake);
-                }
+                // let numberColor = this.numberColorRandom(size);
+                // let colors = [];
+                // for (let i = 0; i < numberColor; i++) {
+                //     colors.push(this.randomCakeIndex());
+                // }
+                // for (let i = 0; i < size; i++) {
+                //     let typeCake = colors[Math.floor(Math.random() * colors.length)];
+                //     newList.push(typeCake);
+                // }
+                newList = this.generateRandomListAndSize();
             }
             return newList;
         }
     },
 
     generateTutorListAndSize() {
-        GameManager.instance.isShowTutorial = false;
-        if (GameManagerLamDX.instance.level === 1) {
+        //GameManager.instance.isShowTutorial = false;
+        if (GameManager.instance.level === 1) {
             let size = 4;
             let newList = [];
             newList.push(0);
             newList.push(0);
             newList.push(1);
             newList.push(1);
+            newList.push(2);
+            newList.push(2);
 
             return newList;
         } else {
             let size = 6;
             let newList = [];
-            newList.push(0);
-            newList.push(0);
-            newList.push(1);
-            newList.push(1);
+            newList.push(3);
+            newList.push(3);
+            newList.push(4);
+            newList.push(4);
             newList.push(2);
             newList.push(2);
 
@@ -564,6 +570,13 @@ let CakeController = cc.Class({
                 this.moveCake(cc.v3(0, freeIndex * this.anglePerPiece, 0), this._cakePieces[freeIndex], j * 0.1);
             }
 
+            // cc.log("Swap");
+            // for (let i = 0; i < this._cakePieces.length; i++) {
+            //     if (this._cakePieces[i] != null) cc.log(this._cakePieces[i].Type);
+            //     else cc.log(null);
+            // }
+            
+
             // animation thời gian
             let totalTime = pieces.length * 0.5;
             let elapsedTime = -(totalTime - (pieces.length - 1) * 0.25);
@@ -576,7 +589,8 @@ let CakeController = cc.Class({
                     t++;
                 }
             }
-            if (this.amountOfType(this._cakePieces.find(x => x != null && x.node.active).Type === this.cakeAmount)) {
+            let first = this._cakePieces.find(x => x != null && x.node.active);
+            if (first && this.amountOfType(first.Type) === this.cakeAmount) {
                 this.isFinish = true;
             }
 
@@ -614,6 +628,7 @@ let CakeController = cc.Class({
                 pieces[numberCakeMoveLast - i].node.position = cc.v3(0, 0, 0);
                 pieces[numberCakeMoveLast - i].node.eulerAngles = eulers[i];
             }
+
 
             if (cake.checkFreeCake()) { //&& isMainCake
                 this.offEdge();
@@ -834,239 +849,11 @@ let CakeController = cc.Class({
             let fn = !this.isFinish;
             let tt = 1;
         }
-        let c = dem;
-        c++;
         GameManager.instance.endProcessCake(this);
         GameManager.instance.checkLose();
         this.offEdge();
     },
 
-    async connectArround1(_cakesAround, colors, indexColor, cakeVisible, cakeCheckings, cakeSameType, colorCount) {
-        let breakWhile = false;
-        let continueWhile = false;
-        if (!this.node.active) {
-            breakWhile = true;
-        }
-        if (colors.length > 0 && indexColor < colors.length && this.freeSlot() < this.cakeAmount && !this.isFinish) {
-            colors = this.getColors();
-            if (colorCount !== colors.length) {
-                colorCount = colors.length;
-                indexColor = 0;
-            }
-
-            cakeSameType = _cakesAround
-                .filter(x => x && x.node.active && !x.isFinish && x.freeSlot() < this.cakeAmount &&
-                    x.amountOfType(colors[indexColor]) > 0 &&
-                    x.amountOfType(colors[indexColor]) < this._cakeAmount)
-                .sort((a, b) => b.amountOfType(colors[indexColor]) - a.amountOfType(colors[indexColor]));
-
-            if (cakeSameType.length === 0) {
-                indexColor++;
-                if (indexColor >= colors.length) {
-                    breakWhile = true;
-                }
-                if (!breakWhile) {
-                    continueWhile = true;
-                }
-            }
-
-            if (!breakWhile && !continueWhile) {
-                await new Promise(resolve => setTimeout(resolve, 0)); // yield return null
-
-                if (this.amountType() === 1) {
-                    cakeCheckings = cakeSameType
-                        .filter(x => x && x.node.active && !x.isFinish && x.amountOfType(colors[indexColor]) > 0)
-                        .sort((a, b) => {
-                            if (a.amountType() === b.amountType()) {
-                                return b.amountOfType(colors[indexColor]) - a.amountOfType(colors[indexColor]);
-                            }
-                            return a.amountType() - b.amountType();
-                        });
-
-                    let complete = this.isCanCompleteCake(cakeCheckings, colors[indexColor]);
-                    let completeType = complete.type;
-                    cakeVisible = complete.cake;
-
-                    if (completeType === GameConstant.COMPLETE_CAKE_WITH_ONLY_COLOR) {
-                        await this.processPull(
-                            cakeCheckings.filter(x => x !== cakeVisible),
-                            colors[indexColor],
-                            1
-                        );
-
-                        cakeCheckings = cakeCheckings.filter(x => x !== cakeVisible && x.amountOfType(indexColor) > 0);
-
-                        if (cakeCheckings.length > 0) {
-                            if (this.amountOfType(colors[indexColor]) === 1) {
-                                let isPushed = false;
-                                let colorPush = this.getColors().filter(x => x !== colors[indexColor]);
-                                for (let i = 0; i < colorPush.length; i++) {
-                                    let cakeCheckPush = _cakesAround.find(x =>
-                                        x.amountOfType(colorPush[i]) > 0 &&
-                                        x.freeSlot() > 0 &&
-                                        x !== cakeVisible
-                                    );
-                                    if (cakeCheckPush) {
-                                        await cakeCheckPush.pushCake(colorPush[i], this, false);
-                                        isPushed = true;
-                                        break;
-                                    }
-                                }
-                                if (isPushed) {
-                                    continueWhile = true;
-                                } else {
-                                    await cakeVisible.pushCake(colors[indexColor], this);
-                                }
-                            } else {
-                                GameManager.instance.connectCake(this, cakeVisible);
-                                await cakeVisible.pushCake(colors[indexColor], this, false);
-                                this.offEdge();
-                            }
-                        } else {
-                            GameManager.instance.connectCake(this, cakeVisible);
-                            await cakeVisible.pushCake(colors[indexColor], this, true);
-                            this.offEdge();
-                        }
-                    } else {
-                        for (let i = 0; i < cakeSameType.length; i++) {
-                            GameplayManager.Instance.connectCake(this, cakeSameType[i]);
-                            await this.pushCake(colors[0], cakeSameType[i], true, 0, true);
-                            this.offEdge();
-                            if (this.isFinish) {
-                                break;
-                            }
-                        }
-                    }
-                } else {
-                    cakeCheckings = cakeSameType
-                        .filter(x => x && x.node.active && !x.isFinish && x.amountOfType(colors[indexColor]) > 0)
-                        .sort((a, b) => {
-                            if (a.amountType() === b.amountType()) {
-                                return b.amountOfType(colors[indexColor]) - a.amountOfType(colors[indexColor]);
-                            }
-                            return a.amountType() - b.amountType();
-                        });
-
-                    let complete = this.isCanCompleteCake(cakeCheckings, colors[indexColor]);
-                    let completeType = complete.type;
-                    cakeVisible = complete.cake;
-
-                    switch (completeType) {
-                        case GameConstant.UNCOMPLETE_CAKE_WITH_ONLY_COLOR:
-                        case GameConstant.COMPLETE_CAKE_WITH_ONLY_COLOR:
-                            await this.processPull(cakeCheckings.filter(x => x !== cakeVisible), colors[indexColor]);
-                            cakeCheckings = cakeCheckings.filter(x => x !== cakeVisible && x.amountOfType(colors[indexColor]) > 0);
-                            GameManager.instance.connectCake(this, cakeVisible);
-                            await cakeVisible.pushCake(colors[indexColor], this, cakeCheckings.length === 0);
-                            this.offEdge();
-                            indexColor--;
-                            break;
-
-                        case GameConstant.UNCOMPLETE_CAKE_WITH_OTHER_COLOR:
-                        case GameConstant.COMPLETE_CAKE_WITH_OTHER_COLOR:
-                            let cakeColorPull = cakeVisible.getColors().find(x => x !== colors[indexColor]);
-                            if (colors.includes(cakeColorPull)) {
-                                if (cakeVisible.freeSlot() > 0) {
-                                    await this.processPull(cakeCheckings.filter(x => x !== cakeVisible), colors[indexColor]);
-                                }
-                                GameManager.instance.connectCake(this, cakeVisible);
-                                await this.pushCake(cakeColorPull, cakeVisible, true, 0, true);
-                                this.offEdge();
-
-                                cakeCheckings = cakeCheckings.filter(x => x.amountOfType(colors[indexColor]) > 0 && x !== cakeVisible);
-                                if (cakeCheckings.length > 0) {
-                                    if (this.amountOfType(colors[indexColor]) === 1) {
-                                        let isPushed = false;
-                                        let colorPush = this.getColors().filter(x => x !== colors[indexColor]);
-                                        for (let i = 0; i < colorPush.length; i++) {
-                                            let cakeCheckPush = _cakesAround.find(x =>
-                                                x && x.amountOfType(colorPush[i]) > 0 &&
-                                                x.freeSlot() > 0 &&
-                                                x !== cakeVisible
-                                            );
-                                            if (cakeCheckPush) {
-                                                await cakeCheckPush.pushCake(colorPush[i], this, false);
-                                                isPushed = true;
-                                                break;
-                                            }
-                                        }
-                                        if (isPushed) {
-                                            continueWhile = true;
-                                        } else {
-                                            await cakeVisible.pushCake(colors[indexColor], this);
-                                        }
-                                    } else {
-                                        GameManager.instance.connectCake(this, cakeVisible);
-                                        await cakeVisible.pushCake(colors[indexColor], this, false);
-                                        this.offEdge();
-                                        indexColor--;
-                                    }
-                                } else {
-                                    GameManager.instance.connectCake(this, cakeVisible);
-                                    await cakeVisible.pushCake(colors[indexColor], this, true);
-                                    this.offEdge();
-                                    indexColor--;
-                                }
-                            } else {
-                                if (cakeVisible && cakeVisible.freeSlot() > 0) {
-                                    cakeCheckings = cakeCheckings.filter(x => x.amountOfType(colors[indexColor]) > 0 && x !== cakeVisible);
-                                    if (cakeCheckings.length > 0) {
-                                        await this.processPull(cakeCheckings.filter(x => x !== cakeVisible), colors[indexColor]);
-                                        await cakeVisible.pushCake(colors[indexColor], this, false);
-                                        this.offEdge();
-                                        indexColor--;
-                                    } else {
-                                        GameManager.instance.connectCake(this, cakeVisible);
-                                        await cakeVisible.pushCake(colors[indexColor], this, true);
-                                        this.offEdge();
-                                        indexColor--;
-                                    }
-                                }
-                            }
-                            break;
-
-                        case GameConstant.NOT_COMPLETE_CAKE:
-                            if (cakeVisible && cakeVisible.FreeSlot() > 0) {
-                                cakeCheckings = cakeCheckings.filter(x => x.amountOfType(colors[indexColor]) > 0 && x !== cakeVisible);
-                                if (cakeCheckings.length > 0) {
-                                    await this.processPull(cakeCheckings.filter(x => x !== cakeVisible), colors[indexColor]);
-                                    await cakeVisible.pushCake(colors[indexColor], this, false);
-                                    this.offEdge();
-                                    indexColor--;
-                                } else {
-                                    if (cakeVisible.freeSlot() === 0) {
-                                        indexColor++;
-                                        continueWhile = true;
-                                    }
-                                    if (!continueWhile) {
-                                        GameManager.instance.connectCake(this, cakeVisible);
-                                        await cakeVisible.pushCake(colors[indexColor], this, true);
-                                        this.offEdge();
-                                        indexColor--;
-                                    }
-                                }
-                            }
-                            break;
-                    }
-
-                    if (!continueWhile) {
-                        indexColor++;
-                    }
-                }
-            }
-        }
-
-        if (!continueWhile) {
-            if (colors.length > 0 && indexColor < colors.length && this.freeSlot() < this.cakeAmount && !this.isFinish) {
-                this.connectArround1(_cakesAround, colors, indexColor, cakeVisible, cakeCheckings, cakeSameType, colorCount);
-            } else {
-                GameManager.instance.checkLose();
-                this.offEdge();
-            }
-        } else {
-            this.connectArround1(_cakesAround, colors, indexColor, cakeVisible, cakeCheckings, cakeSameType, colorCount);
-        }
-    },
 
     delaySec(seconds) {
         return new Promise(resolve => setTimeout(resolve, seconds * 1000));

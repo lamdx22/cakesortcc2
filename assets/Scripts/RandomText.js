@@ -1,4 +1,4 @@
-const GameManagerLamDX = require("GameManagerLamDX");
+const GameManager = require("GameManager");
 
 cc.Class({
     extends: cc.Component,
@@ -12,7 +12,7 @@ cc.Class({
     // onLoad () {},
 
     onEnable () {
-        if (GameManagerLamDX.instance.useTextFX) {
+        if (GameManager.instance.useTextFX) {
             let k = Math.floor(Math.random() * this.listText.length);
             if (k > this.listText.length - 1) {
                 k = this.listText.length - 1;
@@ -23,15 +23,14 @@ cc.Class({
 
             let n = this.textFX.node;
             n.opacity = 255;
-            n.scale = 0;   // bắt đầu nhỏ
+            n.scale = 0;
 
-            // tween: scale to lên -> đợi -> scale nhỏ -> biến mất
             cc.tween(n)
                 .delay(0.15)
-                .to(0.3, { scale: 0.08 }, { easing: "backOut" }) // scale to
+                .to(0.3, { scale: 0.08 }, { easing: "backOut" }) 
                 //.to(0.1, {scale: 0.1}, {easing: "backIn"})
-                .delay(0.5)                                    // giữ một lúc
-                .to(0.3, { scale: 0, opacity: 0 }, { easing: "backIn" }) // scale nhỏ, fade out
+                .delay(0.5)                                    
+                .to(0.3, { scale: 0, opacity: 0 }, { easing: "backIn" }) 
                 .start();
         } else {
             this.textFX.string = "";

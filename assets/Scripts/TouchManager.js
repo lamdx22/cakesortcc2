@@ -1,6 +1,5 @@
 const GameManager = require("GameManager");
 const SoundManager = require("SoundManager");
-const GameManagerLamDX = require("GameManagerLamDX");
 
 cc.Class({
     extends: cc.Component,
@@ -19,36 +18,25 @@ cc.Class({
         //cc.director.getPhysics3DManager().enabled = true;
 
         // Listen touch
-        //cc.systemEvent.on(cc.SystemEvent.EventType.TOUCH_START, this.onTouchStart, this);
-        //cc.systemEvent.on(cc.SystemEvent.EventType.TOUCH_MOVE, this.onTouchMove, this);
-        //cc.Canvas.instance.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
         this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
         this.node.on(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
         this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
     },
 
     onDestroy () {
-        //cc.systemEvent.off(cc.SystemEvent.EventType.TOUCH_START, this.onTouchStart, this);
-        //cc.Canvas.instance.node.off(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
         this.node.off(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
         this.node.off(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
         this.node.off(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
     },
 
-    start() {
-        // cc.director.getPhysics3DManager().physicsWorld._colliders.forEach(c => {
-        // cc.log("Có collider:", c.node.name);
-        // });
-    },
-
     onTouchStart (event) {
         cc.log("TouchManager nhận TOUCH_START");
-        if (GameManagerLamDX.instance.isGameEnd) {
-            GameManagerLamDX.instance.goToStore();
+        if (GameManager.instance.isGameEnd) {
+            GameManager.instance.goToStore();
             return;
         }
 
-        if (!GameManagerLamDX.instance.isCanMove) return;
+        if (!GameManager.instance.isCanMove) return;
 
         if (this.currSelectCake) {
             this.currSelectCake.return(cc.v3(0, 0, 0));
@@ -165,7 +153,7 @@ cc.Class({
             }
             if (this.currHoverCell && GameManager.instance.isCanSnap(this.currHoverCell, this.currSelectCake)) {
                 GameManager.instance.onSnapTo(this.currHoverCell, this.currSelectCake);
-                GameManagerLamDX.instance.onPutCake();
+                GameManager.instance.onPutCake();
                 this.currSelectCake.IEBounce();
             } else {
                 this.currSelectCake.return(cc.v3(0, 0, 0));

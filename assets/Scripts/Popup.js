@@ -4,8 +4,8 @@ cc.Class({
 
     properties: {
         cake: cc.Node,
-        btnClaim: cc.Node,
-        targetEuler: cc.Vec3,
+        button: cc.Node,
+        targetCakeEuler: cc.Vec3,
         glow: cc.Node,
     },
 
@@ -32,7 +32,7 @@ cc.Class({
 
         cc.tween(this.cake)
             // Xoay
-            .by(3, { eulerAngles: this.targetEuler }) // thay "sineInOut" bằng easing bạn muốn
+            .by(3, { eulerAngles: this.targetCakeEuler }) // thay "sineInOut" bằng easing bạn muốn
             .repeatForever()
             .start();
 
@@ -48,7 +48,7 @@ cc.Class({
             .to(0.5, {scale: 1.1});
             //.repeatForever()
             //.start();
-        cc.tween(this.btnClaim).repeatForever(nhapnhay).start();
+        cc.tween(this.button).repeatForever(nhapnhay).start();
     },
 
     // update (dt) {},

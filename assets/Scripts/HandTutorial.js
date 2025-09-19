@@ -1,9 +1,10 @@
+const GameManager = require("GameManager");
 
 cc.Class({
     extends: cc.Component,
 
     properties: {
-        targetCell: cc.Node,
+        targetCellIndex: 0,
         startPos: cc.Vec3,
         destination: cc.Vec3,
         offsetDes: cc.Vec3,
@@ -16,12 +17,13 @@ cc.Class({
     onLoad () {},
 
     start () {
-        this.startTutorial();
+        //this.startTutorial();
     },
 
     startTutorial() {
         // set vị trí ban đầu
         //this.node.setPosition(this.startPos);
+        this.targetCell = GameManager.instance.cells[this.targetCellIndex];
         this.startPos = this.node.position;
         let cellWorldPos = this.targetCell.parent.convertToWorldSpaceAR(this.targetCell.position);
         this.destination = cellWorldPos.clone();
@@ -46,6 +48,7 @@ cc.Class({
     },
 
     show() {
+        this.startTutorial();
         this.node.active = true;
         this.arrow.active = true;
     },
