@@ -247,15 +247,15 @@
   {
     "__type__": "cc.CurveRange",
     "mode": 3,
-    "constantMin": 1,
-    "constantMax": 2,
+    "constantMin": 1.5,
+    "constantMax": 2.5,
     "multiplier": 1
   },
   {
     "__type__": "cc.CurveRange",
     "mode": 3,
-    "constantMin": 2,
-    "constantMax": 16,
+    "constantMin": 3,
+    "constantMax": 20,
     "multiplier": 1
   },
   {

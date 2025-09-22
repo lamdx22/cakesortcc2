@@ -1,0 +1,20 @@
+{
+  "__type__": "cc.Material",
+  "_name": "fx_leaf1",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "829a282c-b049-4019-bd38-5ace8d8a6417"
+  },
+  "_techniqueIndex": 4,
+  "_techniqueData": {
+    "0": {
+      "props": {
+        "mainTexture": {
+          "__uuid__": "463c13fe-a2b0-4c0d-af66-2549fb7766c3"
+        }
+      },
+      "defines": {}
+    }
+  }
+}

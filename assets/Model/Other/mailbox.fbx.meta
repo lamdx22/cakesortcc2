@@ -1,0 +1,226 @@
+{
+  "ver": "1.1.3",
+  "uuid": "51eb67c5-035a-4b6a-8152-09ccd0e72db2",
+  "importer": "fbx",
+  "scaleFactor": 1,
+  "boneCount": 0,
+  "precomputeJointMatrix": false,
+  "animationFrameRate": 30,
+  "subMetas": {
+    "buffer.bin": {
+      "ver": "1.0.2",
+      "uuid": "3d41bce3-df6c-4de6-aac3-9fa30a543f49",
+      "importer": "buffer",
+      "name": "buffer.bin",
+      "subMetas": {}
+    },
+    "mailbox.mesh": {
+      "ver": "1.0.3",
+      "uuid": "c6b695fe-56c1-4455-8f8d-07ae7ebb0947",
+      "importer": "mesh",
+      "verts": 388,
+      "tris": 282,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "a_normal",
+          "a_position",
+          "a_uv0"
+        ]
+      ],
+      "minPos": {
+        "x": -0.00269783311523497,
+        "y": -0.00999999977648258,
+        "z": 0
+      },
+      "maxPos": {
+        "x": 0.00269783311523497,
+        "y": 0.00175000086892396,
+        "z": 0.0210000015795231
+      },
+      "name": "mailbox.mesh",
+      "subMetas": {}
+    },
+    "mailbox_door.mesh": {
+      "ver": "1.0.3",
+      "uuid": "5e629d46-1832-47b1-8f13-c52b68f523d8",
+      "importer": "mesh",
+      "verts": 224,
+      "tris": 170,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "a_normal",
+          "a_position",
+          "a_uv0"
+        ]
+      ],
+      "minPos": {
+        "x": -0.00269783311523497,
+        "y": -0.00278267846442759,
+        "z": -0.0000181983123184182
+      },
+      "maxPos": {
+        "x": 0.00269783311523497,
+        "y": -8.94069651646845e-10,
+        "z": 0.00662169931456447
+      },
+      "name": "mailbox_door.mesh",
+      "subMetas": {}
+    },
+    "mailbox_flag.mesh": {
+      "ver": "1.0.3",
+      "uuid": "36feedb5-17fd-485c-8504-b93187e45c77",
+      "importer": "mesh",
+      "verts": 87,
+      "tris": 56,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "a_normal",
+          "a_position",
+          "a_uv0"
+        ]
+      ],
+      "minPos": {
+        "x": -0.000449957646196708,
+        "y": -0.00119999924208969,
+        "z": -0.000600002007558942
+      },
+      "maxPos": {
+        "x": 0.000450021761935204,
+        "y": 0.000600000901613384,
+        "z": 0.00299999583512545
+      },
+      "name": "mailbox_flag.mesh",
+      "subMetas": {}
+    },
+    "mailbox.prefab": {
+      "ver": "1.3.2",
+      "uuid": "149a3d62-b1c0-4e0f-b735-443efd6a4c63",
+      "importer": "prefab",
+      "optimizationPolicy": "AUTO",
+      "asyncLoadAssets": false,
+      "readonly": true,
+      "content": [
+        {
+          "__type__": "cc.Prefab",
+          "_name": "",
+          "_objFlags": 0,
+          "data": {
+            "__id__": 1
+          }
+        },
+        {
+          "__type__": "cc.Node",
+          "_name": "Sprite",
+          "_objFlags": 0,
+          "_opacity": 255,
+          "_color": {
+            "__type__": "cc.Color",
+            "r": 255,
+            "g": 255,
+            "b": 255,
+            "a": 255
+          },
+          "_cascadeOpacityEnabled": true,
+          "_parent": null,
+          "_anchorPoint": {
+            "__type__": "cc.Vec2",
+            "x": 0.5,
+            "y": 0.5
+          },
+          "_contentSize": {
+            "__type__": "cc.Size",
+            "width": 40,
+            "height": 36
+          },
+          "_children": [],
+          "_skewX": 0,
+          "_skewY": 0,
+          "_localZOrder": 0,
+          "_globalZOrder": 0,
+          "_tag": -1,
+          "_opacityModifyRGB": false,
+          "_reorderChildDirty": false,
+          "_id": "",
+          "_active": true,
+          "_components": [
+            {
+              "__id__": 2
+            }
+          ],
+          "_prefab": {
+            "__id__": 3
+          },
+          "_eulerAngles": {
+            "__type__": "cc.Vec3",
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "_trs": {
+            "__type__": "TypedArray",
+            "ctor": "Float64Array",
+            "array": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "__type__": "cc.Sprite",
+          "_name": "",
+          "_objFlags": 0,
+          "node": {
+            "__id__": 1
+          },
+          "_enabled": true,
+          "_spriteFrame": {
+            "__uuid__": "8cdb44ac-a3f6-449f-b354-7cd48cf84061"
+          },
+          "_type": 0,
+          "_sizeMode": 1,
+          "_fillType": 0,
+          "_fillCenter": {
+            "__type__": "cc.Vec2",
+            "x": 0,
+            "y": 0
+          },
+          "_fillStart": 0,
+          "_fillRange": 0,
+          "_isTrimmedMode": true,
+          "_srcBlendFactor": 770,
+          "_dstBlendFactor": 771,
+          "_atlas": null
+        },
+        {
+          "__type__": "cc.PrefabInfo",
+          "root": {
+            "__id__": 1
+          },
+          "asset": null,
+          "fileId": "d7118yAG5lKybkFOAh8koPL"
+        }
+      ],
+      "name": "mailbox.prefab",
+      "subMetas": {}
+    },
+    "tiny_treats_1.mtl": {
+      "ver": "1.0.5",
+      "uuid": "d6faf373-5296-4d43-a415-11c081e4bbbe",
+      "importer": "material",
+      "dataAsSubAsset": null,
+      "name": "tiny_treats_1.mtl",
+      "subMetas": {}
+    }
+  }
+}

@@ -154,7 +154,7 @@ let CakeController = cc.Class({
         } else {
             let size = 4;
             let newList = [];
-            if (GameManager.instance.cakeTutorial < 3) { 
+            if (GameManager.instance.cakeTutorial < 2) { 
                 for (let i = 0; i <size; i++) {
                     newList.push(GameManager.instance.cakeTutorial + 2);
                 }

@@ -69,6 +69,7 @@ const GameManager = cc.Class({
         cellPrefab: cc.Prefab,
         spaceX: 0.1,
         spaceY: 0.1,
+        isUsingIsland: false,
     },
 
     onLoad () {
@@ -325,7 +326,7 @@ const GameManager = cc.Class({
             this.bgN.active = false;
 
             if (ratio > 0.52) {
-                this.cam.fov = 24;
+                this.cam.fov = 26;
             } else if (ratio >= 0.5) {
                 this.cam.fov = 26;
             } else if (ratio > 0.48) {
@@ -340,7 +341,7 @@ const GameManager = cc.Class({
         } else {
             this.bgD.active = false;
             this.bgN.active = true;
-            this.cam.fov = 22;
+            this.cam.fov = 25;
         }
     },
 
