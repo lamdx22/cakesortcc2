@@ -1,5 +1,5 @@
 const GameManager = require("GameManager");
-const SoundManager = require("SoundManager");
+//const SoundManager = require("SoundManager");
 
 cc.Class({
     extends: cc.Component,
@@ -58,7 +58,8 @@ cc.Class({
                     if (cake && !cake.isInCell) {
                         this.currSelectCake = cake;
                         this.currSelectCake.IEBounce();
-                        SoundManager.instance.soundPickCake.play();
+                        //SoundManager.instance.soundPickCake.play();
+                        AudioEngine.instance.playSfx(2);
 
                         let hitPoint = ray.o.add(ray.d.mul(hit.distance));
                         hitPoint.y = this.touchY;

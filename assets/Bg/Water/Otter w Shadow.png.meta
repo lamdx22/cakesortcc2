@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "e86b267f-5a35-476d-a38a-36c782cfc4a6",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 128,
+  "height": 64,
+  "platformSettings": {},
+  "subMetas": {
+    "Otter w Shadow": {
+      "ver": "1.0.6",
+      "uuid": "e8f0adb6-99b0-4699-8b43-4b3829f58133",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "e86b267f-5a35-476d-a38a-36c782cfc4a6",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 128,
+      "height": 64,
+      "rawWidth": 128,
+      "rawHeight": 64,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

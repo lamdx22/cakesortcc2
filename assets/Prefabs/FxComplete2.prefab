@@ -248,14 +248,14 @@
     "__type__": "cc.CurveRange",
     "mode": 3,
     "constantMin": 1.5,
-    "constantMax": 2.5,
+    "constantMax": 3,
     "multiplier": 1
   },
   {
     "__type__": "cc.CurveRange",
     "mode": 3,
     "constantMin": 3,
-    "constantMax": 20,
+    "constantMax": 30,
     "multiplier": 1
   },
   {
@@ -687,7 +687,7 @@
     "__type__": "cc.CurveRange",
     "mode": 3,
     "constantMin": 0.3,
-    "constantMax": 0.6,
+    "constantMax": 0.4,
     "multiplier": 1
   },
   {
@@ -695,24 +695,24 @@
     "_mode": 0,
     "color": {
       "__type__": "cc.Color",
-      "r": 114,
-      "g": 0,
-      "b": 83,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     }
   },
   {
     "__type__": "cc.CurveRange",
     "mode": 3,
-    "constantMin": 1.3,
+    "constantMin": 1.2,
     "constantMax": 2,
     "multiplier": 1
   },
   {
     "__type__": "cc.CurveRange",
     "mode": 3,
-    "constantMin": 3,
-    "constantMax": 4,
+    "constantMin": 15,
+    "constantMax": 20,
     "multiplier": 1
   },
   {
@@ -725,7 +725,7 @@
   {
     "__type__": "cc.CurveRange",
     "mode": 0,
-    "constant": -0.3,
+    "constant": 0.6,
     "multiplier": 1
   },
   {
@@ -760,11 +760,11 @@
   {
     "__type__": "cc.ShapeModule",
     "enable": true,
-    "_shapeType": 0,
+    "_shapeType": 3,
     "emitFrom": 3,
-    "radius": 0.4,
+    "radius": 0.29,
     "radiusThickness": 1,
-    "_angle": 0.4363323129985824,
+    "_angle": 0.20943951023931956,
     "_arc": 6.283185307179586,
     "arcMode": 0,
     "arcSpread": 0,
@@ -857,7 +857,7 @@
   },
   {
     "__type__": "cc.Keyframe",
-    "time": 0.24,
+    "time": 0.6,
     "value": 1,
     "inTangent": 0.21,
     "outTangent": 0.21
@@ -904,7 +904,7 @@
     "limitZ": {
       "__id__": 66
     },
-    "dampen": 0.09
+    "dampen": 0.7
   },
   {
     "__type__": "cc.CurveRange",

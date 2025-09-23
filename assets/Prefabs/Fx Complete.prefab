@@ -249,8 +249,8 @@
   {
     "__type__": "cc.CurveRange",
     "mode": 3,
-    "constantMin": 10,
-    "constantMax": 10,
+    "constantMin": 19.7,
+    "constantMax": 30,
     "multiplier": 1
   },
   {
@@ -399,7 +399,7 @@
     "limitZ": {
       "__id__": 26
     },
-    "dampen": 0.4
+    "dampen": 0.7
   },
   {
     "__type__": "cc.CurveRange",
@@ -624,7 +624,7 @@
   {
     "__type__": "cc.CurveRange",
     "mode": 0,
-    "constant": 2,
+    "constant": 3,
     "multiplier": 1
   },
   {
@@ -938,7 +938,7 @@
     "__type__": "cc.CurveRange",
     "mode": 3,
     "constantMin": 0.8,
-    "constantMax": 2,
+    "constantMax": 1,
     "multiplier": 1
   },
   {
@@ -961,8 +961,8 @@
   {
     "__type__": "cc.CurveRange",
     "mode": 3,
-    "constantMin": 30,
-    "constantMax": 40,
+    "constantMin": 20,
+    "constantMax": 30,
     "multiplier": 1
   },
   {
@@ -1181,7 +1181,7 @@
     "limitZ": {
       "__id__": 90
     },
-    "dampen": 0.64
+    "dampen": 0.7
   },
   {
     "__type__": "cc.CurveRange",

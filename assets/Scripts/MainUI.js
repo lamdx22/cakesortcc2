@@ -1,4 +1,5 @@
 const GameManager = require("GameManager");
+//const SoundManager = require("SoundManager");
 
 const MainUI = cc.Class({
     extends: cc.Component,
@@ -13,6 +14,9 @@ const MainUI = cc.Class({
         currentScore: 0,
         islandElements: [cc.Node],
         island: cc.Node,
+        waterFlow: cc.Node,
+        useWaterFlow: true,
+        fxPlace: cc.Prefab,
     },
 
     statics: {
@@ -37,6 +41,19 @@ const MainUI = cc.Class({
             this.maxScore = GameManager.instance.maxScore;
             this.fillSprite.fillRange = this.currentScore / this.maxScore;
             this.scoreText.string = this.currentScore + "/" + this.maxScore;
+        }
+
+        if (this.useWaterFlow) {
+            let startPos = this.waterFlow.position;
+            let leftPos = startPos.clone();
+            leftPos.x -= 18;
+            let rightPos = startPos.clone();
+            rightPos.x += 18;
+            this.waterFlow.position = leftPos;
+            let flowTween = cc.tween()
+                .to(4, { position: rightPos}, { easing: "sineInOut" }) //
+                .to(4, { position: leftPos}, { easing: "sineInOut" });
+            cc.tween(this.waterFlow).repeatForever(flowTween).start();
         }
 
     },
@@ -76,15 +93,30 @@ const MainUI = cc.Class({
 
                 currentActive.position = cc.v3(originPos.x, originPos.y + 15, originPos.z);
                 currentActive.scale = 0;
+                let centerPos = cc.v3(0, 0, 0);
+                centerPos = currentActive.parent.convertToNodeSpaceAR(centerPos);
+                //centerPos.x = 0;
+                //centerPos.z = 0;
+                centerPos.y = originPos.y + 5;
+                centerPos.z += -10;
                 //currentActive.eulerAngles = cc.v3(0, 270 , 0);
 
                 let rotate = cc.v3(0, -360, 0);
 
                 cc.tween(currentActive)
                     .parallel(
-                        cc.tween().to(0.3, {position: originPos}, { easing: "sineInOut" }),
                         cc.tween()
-                            .to(0.3 , {scale: 1.2}) //this.island.active = false;
+                            .to(0.3, {position: centerPos}, { easing: "sineInOut" })
+                            .delay(0.6)
+                            .to (0.3, {position: originPos})
+                            .call(() => {
+                                let fx = cc.instantiate(this.fxPlace);
+                                fx.parent = this.island;
+                                fx.position = cc.v3(0, 0, 0);
+                            }),
+                        cc.tween()
+                            .to(0.3 , {scale: 1.3}) //this.island.active = false;
+                            //.by(0.3, {eulerAngles: rotate})
                             .to(0.2, {scale: 1})
 
                         //cc.tween().by(0.3, {eulerAngles: rotate})
@@ -95,9 +127,17 @@ const MainUI = cc.Class({
     },
 
     async showPopUpNewCake() {
+        
         if (!GameManager.instance.isUsingPopUp) return;
 
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise(resolve => setTimeout(resolve, 1200));
+
+        // SoundManager.instance.soundBackground.stop();
+        // SoundManager.instance.soundCompleteGame.play();
+        AudioEngine.instance.playSfx(5);
+        AudioEngine.instance.muteAudio();
+        
+        //await new Promise(resolve => setTimeout(resolve, 200));
 
         GameManager.instance.endGame();
         if (this.popUpNewCake) {
@@ -111,6 +151,11 @@ const MainUI = cc.Class({
 
     showPopUpLose() {
         if (!GameManager.instance.isUsingPopUp) return;
+
+        // SoundManager.instance.soundBackground.stop();
+        // SoundManager.instance.soundLose.play();
+        AudioEngine.instance.playSfx(6);
+        AudioEngine.instance.muteAudio();
 
         GameManager.instance.endGame();
         if (this.popUpNewCake) {

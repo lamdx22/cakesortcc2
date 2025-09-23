@@ -1,6 +1,6 @@
-const SoundManager = require("SoundManager");
+//const SoundManager = require("SoundManager");
 const CakePoolManager = require("CakePoolManager");
-
+import CONFIG from "./Config";
 cc.macro.ENABLE_WEBGL_ANTIALIAS = true;         // Bật khử răng cưa
 
 const TableData = cc.Class({
@@ -94,6 +94,7 @@ const GameManager = cc.Class({
         this.selectors = [];
         this.row = 5;
         this.col = 4;
+        this.centerPos = cc.v3();
 
         // FrameSize
         let frameSize = cc.view.getFrameSize();
@@ -112,11 +113,24 @@ const GameManager = cc.Class({
     },
 
     start () {
+        CONFIG.onGameReady();
+        AudioEngine.instance.playBackground();
+
+        cc.game.on(cc.game.EVENT_HIDE, () => {
+            AudioEngine.instance.muteAudio();
+        });
+
+        cc.game.on(cc.game.EVENT_SHOW, () => {
+            if (CONFIG.isPlaySound) AudioEngine.instance.unmuteAudio();
+        });
+
         this.processing = [];
         this._currentSelector = null;
         this.isShowTutorial = true;
         this.isSpawnInBoard = false;
         this.isFirstLevel = true;
+
+        //AudioEngine.instance.playBackground();
 
         this.spawnLevel();
     },
@@ -139,6 +153,8 @@ const GameManager = cc.Class({
 
         this.table.setScale(cc.v3(tableScaleX, tableScaleY, this.table.scaleZ));
         this.tableRows.setScale(cc.v3(100/tableScaleX, 100/tableScaleY, 1));
+
+        this.centerPos = this.table.parent.convertToWorldSpaceAR(this.table.position);
 
         this.tableRows.removeAllChildren(true);
         for (let i = 0; i < this.row; i++) {
@@ -167,7 +183,6 @@ const GameManager = cc.Class({
         let tableScaleX = 100;
         let tableScaleY = 90;
         if (this.tableDatas.length > 0) {
-            cc.log(this.tableDatas);
             let index = 0;
             if (this.level <= this.tableDatas.length) {
                 index = this.level - 1;
@@ -572,7 +587,7 @@ const GameManager = cc.Class({
 
             let fxPos = cell.parent.convertToWorldSpaceAR(cell.position);
             CakePoolManager.instance.spawnFxPut(fxPos);
-            SoundManager.instance.soundPutCake.play();
+            AudioEngine.instance.playSfx(1);
 
             //this.CheckCakeAround(listIndex);
             this.checkCakeAround(index);
@@ -627,7 +642,8 @@ const GameManager = cc.Class({
     },
 
     onCompleteCake(cake, index) {
-        SoundManager.instance.soundCompleteCake.play();
+        //SoundManager.instance.soundCompleteCake.play();
+        AudioEngine.instance.playSfx(3);
         let fxPos = cake.node.parent.convertToWorldSpaceAR(cake.node.position); 
         CakePoolManager.instance.spawnFxComplete(fxPos);
 
@@ -711,11 +727,13 @@ const GameManager = cc.Class({
 
     endGame() {
         this.isGameEnd = true;
+        CONFIG.onEndGame();
         cc.log("Game End");
     },
 
     goToStore() {
         cc.log("Go To Store");
+        CONFIG.openLinkApp();
     },
 });
 

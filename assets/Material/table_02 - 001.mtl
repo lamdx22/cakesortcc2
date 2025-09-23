@@ -1,30 +1,29 @@
 {
   "__type__": "cc.Material",
-  "_name": "cell_2",
+  "_name": "table_02 - 001",
   "_objFlags": 0,
   "_native": "",
   "_effectAsset": {
-    "__uuid__": "6d91e591-4ce0-465c-809f-610ec95019c6"
+    "__uuid__": "abc2cb62-7852-4525-a90d-d474487b88f2"
   },
   "_techniqueIndex": 0,
   "_techniqueData": {
     "0": {
       "props": {
         "diffuseTexture": {
-          "__uuid__": "b05261dc-d5eb-49d0-bdde-2389ed165f9e"
+          "__uuid__": "850f487a-f860-4602-a277-23559df4a0dd"
         },
-        "diffuseColor": {
+        "emissiveColor": {
           "__type__": "cc.Color",
-          "r": 235,
-          "g": 235,
-          "b": 235,
+          "r": 15,
+          "g": 52,
+          "b": 255,
           "a": 255
-        },
-        "alphaThreshold": 0.5
+        }
       },
       "defines": {
         "USE_DIFFUSE_TEXTURE": true,
-        "USE_ALPHA_TEST": false
+        "USE_EMISSIVE": true
       }
     }
   }

@@ -1,6 +1,6 @@
 const GameManager = require("GameManager");
 const CakePoolManager = require("CakePoolManager");
-const SoundManager = require("SoundManager");
+//const SoundManager = require("SoundManager");
 const GameConstant = require("GameConstant");
 
 let CakeController = cc.Class({
@@ -205,11 +205,11 @@ let CakeController = cc.Class({
     generateRandomListAndSize() {
         let numberPiece = 1;
         let ran = Math.floor(Math.random() * 100) + 1;
-        if (ran <= 40) {
+        if (ran <= 50) {
             numberPiece = 4;
-        } else if (ran > 40 && ran <= 70) {
+        } else if (ran > 50 && ran <= 80) {
             numberPiece = 3;
-        } else if (ran > 70 && ran <= 90) {
+        } else if (ran > 80 && ran <= 90) {
             numberPiece = 2;
         }
         let newList = [];
@@ -323,7 +323,8 @@ let CakeController = cc.Class({
 
     IEStartMoveSFX(delay) {
         this.scheduleOnce(() => {
-            SoundManager.instance.soundMoveCake.play();
+            //SoundManager.instance.soundMoveCake.play();
+            AudioEngine.instance.playSfx(4);
         }, delay);
     },
 
