@@ -93,12 +93,15 @@ const MainUI = cc.Class({
 
                 currentActive.position = cc.v3(originPos.x, originPos.y + 15, originPos.z);
                 currentActive.scale = 0;
+
+                currentActive.eulerAngles = cc.v3(-40, 0, 0);
+
                 let centerPos = cc.v3(0, 0, 0);
                 centerPos = currentActive.parent.convertToNodeSpaceAR(centerPos);
                 //centerPos.x = 0;
                 //centerPos.z = 0;
                 centerPos.y = originPos.y + 5;
-                centerPos.z += -10;
+                //centerPos.z += -10;
                 //currentActive.eulerAngles = cc.v3(0, 270 , 0);
 
                 let rotate = cc.v3(0, -360, 0);
@@ -107,17 +110,22 @@ const MainUI = cc.Class({
                     .parallel(
                         cc.tween()
                             .to(0.3, {position: centerPos}, { easing: "sineInOut" })
-                            .delay(0.6)
+                            .delay(0.8)
                             .to (0.3, {position: originPos})
                             .call(() => {
                                 let fx = cc.instantiate(this.fxPlace);
                                 fx.parent = this.island;
-                                fx.position = cc.v3(0, 0, 0);
+                                fx.position = originPos;
                             }),
                         cc.tween()
-                            .to(0.3 , {scale: 1.3}) //this.island.active = false;
+                            .to(0.3 , {scale: 2.4}) //this.island.active = false;
                             //.by(0.3, {eulerAngles: rotate})
-                            .to(0.2, {scale: 1})
+                            .to(0.2, {scale: 1.8})
+                            .delay(0.6)
+                            .to(0.3, {scale: 1}),
+                        cc.tween()
+                            .delay(1.1)
+                            .to(0.3, {eulerAngles: cc.v3(0, 0, 0)})
 
                         //cc.tween().by(0.3, {eulerAngles: rotate})
                     )
@@ -130,11 +138,11 @@ const MainUI = cc.Class({
         
         if (!GameManager.instance.isUsingPopUp) return;
 
-        await new Promise(resolve => setTimeout(resolve, 1200));
+        await new Promise(resolve => setTimeout(resolve, 1400));
 
         // SoundManager.instance.soundBackground.stop();
         // SoundManager.instance.soundCompleteGame.play();
-        AudioEngine.instance.playSfx(5);
+        AudioEngine.instance.playNewCake();
         AudioEngine.instance.muteAudio();
         
         //await new Promise(resolve => setTimeout(resolve, 200));
@@ -154,7 +162,7 @@ const MainUI = cc.Class({
 
         // SoundManager.instance.soundBackground.stop();
         // SoundManager.instance.soundLose.play();
-        AudioEngine.instance.playSfx(6);
+        AudioEngine.instance.playSoundLose();
         AudioEngine.instance.muteAudio();
 
         GameManager.instance.endGame();

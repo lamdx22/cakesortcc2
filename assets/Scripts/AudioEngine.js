@@ -16,6 +16,7 @@ const AudioEngine = cc.Class({
 
     onLoad() {
         AudioEngine.instance = this;
+        cc.audioNamnx = this;
         if (this.currentAudio == null) {
             this.currentAudio = new Array(this.audio.length);
         }
@@ -23,7 +24,7 @@ const AudioEngine = cc.Class({
     },
 
     playBackground() {
-        this.volumeBG = 1;
+        this.volumeBG = 0.6;
         if (this.currentAudio == null) {
             this.currentAudio = new Array(this.audio.length);
         }
@@ -57,6 +58,29 @@ const AudioEngine = cc.Class({
         }
     },
 
+    playPutCake() {
+        this.playSfx(1, false);
+    },
+
+    playPickCake() {
+        this.playSfx(2, false);
+    },
+
+    playCompleteCake() {
+        this.playSfx(3, false);
+    },
+
+    playMoveCake() {
+        this.playSfx(4, false);
+    },
+
+    playNewCake() {
+        this.playSfx(5, false);
+    },
+
+    playSoundLose() {
+        this.playSfx(6, false);
+    },
 
     muteAudio() {
         if (CONFIG.PlayableAdsType === CONFIG.Adcolony) {

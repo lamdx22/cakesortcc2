@@ -1,4 +1,3 @@
-//const SoundManager = require("SoundManager");
 const CakePoolManager = require("CakePoolManager");
 import CONFIG from "./Config";
 cc.macro.ENABLE_WEBGL_ANTIALIAS = true;         // Bật khử răng cưa
@@ -33,6 +32,7 @@ const GameManager = cc.Class({
     },
 
     properties: {
+        audioManager: cc.Node,
         spawnSlot: [cc.Node],
         tableDatas: [TableData],
         isFinishProcess: false,
@@ -73,14 +73,10 @@ const GameManager = cc.Class({
     },
 
     onLoad () {
-        //GameManager.instance = this;
-        if (GameManager.instance == null) {
-            GameManager.instance = this;
-        } else {
-            this.destroy();
-        }
+        GameManager.instance = this;
 
         if (this.mainUINode) this.mainUI = this.mainUINode.getComponent("MainUI");
+        this.audioEngineScript = this.audioManager.getComponent("AudioEngine");
         this.countPut = 0;
         this.countComplete = 0;
         this.countSpawnCake = 0;
@@ -96,47 +92,33 @@ const GameManager = cc.Class({
         this.col = 4;
         this.centerPos = cc.v3();
 
+        this.audioEngineScript.playBackground();
+
+        cc.game.on(cc.game.EVENT_HIDE, () => {
+            this.audioEngineScript.muteAudio();
+        });
+
+        cc.game.on(cc.game.EVENT_SHOW, () => {
+            if (CONFIG.isPlaySound) this.audioEngineScript.unmuteAudio();
+        });
+
         // FrameSize
         let frameSize = cc.view.getFrameSize();
         this.width = frameSize.width;
         this.height = frameSize.height;
         this.onResize();
-        //cc.log(this.test);
-
-        // this.tableRows.children.forEach(row => {
-        //     row.children.forEach(cell => {
-        //         this.cells.push(cell);
-        //         this.selectors.push(cell.children[1]);
-        //     })
-        // });
-        // cc.log(this.cells);
     },
 
     start () {
-        CONFIG.onGameReady();
-        AudioEngine.instance.playBackground();
-
-        cc.game.on(cc.game.EVENT_HIDE, () => {
-            AudioEngine.instance.muteAudio();
-        });
-
-        cc.game.on(cc.game.EVENT_SHOW, () => {
-            if (CONFIG.isPlaySound) AudioEngine.instance.unmuteAudio();
-        });
-
         this.processing = [];
         this._currentSelector = null;
         this.isShowTutorial = true;
         this.isSpawnInBoard = false;
         this.isFirstLevel = true;
 
-        //AudioEngine.instance.playBackground();
-
         this.spawnLevel();
-    },
 
-    update (dt) {
-
+        CONFIG.onGameReady();
     },
 
     init: function(row, col, tableScaleX, tableScaleY) {
@@ -587,7 +569,7 @@ const GameManager = cc.Class({
 
             let fxPos = cell.parent.convertToWorldSpaceAR(cell.position);
             CakePoolManager.instance.spawnFxPut(fxPos);
-            AudioEngine.instance.playSfx(1);
+            this.audioEngineScript.playPutCake();
 
             //this.CheckCakeAround(listIndex);
             this.checkCakeAround(index);
@@ -643,7 +625,7 @@ const GameManager = cc.Class({
 
     onCompleteCake(cake, index) {
         //SoundManager.instance.soundCompleteCake.play();
-        AudioEngine.instance.playSfx(3);
+        this.audioEngineScript.playCompleteCake();
         let fxPos = cake.node.parent.convertToWorldSpaceAR(cake.node.position); 
         CakePoolManager.instance.spawnFxComplete(fxPos);
 
@@ -713,7 +695,7 @@ const GameManager = cc.Class({
 
         if ((this._currentSelector != null && this._currentSelector != selector) || this.currentSelector == null) {
             this.offSelector();
-            _currentSelector = selector;
+            this._currentSelector = selector;
             selector.active = true;
         }
     },

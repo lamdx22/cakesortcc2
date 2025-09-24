@@ -2,11 +2,7 @@
   "title": "d2m_cakesort",
   "packageName": "org.cocos2d.demo",
   "startScene": "78ec3b62-0100-4fde-b343-f01d7710e4ba",
-  "excludeScenes": [
-    "a7ee0600-dc7f-4166-b4ef-697b741c8f0b",
-    "ed461807-c2e4-456e-afd1-a15951d1b0c6",
-    "d768d07d-0681-4420-975f-94badfdeff1a"
-  ],
+  "excludeScenes": [],
   "orientation": {
     "landscapeRight": true,
     "landscapeLeft": true,

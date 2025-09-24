@@ -33,9 +33,9 @@ class Config {
         this.PlayableAdsGame = this.defaultGame;
         this.PlayableAdsType = this.defaultAds;
 
-        this.linkAndroid = 'https://play.google.com/store/apps/details?id=com.falcon.dm.water.cake.sort.puzzle';;
-        this.linkiOS = 'https://apps.apple.com/us/app/bloom-tile-match-puzzle-game/id6740838784';;
-        this.linkWebAds = 'https://play.google.com/store/apps/details?id=com.falcon.dm.water.cake.sort.puzzle';;
+        this.linkAndroid = 'https://play.google.com/store/apps/details?id=com.falcon.dm.water.cake.sort.puzzle';
+        this.linkiOS = 'https://apps.apple.com/app/id6448392144';
+        this.linkWebAds = 'https://play.google.com/store/apps/details?id=com.falcon.dm.water.cake.sort.puzzle';
 
         if (this.PlayableAdsType === this.Adwords || this.PlayableAdsType === this.Facebook || this.PlayableAdsType === this.IronSource) {
             this.isPlaySound = false;

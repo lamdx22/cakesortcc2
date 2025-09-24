@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "21d60287-5d16-4dea-833c-3a03b1dc7713",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 400,
+  "height": 1000,
+  "platformSettings": {},
+  "subMetas": {
+    "Flowing_Serenity_Water Ripples 13": {
+      "ver": "1.0.6",
+      "uuid": "3300459f-62e1-405e-b3c5-9ad141b870ce",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "21d60287-5d16-4dea-833c-3a03b1dc7713",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 400,
+      "height": 1000,
+      "rawWidth": 400,
+      "rawHeight": 1000,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

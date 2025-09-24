@@ -324,7 +324,7 @@ let CakeController = cc.Class({
     IEStartMoveSFX(delay) {
         this.scheduleOnce(() => {
             //SoundManager.instance.soundMoveCake.play();
-            AudioEngine.instance.playSfx(4);
+            AudioEngine.instance.playMoveCake();
         }, delay);
     },
 

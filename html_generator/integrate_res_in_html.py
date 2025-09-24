@@ -5,7 +5,7 @@ import time
 import sys
 from html.parser import HTMLParser
 import base64
-import json as simplejson
+import simplejson
 import math
 import zipfile
 import shutil
@@ -14,15 +14,15 @@ from pathlib import Path
 prefix = ''
 if (prefix != ''):
     prefix += '_'
-date = '230925'
+date = '250924'
 titles = ['CakeSort']
-version = ['9a25']
-dev = 'Lamdx'
+version = ['25a09_Cocos']
+dev = 'LamDX'
 # languages = ['ar', 'de', 'en','es','fr', 'hi', 'jp', 'kr', 'pt','ru']
 languages = ['en']
 
-ads = ['IronSource', 'Unity', 'Adwords', 'Applovin', 'Facebook', 'Adcolony', 'Mintegral', 'Maio', 'Pangle', 'Vungle', 'Moloco', 'Yandex']
-# ads = ['IronSource', 'WebAdsFB', 'WebAdsGA']
+ads = ['IronSource', 'Unity', 'Adwords', 'Applovin', 'Facebook', 'Adcolony', 'Mintegral', 'Maio', 'Pangle', 'Vungle', 'Moloco', 'Yandex', 'WebAdsFB', 'WebAdsGA']
+# ads = ['WebAdsFB', 'WebAdsGA']
 
 if sys.getdefaultencoding() != 'utf-8':
     reload(sys)
@@ -67,13 +67,8 @@ def read_in_chunks(filePath, ad=""):
     elif extName == '':
         return None
 
-    try:
-        with open(filePath, encoding='utf-8', errors='ignore') as file_object:
-            return file_object.read()
-    except UnicodeDecodeError:
-        # Nếu vẫn lỗi, thử với encoding khác
-        with open(filePath, encoding='ISO-8859-1', errors='replace') as file_object:
-            return file_object.read()
+    file_object = open(filePath, encoding='utf-8')
+    return file_object.read()
 
 
 def writeToPath(path, data):
@@ -100,15 +95,10 @@ def getResMap(jsonObj, path, resPath, ad):
                 absPath = absPath.replace(resPath + '/', '')
                 jsonObj[absPath] = dataStr
 
+
 def getResMapScript(resPath, ad):
     jsonObj = {}
     getResMap(jsonObj, resPath, resPath, ad)
-    if isinstance(jsonObj, dict):
-        for key, value in jsonObj.items():
-            if isinstance(value, bytes):
-                jsonObj[key] = value.decode('utf-8')
-    elif isinstance(jsonObj, bytes):
-        jsonObj = jsonObj.decode('utf-8')
     jsonStr = simplejson.dumps(jsonObj)
     resStr = str("window.resMap = ") + jsonStr
     return resStr
@@ -124,7 +114,7 @@ def fixEngineError(engineStr):
 
 def fixVersion(mainStr, cnt, v):
     newMainStr = mainStr.replace(
-        'this.version=this.defaultVersion', 'this.version="' + v + '"', 1)
+        'this.version="version"', 'this.version="' + v + '"', 1)
     return newMainStr
     
 
@@ -424,7 +414,7 @@ def integrate(projectRootPath):
                                 targetFileSize * 1000 / (1024 * 1024)) / 1000
                             print("Target file = {}, with size {}M".format(
                                 newHtmlPath, targetFileSizeInMegabyte))
-    print("===================  Nhat Van Thoi! =================== ")
+    print("===================  All Done! =================== ")
 
 
 if __name__ == '__main__':

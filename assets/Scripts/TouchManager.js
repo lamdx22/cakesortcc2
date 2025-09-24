@@ -12,7 +12,7 @@ cc.Class({
 
     onLoad () {
         this.currHoverCell = null;
-        this.offsetTouch = -0.12;
+        this.offsetTouch = -0.08;
 
         // Bật physic3d
         //cc.director.getPhysics3DManager().enabled = true;
@@ -52,14 +52,12 @@ cc.Class({
             if (obj.group === "cake") {
                 let parentNode = obj.parent;
                 if (parentNode) {
-                    let oldRot = cc.quat();
-                    parentNode.getRotation(oldRot);
                     let cake = parentNode.getComponent("CakeController");
                     if (cake && !cake.isInCell) {
                         this.currSelectCake = cake;
-                        this.currSelectCake.IEBounce();
+                        //this.currSelectCake.IEBounce();
                         //SoundManager.instance.soundPickCake.play();
-                        AudioEngine.instance.playSfx(2);
+                        AudioEngine.instance.playPickCake();
 
                         let hitPoint = ray.o.add(ray.d.mul(hit.distance));
                         hitPoint.y = this.touchY;
@@ -73,19 +71,15 @@ cc.Class({
             
         }
         
-        //let touchLoc = event.touch.getLocation();
-        //let ray = this.camera.getRay(touchLoc);
-        let maxDistance = 10000;
-        let rayColliderGroupName = "cake";
-        const results2 = cc.director.getPhysics3DManager().raycast(ray, rayColliderGroupName, maxDistance, true);
-        if (results2) {
-             console.log("hit");
-        }
-        
     },
 
     onTouchMove(event) {
         // cc.log("Move");
+
+        if (GameManager.instance.isGameEnd) {
+            GameManager.instance.goToStore();
+        }
+
         this.currHoverCell = null;
         if (this.currSelectCake) {
             let touchLoc = event.touch.getLocation();
@@ -101,11 +95,6 @@ cc.Class({
                     this.currSelectCake.node.setPosition(localPos.x, localPos.y, localPos.z - this.offsetTouch);
                 }
 
-                // if (obj.group === "cell") {
-                //     //cc.log("cell");
-                //     this.currHoverCell = obj.parent;
-                //     //let t = 1;
-                // }
             }
 
             let origin = this.currSelectCake.node.parent.convertToWorldSpaceAR(this.currSelectCake.node.position);
@@ -135,6 +124,11 @@ cc.Class({
     },
 
     onTouchEnd(event) {
+
+        if (GameManager.instance.isGameEnd) {
+            GameManager.instance.goToStore();
+        }
+
         if (this.currSelectCake) {// && this.currHoverCell) {
             let origin = this.currSelectCake.node.parent.convertToWorldSpaceAR(this.currSelectCake.node.position);
             let screenPos = cc.v3();
