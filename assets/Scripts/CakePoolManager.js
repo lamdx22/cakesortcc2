@@ -14,6 +14,8 @@ let CakePoolManager = cc.Class({
         },
         fxPutPrefab: cc.Prefab,
         fxCompletePrefab: cc.Prefab,
+        ghostPrefab: [cc.Prefab],
+        ghostParents: [cc.Node],
     },
 
     statics: {
@@ -31,6 +33,7 @@ let CakePoolManager = cc.Class({
         this._pieceCycle = {};
         this._putFxCycle = [];
         this._completeFxCycle = [];
+        this._ghostCycle = {};
         this.cakeOriginScale = 0;
         this.cakeOrriginAngle = cc.v3(0, 0, 0);
         this.isFirstCake = false;
@@ -158,7 +161,33 @@ let CakePoolManager = cc.Class({
                 //ps.play();   // phát lại từ đầu
             }
         }
-    }
+    },
+
+    spawnGhost(index, waveIndex = -1) {
+        if (!this._ghostCycle[index]) {
+            this._ghostCycle[index] = [];
+        }
+
+        if (this._ghostCycle[index].length === 0) {
+            let ghostNode = cc.instantiate(this.ghostPrefab[index]);
+            let ghost = ghostNode.getComponent("GhostController");
+            this._ghostCycle[index].push(ghost);
+        }
+
+        if (waveIndex == -1) {
+            waveIndex = Math.floor(Math.random() * this.ghostParents.length);
+        }
+        let ghost = this._ghostCycle[index].pop();
+        ghost.node.parent = this.ghostParents[waveIndex];
+        ghost.node.active = true;
+        ghost.Type = index;
+        return ghost;
+    },
+
+    despawnGhost(ghost) {
+        ghost.node.active = false;
+        this._ghostCycle[ghost.Type].push(ghost);
+    },
 });
 
 module.exports = CakePoolManager;

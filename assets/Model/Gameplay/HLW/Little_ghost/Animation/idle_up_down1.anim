@@ -1,0 +1,63 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "idle_up_down1",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1.3333333333333333,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "paths": {
+      "Kid_ghost_v1:Ghost_Kid": {
+        "props": {
+          "y": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.16666666666666666,
+              "value": 0.08
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": 0.2
+            },
+            {
+              "frame": 0.5,
+              "value": 0.3
+            },
+            {
+              "frame": 0.6666666666666666,
+              "value": 0.32
+            },
+            {
+              "frame": 0.8333333333333334,
+              "value": 0.3
+            },
+            {
+              "frame": 1,
+              "value": 0.2
+            },
+            {
+              "frame": 1.1666666666666667,
+              "value": 0.08
+            },
+            {
+              "frame": 1.3333333333333333,
+              "value": 0
+            }
+          ],
+          "x": []
+        }
+      },
+      "Kid_ghost_v1:Ghost_Kid/JNTs/Kid_ghost_v1:joint1/Kid_ghost_v1:joint2/Kid_ghost_v1:joint3/Kid_ghost_v1:joint4/Kid_ghost_v1:joint5": {
+        "props": {
+          "position": []
+        }
+      }
+    }
+  },
+  "events": []
+}

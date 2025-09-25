@@ -1,0 +1,30 @@
+{
+  "__type__": "cc.Material",
+  "_name": "floor_island",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "abc2cb62-7852-4525-a90d-d474487b88f2"
+  },
+  "_techniqueIndex": 0,
+  "_techniqueData": {
+    "0": {
+      "props": {
+        "diffuseTexture": {
+          "__uuid__": "6375bd19-b372-4f8d-b811-1fb48fb765b0"
+        },
+        "emissiveColor": {
+          "__type__": "cc.Color",
+          "r": 0,
+          "g": 5,
+          "b": 61,
+          "a": 255
+        }
+      },
+      "defines": {
+        "USE_DIFFUSE_TEXTURE": true,
+        "USE_EMISSIVE": true
+      }
+    }
+  }
+}

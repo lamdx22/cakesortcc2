@@ -1,0 +1,22 @@
+{
+  "__type__": "cc.Material",
+  "_name": "Body1 - 005",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "abc2cb62-7852-4525-a90d-d474487b88f2"
+  },
+  "_techniqueIndex": 0,
+  "_techniqueData": {
+    "0": {
+      "defines": {
+        "USE_DIFFUSE_TEXTURE": true
+      },
+      "props": {
+        "diffuseTexture": {
+          "__uuid__": "b33e6ad9-89ca-4b0d-8591-08c2240fc5a4"
+        }
+      }
+    }
+  }
+}

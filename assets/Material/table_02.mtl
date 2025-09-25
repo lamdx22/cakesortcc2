@@ -12,10 +12,18 @@
       "props": {
         "diffuseTexture": {
           "__uuid__": "850f487a-f860-4602-a277-23559df4a0dd"
+        },
+        "emissiveColor": {
+          "__type__": "cc.Color",
+          "r": 0,
+          "g": 28,
+          "b": 51,
+          "a": 255
         }
       },
       "defines": {
-        "USE_DIFFUSE_TEXTURE": true
+        "USE_DIFFUSE_TEXTURE": true,
+        "USE_EMISSIVE": true
       }
     }
   }

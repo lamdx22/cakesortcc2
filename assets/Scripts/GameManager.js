@@ -91,6 +91,7 @@ const GameManager = cc.Class({
         this.row = 5;
         this.col = 4;
         this.centerPos = cc.v3();
+        this.ghostList = [];
 
         this.audioEngineScript.playBackground();
 
@@ -195,6 +196,10 @@ const GameManager = cc.Class({
         if (this.isFirstLevel) {
             this.isFirstLevel = false;
         }
+
+        this.spawnGhost(0);
+        this.spawnGhost(1);
+        this.spawnGhost(2);
     },
 
     checkAndSpawnCake: function() {
@@ -639,10 +644,30 @@ const GameManager = cc.Class({
             this.spawnLevel();
         }
 
+        if (this.ghostList.length > 0) {
+            let minZ = this.ghostList[0].node.position.z;
+            let minIdex = 0;
+            for (let i = 1; i < this.ghostList.length; i++) {
+                let z = this.ghostList[i].node.position.z;
+                if (z < minZ) {
+                    minZ = z;
+                    minIdex = i;
+                }
+            }
+            this.ghostList[minIdex].die();
+            this.ghostList.splice(minIdex, 1)
+            this.spawnGhost();
+        }
+
         //this._isContinueCombo = true;
 
         let scoreIncrease = 10;
         if (this.mainUI) this.mainUI.addScore(scoreIncrease);
+    },
+
+    spawnGhost(waveIndex = -1) {
+        let newGhost = CakePoolManager.instance.spawnGhost(0, waveIndex);
+        this.ghostList.push(newGhost);
     },
 
     endProcessCake(cake) {

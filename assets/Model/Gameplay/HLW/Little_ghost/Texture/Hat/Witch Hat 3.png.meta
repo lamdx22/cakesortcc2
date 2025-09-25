@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "a70f9131-836c-4fd3-9259-a11295b03a47",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 2048,
+  "height": 2048,
+  "platformSettings": {},
+  "subMetas": {
+    "Witch Hat 3": {
+      "ver": "1.0.6",
+      "uuid": "391001b7-5d5d-441a-b462-375f7ae985ae",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "a70f9131-836c-4fd3-9259-a11295b03a47",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 2048,
+      "height": 2048,
+      "rawWidth": 2048,
+      "rawHeight": 2048,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "c26baa85-bed9-4911-84de-f058c970eb45",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 2048,
+  "height": 2048,
+  "platformSettings": {},
+  "subMetas": {
+    "Ghost Kid Blooded1": {
+      "ver": "1.0.6",
+      "uuid": "b7936e20-69a5-4526-93bc-a2630b6f318c",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "c26baa85-bed9-4911-84de-f058c970eb45",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 2048,
+      "height": 2048,
+      "rawWidth": 2048,
+      "rawHeight": 2048,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

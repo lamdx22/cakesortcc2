@@ -43,7 +43,7 @@ const MainUI = cc.Class({
             this.scoreText.string = this.currentScore + "/" + this.maxScore;
         }
 
-        if (this.useWaterFlow) {
+        if (this.useWaterFlow && this.waterFlow) {
             let startPos = this.waterFlow.position;
             let leftPos = startPos.clone();
             leftPos.x -= 18;

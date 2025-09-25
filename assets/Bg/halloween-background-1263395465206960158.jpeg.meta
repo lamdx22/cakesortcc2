@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "66dce872-a5c6-47a7-b9e5-8c0c0e399a45",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 1920,
+  "height": 1079,
+  "platformSettings": {},
+  "subMetas": {
+    "halloween-background-1263395465206960158": {
+      "ver": "1.0.6",
+      "uuid": "1e6ba024-73d7-4e51-a7ce-a57208c31b63",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "66dce872-a5c6-47a7-b9e5-8c0c0e399a45",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 1920,
+      "height": 1079,
+      "rawWidth": 1920,
+      "rawHeight": 1079,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

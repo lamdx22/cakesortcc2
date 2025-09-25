@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "4408d1df-6384-40bd-b6fe-93bdeb9adcc7",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 2048,
+  "height": 2048,
+  "platformSettings": {},
+  "subMetas": {
+    "Kid Ghost_blinn1_BaseColor": {
+      "ver": "1.0.6",
+      "uuid": "ced6005a-6344-48ec-bec5-05af02a73152",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "4408d1df-6384-40bd-b6fe-93bdeb9adcc7",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 2048,
+      "height": 2048,
+      "rawWidth": 2048,
+      "rawHeight": 2048,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

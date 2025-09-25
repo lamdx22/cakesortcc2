@@ -1,0 +1,382 @@
+{
+  "ver": "1.1.3",
+  "uuid": "bde3869e-6717-427e-91b9-ed33479c80c9",
+  "importer": "fbx",
+  "scaleFactor": 1,
+  "boneCount": 5,
+  "precomputeJointMatrix": false,
+  "animationFrameRate": 30,
+  "subMetas": {
+    "buffer.bin": {
+      "ver": "1.0.2",
+      "uuid": "433930ad-e630-494d-a457-9c03cef31b47",
+      "importer": "buffer",
+      "name": "buffer.bin",
+      "subMetas": {}
+    },
+    "Kid_ghost_v1:Ghost_Kid_S1.mesh": {
+      "ver": "1.0.3",
+      "uuid": "ae93dce4-7f58-48d1-83cd-92c484697e87",
+      "importer": "mesh",
+      "verts": 366,
+      "tris": 572,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "a_joints",
+          "a_normal",
+          "a_position",
+          "a_tangent",
+          "a_uv0",
+          "a_weights"
+        ]
+      ],
+      "minPos": {
+        "x": -0.00684461323544383,
+        "y": -0.000757526489906013,
+        "z": -0.00626191264018416
+      },
+      "maxPos": {
+        "x": 0.00616458291187882,
+        "y": 0.0236290171742439,
+        "z": 0.00547379907220602
+      },
+      "name": "Kid_ghost_v1:Ghost_Kid_S1.mesh",
+      "subMetas": {}
+    },
+    "Kid_ghost_v1:Ghost_Kid_S2.mesh": {
+      "ver": "1.0.3",
+      "uuid": "de2cf096-8685-440b-ac02-aaa6d1cd1791",
+      "importer": "mesh",
+      "verts": 480,
+      "tris": 636,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "a_joints",
+          "a_normal",
+          "a_position",
+          "a_tangent",
+          "a_uv0",
+          "a_weights"
+        ]
+      ],
+      "minPos": {
+        "x": -0.00657943589612842,
+        "y": -0.000809645396657288,
+        "z": -0.0065253833308816
+      },
+      "maxPos": {
+        "x": 0.00576951121911407,
+        "y": 0.0236290898174047,
+        "z": 0.0054766945540905
+      },
+      "name": "Kid_ghost_v1:Ghost_Kid_S2.mesh",
+      "subMetas": {}
+    },
+    "Kid_ghost_v1:Devil_head2.mesh": {
+      "ver": "1.0.3",
+      "uuid": "213c5ae2-2d7a-4edb-9163-d4dffd09f25f",
+      "importer": "mesh",
+      "verts": 490,
+      "tris": 238,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "a_normal",
+          "a_position",
+          "a_tangent",
+          "a_uv0"
+        ]
+      ],
+      "minPos": {
+        "x": -0.00320593756623566,
+        "y": 0.0216570906341076,
+        "z": -0.00141309690661728
+      },
+      "maxPos": {
+        "x": -0.000680185970850289,
+        "y": 0.0264187585562468,
+        "z": 0.000708121515344828
+      },
+      "name": "Kid_ghost_v1:Devil_head2.mesh",
+      "subMetas": {}
+    },
+    "Kid_ghost_v1:Devil_head1.mesh": {
+      "ver": "1.0.3",
+      "uuid": "d0d95ea3-b9c7-47c2-9f58-1418d2ed9b58",
+      "importer": "mesh",
+      "verts": 490,
+      "tris": 238,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "a_normal",
+          "a_position",
+          "a_tangent",
+          "a_uv0"
+        ]
+      ],
+      "minPos": {
+        "x": 0.00125293072778732,
+        "y": 0.021653464064002,
+        "z": -0.00149093801155686
+      },
+      "maxPos": {
+        "x": 0.00378073076717556,
+        "y": 0.0264164656400681,
+        "z": 0.000630230468232185
+      },
+      "name": "Kid_ghost_v1:Devil_head1.mesh",
+      "subMetas": {}
+    },
+    "Kid_ghost_v1:Witch_Hat.mesh": {
+      "ver": "1.0.3",
+      "uuid": "d11e97c7-7ffb-4e70-8b25-958609b8d229",
+      "importer": "mesh",
+      "verts": 1298,
+      "tris": 632,
+      "submeshes": 2,
+      "attributes": [
+        [
+          "a_normal",
+          "a_position",
+          "a_tangent",
+          "a_uv0"
+        ],
+        [
+          "a_normal",
+          "a_position",
+          "a_tangent",
+          "a_uv0"
+        ]
+      ],
+      "minPos": {
+        "x": -0.00567913521081209,
+        "y": 0.0208704676479101,
+        "z": -0.00643757451325655
+      },
+      "maxPos": {
+        "x": 0.0057565700262785,
+        "y": 0.0286253876984119,
+        "z": 0.00504469638690352
+      },
+      "name": "Kid_ghost_v1:Witch_Hat.mesh",
+      "subMetas": {}
+    },
+    "Kid_ghost_v1:Axe.mesh": {
+      "ver": "1.0.3",
+      "uuid": "99cc03f2-e67c-4b71-8f7e-fbf967f03a71",
+      "importer": "mesh",
+      "verts": 472,
+      "tris": 236,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "a_normal",
+          "a_position",
+          "a_tangent",
+          "a_uv0"
+        ]
+      ],
+      "minPos": {
+        "x": -0.00965404976159334,
+        "y": 0.022204453125596,
+        "z": -0.00210793479345739
+      },
+      "maxPos": {
+        "x": 0.00333020673133433,
+        "y": 0.0316209085285664,
+        "z": 0.00223352434113622
+      },
+      "name": "Kid_ghost_v1:Axe.mesh",
+      "subMetas": {}
+    },
+    "LittleGhost_LP-0.skeleton": {
+      "ver": "1.0.3",
+      "uuid": "a9d52800-ed9d-423d-a9cc-55a5b9846929",
+      "importer": "skeleton",
+      "name": "LittleGhost_LP-0.skeleton",
+      "subMetas": {}
+    },
+    "LittleGhost_LP-1.skeleton": {
+      "ver": "1.0.3",
+      "uuid": "b3d88ba0-5e7c-488c-84c5-204d58e3ee3d",
+      "importer": "skeleton",
+      "name": "LittleGhost_LP-1.skeleton",
+      "subMetas": {}
+    },
+    "idle_up_down.sac": {
+      "ver": "1.0.3",
+      "uuid": "b303a142-76ba-4345-a8fb-76d9d9c4852c",
+      "importer": "skeleton-animation-clip",
+      "modelUuid": "bde3869e-6717-427e-91b9-ed33479c80c9",
+      "animationID": 0,
+      "name": "idle_up_down.sac",
+      "maxFrameCount": 55,
+      "totalFrameCount": 168,
+      "duration": 2.4166667461395264,
+      "animationFrameRate": 30,
+      "subMetas": {}
+    },
+    "LittleGhost_LP.prefab": {
+      "ver": "1.3.2",
+      "uuid": "11544113-efdd-4513-9d11-a32fa0d656f4",
+      "importer": "prefab",
+      "optimizationPolicy": "AUTO",
+      "asyncLoadAssets": false,
+      "readonly": true,
+      "content": [
+        {
+          "__type__": "cc.Prefab",
+          "_name": "",
+          "_objFlags": 0,
+          "data": {
+            "__id__": 1
+          }
+        },
+        {
+          "__type__": "cc.Node",
+          "_name": "Sprite",
+          "_objFlags": 0,
+          "_opacity": 255,
+          "_color": {
+            "__type__": "cc.Color",
+            "r": 255,
+            "g": 255,
+            "b": 255,
+            "a": 255
+          },
+          "_cascadeOpacityEnabled": true,
+          "_parent": null,
+          "_anchorPoint": {
+            "__type__": "cc.Vec2",
+            "x": 0.5,
+            "y": 0.5
+          },
+          "_contentSize": {
+            "__type__": "cc.Size",
+            "width": 40,
+            "height": 36
+          },
+          "_children": [],
+          "_skewX": 0,
+          "_skewY": 0,
+          "_localZOrder": 0,
+          "_globalZOrder": 0,
+          "_tag": -1,
+          "_opacityModifyRGB": false,
+          "_reorderChildDirty": false,
+          "_id": "",
+          "_active": true,
+          "_components": [
+            {
+              "__id__": 2
+            }
+          ],
+          "_prefab": {
+            "__id__": 3
+          },
+          "_eulerAngles": {
+            "__type__": "cc.Vec3",
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "_trs": {
+            "__type__": "TypedArray",
+            "ctor": "Float64Array",
+            "array": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "__type__": "cc.Sprite",
+          "_name": "",
+          "_objFlags": 0,
+          "node": {
+            "__id__": 1
+          },
+          "_enabled": true,
+          "_spriteFrame": {
+            "__uuid__": "8cdb44ac-a3f6-449f-b354-7cd48cf84061"
+          },
+          "_type": 0,
+          "_sizeMode": 1,
+          "_fillType": 0,
+          "_fillCenter": {
+            "__type__": "cc.Vec2",
+            "x": 0,
+            "y": 0
+          },
+          "_fillStart": 0,
+          "_fillRange": 0,
+          "_isTrimmedMode": true,
+          "_srcBlendFactor": 770,
+          "_dstBlendFactor": 771,
+          "_atlas": null
+        },
+        {
+          "__type__": "cc.PrefabInfo",
+          "root": {
+            "__id__": 1
+          },
+          "asset": null,
+          "fileId": "d7118yAG5lKybkFOAh8koPL"
+        }
+      ],
+      "name": "LittleGhost_LP.prefab",
+      "subMetas": {}
+    },
+    "Kid_ghost_v1:body2.mtl": {
+      "ver": "1.0.5",
+      "uuid": "8fd51f7f-6995-4c64-a063-37ea8912861f",
+      "importer": "material",
+      "dataAsSubAsset": "{\n  \"__type__\": \"cc.Material\",\n  \"_name\": \"\",\n  \"_objFlags\": 0,\n  \"_native\": \"\",\n  \"_effectAsset\": {\n    \"__uuid__\": \"abc2cb62-7852-4525-a90d-d474487b88f2\"\n  },\n  \"_techniqueIndex\": 0,\n  \"_techniqueData\": {\n    \"0\": {\n      \"props\": {\n        \"diffuseColor\": {\n          \"__type__\": \"cc.Color\",\n          \"r\": 204,\n          \"g\": 204,\n          \"b\": 204,\n          \"a\": 255\n        },\n        \"diffuseTexture\": {\n          \"__uuid__\": \"4408d1df-6384-40bd-b6fe-93bdeb9adcc7\"\n        }\n      },\n      \"defines\": {\n        \"USE_DIFFUSE_TEXTURE\": true\n      }\n    }\n  }\n}",
+      "name": "Kid_ghost_v1:body2.mtl",
+      "subMetas": {}
+    },
+    "Kid_ghost_v1:lambert9.mtl": {
+      "ver": "1.0.5",
+      "uuid": "2b8c3a7b-c2e0-47b7-8166-610d6bbeb736",
+      "importer": "material",
+      "dataAsSubAsset": null,
+      "name": "Kid_ghost_v1:lambert9.mtl",
+      "subMetas": {}
+    },
+    "Kid_ghost_v1:aiStandardSurface14.mtl": {
+      "ver": "1.0.5",
+      "uuid": "57085cfd-f1d7-4d33-9390-a83b6aa56b14",
+      "importer": "material",
+      "dataAsSubAsset": null,
+      "name": "Kid_ghost_v1:aiStandardSurface14.mtl",
+      "subMetas": {}
+    },
+    "Kid_ghost_v1:aiStandardSurface15.mtl": {
+      "ver": "1.0.5",
+      "uuid": "99361a05-431f-4586-9775-261b80898113",
+      "importer": "material",
+      "dataAsSubAsset": null,
+      "name": "Kid_ghost_v1:aiStandardSurface15.mtl",
+      "subMetas": {}
+    },
+    "Kid_ghost_v1:lambert10.mtl": {
+      "ver": "1.0.5",
+      "uuid": "7dbe3693-2803-4a96-adea-92d943d9ab16",
+      "importer": "material",
+      "dataAsSubAsset": null,
+      "name": "Kid_ghost_v1:lambert10.mtl",
+      "subMetas": {}
+    }
+  }
+}
