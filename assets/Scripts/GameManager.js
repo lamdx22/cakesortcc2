@@ -631,8 +631,8 @@ const GameManager = cc.Class({
     onCompleteCake(cake, index) {
         //SoundManager.instance.soundCompleteCake.play();
         this.audioEngineScript.playCompleteCake();
-        let fxPos = cake.node.parent.convertToWorldSpaceAR(cake.node.position); 
-        CakePoolManager.instance.spawnFxComplete(fxPos);
+        let worldPos = cake.node.parent.convertToWorldSpaceAR(cake.node.position); 
+        CakePoolManager.instance.spawnFxComplete(worldPos);
 
         this.countComplete++;
         if (this.countComplete >= this.maxComplete) {
@@ -649,20 +649,28 @@ const GameManager = cc.Class({
             let minIdex = 0;
             for (let i = 1; i < this.ghostList.length; i++) {
                 let z = this.ghostList[i].node.position.z;
-                if (z < minZ) {
+                if ((z < minZ || this.ghostList[minIdex].isTargeted) && !this.ghostList[i].isTargeted) {
                     minZ = z;
                     minIdex = i;
                 }
             }
-            this.ghostList[minIdex].die();
-            this.ghostList.splice(minIdex, 1)
-            this.spawnGhost();
+
+            this.ghostList[minIdex].isTargeted = true;
+            let bullet = CakePoolManager.instance.spawnBullet(worldPos);
+            bullet.setTarget(this.ghostList[minIdex].node);    
         }
 
         //this._isContinueCombo = true;
 
         let scoreIncrease = 10;
         if (this.mainUI) this.mainUI.addScore(scoreIncrease);
+    },
+
+    killGhost(ghost) {
+        const index = this.ghostList.indexOf(ghost);
+        ghost.die();
+        this.ghostList.splice(index, 1)
+        this.spawnGhost();
     },
 
     spawnGhost(waveIndex = -1) {

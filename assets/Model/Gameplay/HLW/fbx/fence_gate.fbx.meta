@@ -1,0 +1,226 @@
+{
+  "ver": "1.1.3",
+  "uuid": "ca46e094-071b-46f6-a505-b020c0a474a9",
+  "importer": "fbx",
+  "scaleFactor": 1,
+  "boneCount": 0,
+  "precomputeJointMatrix": false,
+  "animationFrameRate": 30,
+  "subMetas": {
+    "buffer.bin": {
+      "ver": "1.0.2",
+      "uuid": "87e139e4-c0e0-4899-ba5d-2011c06b12b9",
+      "importer": "buffer",
+      "name": "buffer.bin",
+      "subMetas": {}
+    },
+    "fence_gate.mesh": {
+      "ver": "1.0.3",
+      "uuid": "67061a5a-b6b7-48e3-93e3-c748b5c6a97a",
+      "importer": "mesh",
+      "verts": 360,
+      "tris": 188,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "a_normal",
+          "a_position",
+          "a_uv0"
+        ]
+      ],
+      "minPos": {
+        "x": -0.0199999995529652,
+        "y": -0.00249999994412065,
+        "z": 0
+      },
+      "maxPos": {
+        "x": 0.0199999995529652,
+        "y": 0.00249999994412065,
+        "z": 0.0219999980181456
+      },
+      "name": "fence_gate.mesh",
+      "subMetas": {}
+    },
+    "fence_gate_left.mesh": {
+      "ver": "1.0.3",
+      "uuid": "03a7d082-4981-4cf9-bd4d-7a5b25c8776d",
+      "importer": "mesh",
+      "verts": 419,
+      "tris": 216,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "a_normal",
+          "a_position",
+          "a_uv0"
+        ]
+      ],
+      "minPos": {
+        "x": -0.0150000024586916,
+        "y": -0.00084779440658167,
+        "z": 0
+      },
+      "maxPos": {
+        "x": 0.000999997602775693,
+        "y": 0.00084779440658167,
+        "z": 0.0299999993294477
+      },
+      "name": "fence_gate_left.mesh",
+      "subMetas": {}
+    },
+    "fence_gate_right.mesh": {
+      "ver": "1.0.3",
+      "uuid": "9e9195be-055e-4758-9e7f-42e6a54555f8",
+      "importer": "mesh",
+      "verts": 419,
+      "tris": 216,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "a_normal",
+          "a_position",
+          "a_uv0"
+        ]
+      ],
+      "minPos": {
+        "x": -0.00100000237580389,
+        "y": -0.00084779440658167,
+        "z": 0
+      },
+      "maxPos": {
+        "x": 0.0149999996647239,
+        "y": 0.00084779440658167,
+        "z": 0.0299999993294477
+      },
+      "name": "fence_gate_right.mesh",
+      "subMetas": {}
+    },
+    "fence_gate.prefab": {
+      "ver": "1.3.2",
+      "uuid": "f1436f18-9bb7-4826-8f5c-42dbb333733c",
+      "importer": "prefab",
+      "optimizationPolicy": "AUTO",
+      "asyncLoadAssets": false,
+      "readonly": true,
+      "content": [
+        {
+          "__type__": "cc.Prefab",
+          "_name": "",
+          "_objFlags": 0,
+          "data": {
+            "__id__": 1
+          }
+        },
+        {
+          "__type__": "cc.Node",
+          "_name": "Sprite",
+          "_objFlags": 0,
+          "_opacity": 255,
+          "_color": {
+            "__type__": "cc.Color",
+            "r": 255,
+            "g": 255,
+            "b": 255,
+            "a": 255
+          },
+          "_cascadeOpacityEnabled": true,
+          "_parent": null,
+          "_anchorPoint": {
+            "__type__": "cc.Vec2",
+            "x": 0.5,
+            "y": 0.5
+          },
+          "_contentSize": {
+            "__type__": "cc.Size",
+            "width": 40,
+            "height": 36
+          },
+          "_children": [],
+          "_skewX": 0,
+          "_skewY": 0,
+          "_localZOrder": 0,
+          "_globalZOrder": 0,
+          "_tag": -1,
+          "_opacityModifyRGB": false,
+          "_reorderChildDirty": false,
+          "_id": "",
+          "_active": true,
+          "_components": [
+            {
+              "__id__": 2
+            }
+          ],
+          "_prefab": {
+            "__id__": 3
+          },
+          "_eulerAngles": {
+            "__type__": "cc.Vec3",
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "_trs": {
+            "__type__": "TypedArray",
+            "ctor": "Float64Array",
+            "array": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "__type__": "cc.Sprite",
+          "_name": "",
+          "_objFlags": 0,
+          "node": {
+            "__id__": 1
+          },
+          "_enabled": true,
+          "_spriteFrame": {
+            "__uuid__": "8cdb44ac-a3f6-449f-b354-7cd48cf84061"
+          },
+          "_type": 0,
+          "_sizeMode": 1,
+          "_fillType": 0,
+          "_fillCenter": {
+            "__type__": "cc.Vec2",
+            "x": 0,
+            "y": 0
+          },
+          "_fillStart": 0,
+          "_fillRange": 0,
+          "_isTrimmedMode": true,
+          "_srcBlendFactor": 770,
+          "_dstBlendFactor": 771,
+          "_atlas": null
+        },
+        {
+          "__type__": "cc.PrefabInfo",
+          "root": {
+            "__id__": 1
+          },
+          "asset": null,
+          "fileId": "d7118yAG5lKybkFOAh8koPL"
+        }
+      ],
+      "name": "fence_gate.prefab",
+      "subMetas": {}
+    },
+    "HalloweenBits.mtl": {
+      "ver": "1.0.5",
+      "uuid": "289f9a99-767b-406e-8fab-f6733b2964b7",
+      "importer": "material",
+      "dataAsSubAsset": null,
+      "name": "HalloweenBits.mtl",
+      "subMetas": {}
+    }
+  }
+}

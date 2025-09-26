@@ -16,6 +16,8 @@ let CakePoolManager = cc.Class({
         fxCompletePrefab: cc.Prefab,
         ghostPrefab: [cc.Prefab],
         ghostParents: [cc.Node],
+        bulletPrefab: cc.Prefab,
+        fxBoomPrefab: cc.Prefab,
     },
 
     statics: {
@@ -33,6 +35,8 @@ let CakePoolManager = cc.Class({
         this._pieceCycle = {};
         this._putFxCycle = [];
         this._completeFxCycle = [];
+        this._bulletCycle = [];
+        this._boomFxCycle = [];
         this._ghostCycle = {};
         this.cakeOriginScale = 0;
         this.cakeOrriginAngle = cc.v3(0, 0, 0);
@@ -187,6 +191,62 @@ let CakePoolManager = cc.Class({
     despawnGhost(ghost) {
         ghost.node.active = false;
         this._ghostCycle[ghost.Type].push(ghost);
+    },
+
+    spawnFxBoom(pos) {
+        if (this._boomFxCycle.length < 1) {
+            this._boomFxCycle.push(cc.instantiate(this.fxBoomPrefab));
+        }
+
+        let fx = this._boomFxCycle.pop();
+        fx.active = true;
+        //let pieceNode = cc.instantiate(this.piecePrefabs[0]);
+        fx.parent = cc.director.getScene();
+        fx.position = pos;
+
+        let particles = fx.getComponentsInChildren(cc.ParticleSystem3D);
+        for (let ps of particles) {
+            //ps.stop();   // đảm bảo dừng hẳn
+            ps.play();   // phát lại từ đầu
+        }
+
+        this.scheduleOnce(() => {
+            this.despawnFxBoom(fx);
+        }, 1.5);
+        return fx;
+    },
+
+    despawnFxBoom(fx) {
+        if (fx && fx.isValid) {
+            fx.active = false;
+            this._boomFxCycle.push(fx);
+            let particles = fx.getComponentsInChildren(cc.ParticleSystem3D);
+            for (let ps of particles) {
+                ps.stop();   // đảm bảo dừng hẳn
+                //ps.play();   // phát lại từ đầu
+            }
+        }
+    },
+
+    spawnBullet(pos) {
+        if (this._bulletCycle.length === 0) {
+            let bulletNode = cc.instantiate(this.bulletPrefab);
+            let bullet = bulletNode.getComponent("BulletController");
+            this._bulletCycle.push(bullet);
+        }
+        let result = this._bulletCycle.pop();
+        result.node.parent = cc.director.getScene();
+        result.node.position = pos;
+        //result.node.scale = this.cakeOriginScale;
+        //result.node.eulerAngles = this.cakeOrriginAngle;
+        result.node.active = true;
+        return result;
+    },
+
+    despawnBullet(bullet) {
+        bullet.node.active = false;
+        //cake = null;
+        this._bulletCycle.push(bullet);
     },
 });
 

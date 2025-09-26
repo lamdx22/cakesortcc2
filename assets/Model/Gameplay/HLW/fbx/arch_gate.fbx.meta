@@ -1,0 +1,226 @@
+{
+  "ver": "1.1.3",
+  "uuid": "e21ea09f-06c7-480b-afbb-92448c761e8f",
+  "importer": "fbx",
+  "scaleFactor": 1,
+  "boneCount": 0,
+  "precomputeJointMatrix": false,
+  "animationFrameRate": 30,
+  "subMetas": {
+    "buffer.bin": {
+      "ver": "1.0.2",
+      "uuid": "df7e736e-1a05-40d2-b118-59c09ca33345",
+      "importer": "buffer",
+      "name": "buffer.bin",
+      "subMetas": {}
+    },
+    "arch_gate.mesh": {
+      "ver": "1.0.3",
+      "uuid": "a88859f6-a59a-48a7-a3fe-ecfb60b0e97a",
+      "importer": "mesh",
+      "verts": 820,
+      "tris": 436,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "a_normal",
+          "a_position",
+          "a_uv0"
+        ]
+      ],
+      "minPos": {
+        "x": -0.0210922099649906,
+        "y": -0.00384938600473106,
+        "z": 0
+      },
+      "maxPos": {
+        "x": 0.0210922099649906,
+        "y": 0.00384938344359398,
+        "z": 0.044139489531517
+      },
+      "name": "arch_gate.mesh",
+      "subMetas": {}
+    },
+    "arch_gate_left.mesh": {
+      "ver": "1.0.3",
+      "uuid": "e401ce7e-2bff-4393-b5ef-dbabd6cfc3a1",
+      "importer": "mesh",
+      "verts": 419,
+      "tris": 216,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "a_normal",
+          "a_position",
+          "a_uv0"
+        ]
+      ],
+      "minPos": {
+        "x": -0.0150000024586916,
+        "y": -0.00084779440658167,
+        "z": 0
+      },
+      "maxPos": {
+        "x": 0.000999997602775693,
+        "y": 0.00084779440658167,
+        "z": 0.0299999993294477
+      },
+      "name": "arch_gate_left.mesh",
+      "subMetas": {}
+    },
+    "arch_gate_right.mesh": {
+      "ver": "1.0.3",
+      "uuid": "782c50e6-c66e-45c8-80e2-dbfc8369bcff",
+      "importer": "mesh",
+      "verts": 419,
+      "tris": 216,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "a_normal",
+          "a_position",
+          "a_uv0"
+        ]
+      ],
+      "minPos": {
+        "x": -0.00100000237580389,
+        "y": -0.00084779440658167,
+        "z": 0
+      },
+      "maxPos": {
+        "x": 0.0149999996647239,
+        "y": 0.00084779440658167,
+        "z": 0.0299999993294477
+      },
+      "name": "arch_gate_right.mesh",
+      "subMetas": {}
+    },
+    "arch_gate.prefab": {
+      "ver": "1.3.2",
+      "uuid": "265182eb-0cc1-4fe9-ac6f-659a2bcda40e",
+      "importer": "prefab",
+      "optimizationPolicy": "AUTO",
+      "asyncLoadAssets": false,
+      "readonly": true,
+      "content": [
+        {
+          "__type__": "cc.Prefab",
+          "_name": "",
+          "_objFlags": 0,
+          "data": {
+            "__id__": 1
+          }
+        },
+        {
+          "__type__": "cc.Node",
+          "_name": "Sprite",
+          "_objFlags": 0,
+          "_opacity": 255,
+          "_color": {
+            "__type__": "cc.Color",
+            "r": 255,
+            "g": 255,
+            "b": 255,
+            "a": 255
+          },
+          "_cascadeOpacityEnabled": true,
+          "_parent": null,
+          "_anchorPoint": {
+            "__type__": "cc.Vec2",
+            "x": 0.5,
+            "y": 0.5
+          },
+          "_contentSize": {
+            "__type__": "cc.Size",
+            "width": 40,
+            "height": 36
+          },
+          "_children": [],
+          "_skewX": 0,
+          "_skewY": 0,
+          "_localZOrder": 0,
+          "_globalZOrder": 0,
+          "_tag": -1,
+          "_opacityModifyRGB": false,
+          "_reorderChildDirty": false,
+          "_id": "",
+          "_active": true,
+          "_components": [
+            {
+              "__id__": 2
+            }
+          ],
+          "_prefab": {
+            "__id__": 3
+          },
+          "_eulerAngles": {
+            "__type__": "cc.Vec3",
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "_trs": {
+            "__type__": "TypedArray",
+            "ctor": "Float64Array",
+            "array": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "__type__": "cc.Sprite",
+          "_name": "",
+          "_objFlags": 0,
+          "node": {
+            "__id__": 1
+          },
+          "_enabled": true,
+          "_spriteFrame": {
+            "__uuid__": "8cdb44ac-a3f6-449f-b354-7cd48cf84061"
+          },
+          "_type": 0,
+          "_sizeMode": 1,
+          "_fillType": 0,
+          "_fillCenter": {
+            "__type__": "cc.Vec2",
+            "x": 0,
+            "y": 0
+          },
+          "_fillStart": 0,
+          "_fillRange": 0,
+          "_isTrimmedMode": true,
+          "_srcBlendFactor": 770,
+          "_dstBlendFactor": 771,
+          "_atlas": null
+        },
+        {
+          "__type__": "cc.PrefabInfo",
+          "root": {
+            "__id__": 1
+          },
+          "asset": null,
+          "fileId": "d7118yAG5lKybkFOAh8koPL"
+        }
+      ],
+      "name": "arch_gate.prefab",
+      "subMetas": {}
+    },
+    "HalloweenBits.mtl": {
+      "ver": "1.0.5",
+      "uuid": "5a091d0d-9e4e-4ec9-9d5c-29643f0c7c7c",
+      "importer": "material",
+      "dataAsSubAsset": null,
+      "name": "HalloweenBits.mtl",
+      "subMetas": {}
+    }
+  }
+}

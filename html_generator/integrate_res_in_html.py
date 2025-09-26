@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+﻿#!/usr/bin/python3
 
 import os
 import time
@@ -51,6 +51,11 @@ minimumMp3 = 'SUQzAwAAAAAAI1RTU0UAAAAPAAAATGF2ZjU4LjEyLjEwMAAAAAAAAAAAAAAA//tUAA
 
 def read_in_chunks(filePath, ad=""):
     extName = os.path.splitext(filePath)[1]
+
+    fileSize = os.path.getsize(filePath)   # lấy dung lượng
+
+    print(f"📦 Đang đọc file: {filePath} ({fileSize} bytes)")
+
     if extName in fileByteList:
         file_object = open(filePath, 'rb')
         if (extName == '.mp3' and (ad == 'Adwords' or ad == 'Facebook')):
