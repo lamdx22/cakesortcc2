@@ -215,11 +215,11 @@
     "_enabled": true,
     "_materials": [
       {
-        "__uuid__": "af39c29b-3a0c-43a4-88bb-2f317469caff"
+        "__uuid__": "abeba0b7-ff64-4b00-bdf8-b85a5843f933"
       }
     ],
     "_mesh": {
-      "__uuid__": "668a3326-562d-483f-ae77-4867093c3c81"
+      "__uuid__": "402bb047-b16a-4853-9c85-6f53af89dd7d"
     },
     "_receiveShadows": false,
     "_shadowCastingMode": 0,

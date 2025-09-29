@@ -9,7 +9,7 @@ import os.path
 # Please reset the root directory Path !  
 ImageFilePath = "build/web-mobile/assets"
 
-apiKey = "arX7VvAawevLUHYe1q3NbH5t4yRrLayb"
+apiKey = "DzLY1q0PjsCWLFbmzsbHkBPdF9zNm0sv"
 # apiKey = "XxswCxLxxbqKMrShK4Vw059qDbtfjVVJ"
 assert len(apiKey) > 0, "API KEY is necessary, goto https://tinypng.com, sign up and get your own."
 tinify.key = apiKey

@@ -82,6 +82,10 @@ const AudioEngine = cc.Class({
         this.playSfx(6, false);
     },
 
+    playDeathSound() {
+        this.playSfx(7, false);
+    },
+
     muteAudio() {
         if (CONFIG.PlayableAdsType === CONFIG.Adcolony) {
             cc.audioEngine.stop(this.currentAudio[0]);

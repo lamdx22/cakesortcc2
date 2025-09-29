@@ -1,0 +1,360 @@
+{
+  "ver": "1.1.3",
+  "uuid": "a3debb27-2c3d-4c98-80cd-c1ad56fb204e",
+  "importer": "fbx",
+  "scaleFactor": 1,
+  "boneCount": 27,
+  "precomputeJointMatrix": false,
+  "animationFrameRate": 30,
+  "subMetas": {
+    "buffer.bin": {
+      "ver": "1.0.2",
+      "uuid": "bc45c49e-e0bc-4b9c-9a61-994160e9155e",
+      "importer": "buffer",
+      "name": "buffer.bin",
+      "subMetas": {}
+    },
+    "weapon_arm.mesh": {
+      "ver": "1.0.3",
+      "uuid": "c09f3afd-8999-4e6a-b68c-daf9b0b91ec6",
+      "importer": "mesh",
+      "verts": 146,
+      "tris": 112,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "a_joints",
+          "a_normal",
+          "a_position",
+          "a_uv0",
+          "a_weights"
+        ]
+      ],
+      "minPos": {
+        "x": -0.278834193944931,
+        "y": -0.131811991333961,
+        "z": -0.301287293434143
+      },
+      "maxPos": {
+        "x": 0.466012805700302,
+        "y": 0.11365969479084,
+        "z": 0.418809503316879
+      },
+      "name": "weapon_arm.mesh",
+      "subMetas": {}
+    },
+    "Skeleton.mesh": {
+      "ver": "1.0.3",
+      "uuid": "7bc0af48-8783-4227-8ae3-8c23ba9289ad",
+      "importer": "mesh",
+      "verts": 1663,
+      "tris": 1386,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "a_joints",
+          "a_normal",
+          "a_position",
+          "a_uv0",
+          "a_weights"
+        ]
+      ],
+      "minPos": {
+        "x": -0.757414102554321,
+        "y": -0.228412985801697,
+        "z": -0.00151710002683103
+      },
+      "maxPos": {
+        "x": 0.757414102554321,
+        "y": 0.0960429012775421,
+        "z": 1.81630623340607
+      },
+      "name": "Skeleton.mesh",
+      "subMetas": {}
+    },
+    "rpg_copie-0.skeleton": {
+      "ver": "1.0.3",
+      "uuid": "fdd029f7-3a81-4594-9ef6-2a7d21a1f350",
+      "importer": "skeleton",
+      "name": "rpg_copie-0.skeleton",
+      "subMetas": {}
+    },
+    "rpg_copie-1.skeleton": {
+      "ver": "1.0.3",
+      "uuid": "012a7e66-7328-41af-bb0b-b43b74c2538d",
+      "importer": "skeleton",
+      "name": "rpg_copie-1.skeleton",
+      "subMetas": {}
+    },
+    "idle.sac": {
+      "ver": "1.0.3",
+      "uuid": "6290af13-0cab-4a50-88db-623d3430bb0a",
+      "importer": "skeleton-animation-clip",
+      "modelUuid": "a3debb27-2c3d-4c98-80cd-c1ad56fb204e",
+      "animationID": 0,
+      "name": "idle.sac",
+      "maxFrameCount": 38,
+      "totalFrameCount": 810,
+      "duration": 1.5416666269302368,
+      "animationFrameRate": 30,
+      "subMetas": {}
+    },
+    "walk.sac": {
+      "ver": "1.0.3",
+      "uuid": "9d131434-6811-453d-a826-2568c9b83279",
+      "importer": "skeleton-animation-clip",
+      "modelUuid": "a3debb27-2c3d-4c98-80cd-c1ad56fb204e",
+      "animationID": 1,
+      "name": "walk.sac",
+      "maxFrameCount": 24,
+      "totalFrameCount": 633,
+      "duration": 0.9583333134651184,
+      "animationFrameRate": 30,
+      "subMetas": {}
+    },
+    "hit.sac": {
+      "ver": "1.0.3",
+      "uuid": "8ef26173-2f6c-4c8e-9c6d-146f9ff3795a",
+      "importer": "skeleton-animation-clip",
+      "modelUuid": "a3debb27-2c3d-4c98-80cd-c1ad56fb204e",
+      "animationID": 2,
+      "name": "hit.sac",
+      "maxFrameCount": 15,
+      "totalFrameCount": 385,
+      "duration": 0.5833333134651184,
+      "animationFrameRate": 30,
+      "subMetas": {}
+    },
+    "idle2.sac": {
+      "ver": "1.0.3",
+      "uuid": "4bbadb33-8a9b-4bff-948a-d5225dcadc70",
+      "importer": "skeleton-animation-clip",
+      "modelUuid": "a3debb27-2c3d-4c98-80cd-c1ad56fb204e",
+      "animationID": 3,
+      "name": "idle2.sac",
+      "maxFrameCount": 77,
+      "totalFrameCount": 1380,
+      "duration": 3.1666667461395264,
+      "animationFrameRate": 30,
+      "subMetas": {}
+    },
+    "attack2.sac": {
+      "ver": "1.0.3",
+      "uuid": "5f49cee5-330e-402c-9b34-109653288c0c",
+      "importer": "skeleton-animation-clip",
+      "modelUuid": "a3debb27-2c3d-4c98-80cd-c1ad56fb204e",
+      "animationID": 4,
+      "name": "attack2.sac",
+      "maxFrameCount": 38,
+      "totalFrameCount": 910,
+      "duration": 1.5416666269302368,
+      "animationFrameRate": 30,
+      "subMetas": {}
+    },
+    "attack1.sac": {
+      "ver": "1.0.3",
+      "uuid": "63de4926-f2a4-4d9d-a3c7-9960e9168e5b",
+      "importer": "skeleton-animation-clip",
+      "modelUuid": "a3debb27-2c3d-4c98-80cd-c1ad56fb204e",
+      "animationID": 5,
+      "name": "attack1.sac",
+      "maxFrameCount": 56,
+      "totalFrameCount": 1189,
+      "duration": 2.2916667461395264,
+      "animationFrameRate": 30,
+      "subMetas": {}
+    },
+    "run.sac": {
+      "ver": "1.0.3",
+      "uuid": "b9d875e9-802d-4e3b-8095-f510065db380",
+      "importer": "skeleton-animation-clip",
+      "modelUuid": "a3debb27-2c3d-4c98-80cd-c1ad56fb204e",
+      "animationID": 6,
+      "name": "run.sac",
+      "maxFrameCount": 19,
+      "totalFrameCount": 477,
+      "duration": 0.75,
+      "animationFrameRate": 30,
+      "subMetas": {}
+    },
+    "spawn.sac": {
+      "ver": "1.0.3",
+      "uuid": "81207c8a-82b1-47e0-9f77-3e2fde72adbc",
+      "importer": "skeleton-animation-clip",
+      "modelUuid": "a3debb27-2c3d-4c98-80cd-c1ad56fb204e",
+      "animationID": 7,
+      "name": "spawn.sac",
+      "maxFrameCount": 32,
+      "totalFrameCount": 856,
+      "duration": 1.2916666269302368,
+      "animationFrameRate": 30,
+      "subMetas": {}
+    },
+    "death.sac": {
+      "ver": "1.0.3",
+      "uuid": "fd0495f2-9210-403a-b4a3-a206304df9f8",
+      "importer": "skeleton-animation-clip",
+      "modelUuid": "a3debb27-2c3d-4c98-80cd-c1ad56fb204e",
+      "animationID": 8,
+      "name": "death.sac",
+      "maxFrameCount": 26,
+      "totalFrameCount": 655,
+      "duration": 1.0416666269302368,
+      "animationFrameRate": 30,
+      "subMetas": {}
+    },
+    "fall.sac": {
+      "ver": "1.0.3",
+      "uuid": "03ee2256-f697-4025-9a32-f1f583038ea1",
+      "importer": "skeleton-animation-clip",
+      "modelUuid": "a3debb27-2c3d-4c98-80cd-c1ad56fb204e",
+      "animationID": 9,
+      "name": "fall.sac",
+      "maxFrameCount": 27,
+      "totalFrameCount": 668,
+      "duration": 1.0833333730697632,
+      "animationFrameRate": 30,
+      "subMetas": {}
+    },
+    "pendu.sac": {
+      "ver": "1.0.3",
+      "uuid": "d15427e3-93fd-4ca0-a8eb-ba642e05c032",
+      "importer": "skeleton-animation-clip",
+      "modelUuid": "a3debb27-2c3d-4c98-80cd-c1ad56fb204e",
+      "animationID": 10,
+      "name": "pendu.sac",
+      "maxFrameCount": 36,
+      "totalFrameCount": 544,
+      "duration": 1.5416666269302368,
+      "animationFrameRate": 30,
+      "subMetas": {}
+    },
+    "rpg_copie.prefab": {
+      "ver": "1.3.2",
+      "uuid": "bb6c0022-09d0-4aa9-893d-22c23f666ffc",
+      "importer": "prefab",
+      "optimizationPolicy": "AUTO",
+      "asyncLoadAssets": false,
+      "readonly": true,
+      "content": [
+        {
+          "__type__": "cc.Prefab",
+          "_name": "",
+          "_objFlags": 0,
+          "data": {
+            "__id__": 1
+          }
+        },
+        {
+          "__type__": "cc.Node",
+          "_name": "Sprite",
+          "_objFlags": 0,
+          "_opacity": 255,
+          "_color": {
+            "__type__": "cc.Color",
+            "r": 255,
+            "g": 255,
+            "b": 255,
+            "a": 255
+          },
+          "_cascadeOpacityEnabled": true,
+          "_parent": null,
+          "_anchorPoint": {
+            "__type__": "cc.Vec2",
+            "x": 0.5,
+            "y": 0.5
+          },
+          "_contentSize": {
+            "__type__": "cc.Size",
+            "width": 40,
+            "height": 36
+          },
+          "_children": [],
+          "_skewX": 0,
+          "_skewY": 0,
+          "_localZOrder": 0,
+          "_globalZOrder": 0,
+          "_tag": -1,
+          "_opacityModifyRGB": false,
+          "_reorderChildDirty": false,
+          "_id": "",
+          "_active": true,
+          "_components": [
+            {
+              "__id__": 2
+            }
+          ],
+          "_prefab": {
+            "__id__": 3
+          },
+          "_eulerAngles": {
+            "__type__": "cc.Vec3",
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "_trs": {
+            "__type__": "TypedArray",
+            "ctor": "Float64Array",
+            "array": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "__type__": "cc.Sprite",
+          "_name": "",
+          "_objFlags": 0,
+          "node": {
+            "__id__": 1
+          },
+          "_enabled": true,
+          "_spriteFrame": {
+            "__uuid__": "8cdb44ac-a3f6-449f-b354-7cd48cf84061"
+          },
+          "_type": 0,
+          "_sizeMode": 1,
+          "_fillType": 0,
+          "_fillCenter": {
+            "__type__": "cc.Vec2",
+            "x": 0,
+            "y": 0
+          },
+          "_fillStart": 0,
+          "_fillRange": 0,
+          "_isTrimmedMode": true,
+          "_srcBlendFactor": 770,
+          "_dstBlendFactor": 771,
+          "_atlas": null
+        },
+        {
+          "__type__": "cc.PrefabInfo",
+          "root": {
+            "__id__": 1
+          },
+          "asset": null,
+          "fileId": "d7118yAG5lKybkFOAh8koPL"
+        }
+      ],
+      "name": "rpg_copie.prefab",
+      "subMetas": {}
+    },
+    "Material.mtl": {
+      "ver": "1.0.5",
+      "uuid": "e02e7a59-5a01-43e4-b57d-01494d4a64a6",
+      "importer": "material",
+      "dataAsSubAsset": "{\n  \"__type__\": \"cc.Material\",\n  \"_name\": \"\",\n  \"_objFlags\": 0,\n  \"_native\": \"\",\n  \"_effectAsset\": {\n    \"__uuid__\": \"6d91e591-4ce0-465c-809f-610ec95019c6\"\n  },\n  \"_techniqueIndex\": 0,\n  \"_techniqueData\": {\n    \"0\": {\n      \"props\": {\n        \"diffuseColor\": {\n          \"__type__\": \"cc.Color\",\n          \"r\": 255,\n          \"g\": 255,\n          \"b\": 255,\n          \"a\": 255\n        },\n        \"diffuseTexture\": {\n          \"__uuid__\": \"7c87f691-cc72-485a-8737-8e325206b460\"\n        }\n      },\n      \"defines\": {\n        \"USE_DIFFUSE_TEXTURE\": true\n      }\n    }\n  }\n}",
+      "name": "Material.mtl",
+      "subMetas": {}
+    }
+  }
+}

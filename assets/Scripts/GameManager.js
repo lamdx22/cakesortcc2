@@ -80,6 +80,7 @@ const GameManager = cc.Class({
         this.countPut = 0;
         this.countComplete = 0;
         this.countSpawnCake = 0;
+        this.isGameStarted = false;
         this.isGameEnd = false;
         this.isCanMove = true;
         this.isFirstHand2 = false;
@@ -108,6 +109,11 @@ const GameManager = cc.Class({
         this.width = frameSize.width;
         this.height = frameSize.height;
         this.onResize();
+    },
+
+    startGame() {
+        this.isGameStarted = true;
+        this.mainUI.hidePopUp();
     },
 
     start () {
@@ -666,10 +672,11 @@ const GameManager = cc.Class({
         if (this.mainUI) this.mainUI.addScore(scoreIncrease);
     },
 
-    killGhost(ghost) {
+    async killGhost(ghost) {
         const index = this.ghostList.indexOf(ghost);
         ghost.die();
-        this.ghostList.splice(index, 1)
+        this.ghostList.splice(index, 1);
+        await new Promise(resolve => setTimeout(resolve, 300));
         this.spawnGhost();
     },
 
@@ -712,8 +719,7 @@ const GameManager = cc.Class({
 
         if (isLose) {
             cc.log("Lose!!!!!!!!");
-            this.endGame();
-            this.mainUI.showPopUpLose();
+            this.showLose();
         }
 
         if (this._cakes.filter(x => x == null).length == 0) {
@@ -738,6 +744,12 @@ const GameManager = cc.Class({
             this.selectors[i].active = false;
         }
         this._currentSelector = null;
+    },
+
+    showLose() {
+        if (this.isGameEnd) return;
+        this.endGame();
+        this.mainUI.showPopUpLose();
     },
 
     endGame() {

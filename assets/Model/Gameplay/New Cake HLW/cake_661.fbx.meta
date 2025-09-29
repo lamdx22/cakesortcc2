@@ -1,6 +1,6 @@
 {
   "ver": "1.1.3",
-  "uuid": "11023000-be9b-4138-9ad8-2f8d5a056931",
+  "uuid": "e4718524-a93d-45a7-af47-c6e7354a014c",
   "importer": "fbx",
   "scaleFactor": 1,
   "boneCount": 0,
@@ -9,16 +9,16 @@
   "subMetas": {
     "buffer.bin": {
       "ver": "1.0.2",
-      "uuid": "f8d7c96d-b52e-4ac2-89b0-e038d316ed5e",
+      "uuid": "de08b7f4-bdcd-4f73-81ca-cf35dd9df4f1",
       "importer": "buffer",
       "name": "buffer.bin",
       "subMetas": {}
     },
     "cake_66.mesh": {
       "ver": "1.0.3",
-      "uuid": "34eebd6d-fe3a-485f-860b-ab9a945ab2d7",
+      "uuid": "63f9a063-8ad5-4f95-91b9-795c2723409e",
       "importer": "mesh",
-      "verts": 1144,
+      "verts": 1146,
       "tris": 1529,
       "submeshes": 1,
       "attributes": [
@@ -42,9 +42,9 @@
       "name": "cake_66.mesh",
       "subMetas": {}
     },
-    "cake_66.prefab": {
+    "cake_661.prefab": {
       "ver": "1.3.2",
-      "uuid": "87dca64d-ec23-44da-a6e8-8a9d605f5984",
+      "uuid": "c8631c05-de71-4a24-918a-836ead026afe",
       "importer": "prefab",
       "optimizationPolicy": "AUTO",
       "asyncLoadAssets": false,
@@ -158,14 +158,14 @@
           "fileId": "d7118yAG5lKybkFOAh8koPL"
         }
       ],
-      "name": "cake_66.prefab",
+      "name": "cake_661.prefab",
       "subMetas": {}
     },
     "cake_66.mtl": {
       "ver": "1.0.5",
-      "uuid": "f29af002-20ec-4534-ab85-7039c021a061",
+      "uuid": "49d728e1-785e-4c13-b135-7d137e30fa7b",
       "importer": "material",
-      "dataAsSubAsset": "{\n  \"__type__\": \"cc.Material\",\n  \"_name\": \"\",\n  \"_objFlags\": 0,\n  \"_native\": \"\",\n  \"_effectAsset\": {\n    \"__uuid__\": \"6d91e591-4ce0-465c-809f-610ec95019c6\"\n  },\n  \"_techniqueIndex\": 0,\n  \"_techniqueData\": {\n    \"0\": {\n      \"props\": {\n        \"diffuseColor\": {\n          \"__type__\": \"cc.Color\",\n          \"r\": 255,\n          \"g\": 255,\n          \"b\": 255,\n          \"a\": 255\n        },\n        \"diffuseTexture\": {\n          \"__uuid__\": \"f6e33d8e-5ee8-4ef1-8075-b70bccbdae20\"\n        }\n      },\n      \"defines\": {\n        \"USE_DIFFUSE_TEXTURE\": true\n      }\n    }\n  }\n}",
+      "dataAsSubAsset": "{\n  \"__type__\": \"cc.Material\",\n  \"_name\": \"\",\n  \"_objFlags\": 0,\n  \"_native\": \"\",\n  \"_effectAsset\": {\n    \"__uuid__\": \"6d91e591-4ce0-465c-809f-610ec95019c6\"\n  },\n  \"_techniqueIndex\": 0,\n  \"_techniqueData\": {\n    \"0\": {\n      \"props\": {\n        \"diffuseTexture\": {\n          \"__uuid__\": \"f6e33d8e-5ee8-4ef1-8075-b70bccbdae20\"\n        },\n        \"diffuseColor\": {\n          \"__type__\": \"cc.Color\",\n          \"r\": 255,\n          \"g\": 255,\n          \"b\": 255,\n          \"a\": 255\n        }\n      },\n      \"defines\": {\n        \"USE_DIFFUSE_TEXTURE\": true\n      }\n    }\n  }\n}",
       "name": "cake_66.mtl",
       "subMetas": {}
     }

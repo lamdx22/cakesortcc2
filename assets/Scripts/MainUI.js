@@ -9,6 +9,7 @@ const MainUI = cc.Class({
         scoreText: cc.Label,
         popUpNewCake: cc.Node,
         popUpLose: cc.Node,
+        popUpStart: cc.Node,
         scoreGroup: cc.Node,
         //maxScore: 70,
         currentScore: 0,
@@ -58,6 +59,12 @@ const MainUI = cc.Class({
 
     },
 
+    hidePopUp() {
+        if (this.popUpStart) this.popUpStart.active = false;
+        if (this.popUpLose) this.popUpLose.active = false;
+        if (this.popUpNewCake) this.popUpNewCake.active = false;
+    },
+
     // update (dt) {},
 
     addScore(score) {
@@ -68,6 +75,11 @@ const MainUI = cc.Class({
         if (this.currentScore >= this.maxScore) {
             //this.currentScore = this.maxScore;
             this.showPopUpNewCake();
+        }
+
+        let t = GameManager.instance;
+        if (t) {
+            this.currentScore += 0;
         }
 
         if (GameManager.instance.isUsingCakeProgress) {

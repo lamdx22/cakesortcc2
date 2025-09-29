@@ -48,13 +48,16 @@ base64PrefixList = {
 lo = {}
 minimumMp3 = 'SUQzAwAAAAAAI1RTU0UAAAAPAAAATGF2ZjU4LjEyLjEwMAAAAAAAAAAAAAAA//tUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAAHAAADYABVVVVVVVVVVVVVVVVVVXFxcXFxcXFxcXFxcXFxjo6Ojo6Ojo6Ojo6Ojo6qqqqqqqqqqqqqqqqqqqrHx8fHx8fHx8fHx8fHx+Pj4+Pj4+Pj4+Pj4+Pj//////////////////8AAAAATGF2YzU4LjE4AAAAAAAAAAAAAAAAJAYgAAAAAAAAA2APRYUU//sUZAAAAE0A3q0EYAAAAA0goAABBAA/ghhjAAAAADSDAAAACAAA8EDFf8EAwOSPwot50IUdu5DWoDKrDYad2kyJJwoIixE77gEqx9FqqpoAAIdzgKNSahfsl//10/WG//sUZAkD8H8BY0cIAAgAAA0g4AABAYwDiwCEYAAAADSAAAAEwcGg7dl0j47vxWqSQSNgCRJFXOLIwWX//TE4xI0AYMAgJ1uvc1VFvPuQADxFUeYQLjb2f/+quSSNJgCR//sUZBiD8HMB4qBBEAAAAA0gAAABAagDiIEEACAAADSAAAAEFBdjGjJh1/+r/0LbbbawCW1PXJvhJ+96vbbJKIyM4Pvsx0hKEV8GIYjQSStAQIO1Q9C7BWU1ac+2XrUh//sUZCiD8HwAYUBBEAAAAA0gAAABAgQDgIEAAAAAADSAAAAETZLV/Ws06v7H/b9rc3p04AEkAAAckNPy43zHwpPBhW/DGf/KGPekJgJMQU1FMy45OS41qqqqqqqqqqqq//sUZDaD8G0A4iBBEAoAAA0gAAABAgwxgJQxACAAADSCgAAEqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq//sUZEWAARMfWwYMwAIAAA0gwAAAAzRdMrkBAAAAADSDAAAAqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq//sUZEWP8AAAaQcAAAgAAA0g4AABAAABpAAAACAAADSAAAAEqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq'
 
+file_size_list = []
 
 def read_in_chunks(filePath, ad=""):
     extName = os.path.splitext(filePath)[1]
 
     fileSize = os.path.getsize(filePath)   # lấy dung lượng
+    # Lưu vào danh sách để cuối cùng in ra
+    file_size_list.append((filePath, fileSize))
 
-    print(f"📦 Đang đọc file: {filePath} ({fileSize} bytes)")
+    #print(f"📦 Đang đọc file: {filePath} ({fileSize} bytes)")
 
     if extName in fileByteList:
         file_object = open(filePath, 'rb')
@@ -420,6 +423,11 @@ def integrate(projectRootPath):
                             print("Target file = {}, with size {}M".format(
                                 newHtmlPath, targetFileSizeInMegabyte))
     print("===================  All Done! =================== ")
+    print("\n=================== Danh sách file theo dung lượng giảm dần ===================")
+    unique_files = list(dict.fromkeys(file_size_list))  # giữ nguyên thứ tự, loại trùng
+    for filePath, size in sorted(unique_files, key=lambda x: x[1], reverse=True):
+        size_kb = size / 1024
+        print(f"{size_kb:8.2f} KB  -  {filePath}")
 
 
 if __name__ == '__main__':

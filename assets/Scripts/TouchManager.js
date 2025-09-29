@@ -31,6 +31,10 @@ cc.Class({
 
     onTouchStart (event) {
         cc.log("TouchManager nhận TOUCH_START");
+        if (!GameManager.instance.isGameStarted) {
+            GameManager.instance.startGame();
+        }
+
         if (GameManager.instance.isGameEnd) {
             GameManager.instance.goToStore();
             return;

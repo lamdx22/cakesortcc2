@@ -1,4 +1,5 @@
 import CakePoolManager from "./CakePoolManager";
+var GameManager = require("GameManager");
 
 const GhostController = cc.Class({
     extends: cc.Component,
@@ -7,11 +8,21 @@ const GhostController = cc.Class({
         Type: 0,
         speed: 10,
         startPos: cc.v3(0, 0, 0),
+        attackPos: cc.v3(0, 0, 20),
+        weapon: cc.Node,
     },
 
 
     onLoad () {
         this.node.position = cc.v3(0, 0, 0);
+        this.skelAnim = this.node.getComponent(cc.SkeletonAnimation);
+        //let state = this.skelAnim.defaultClip;
+        //state.speed = 0.8;
+        // Lấy AnimationClip
+        let clip = this.skelAnim._clips.find(c => c.name === "walk");
+
+        // Chỉnh tốc độ gốc
+        clip.speed = 0.6;
     },
 
     start () {
@@ -19,24 +30,48 @@ const GhostController = cc.Class({
     },
 
     onEnable() {
+        this.weapon.active = false;
         this.isTargeted = false;
         this.isAlive = true;
+        this.skelAnim.play("spawn");
+        this.scheduleOnce(() => {
+            this.skelAnim.play("walk");
+            this.isMoving = true;
+        }, 1.2);
     },
 
     update (dt) {
-        if (!this.isAlive) return;
+        if (!this.isAlive || !this.isMoving || !GameManager.instance.isGameStarted || GameManager.instance.isGameEnd) return;
         let pos = this.node.position;
         pos.z += this.speed * dt;
         this.node.setPosition(pos);
+        if (pos.z < this.attackPos.z) {
+            this.attack();
+        }
+    },
+
+    async attack() {
+        this.isMoving = false;
+        this.weapon.active = true;
+        this.skelAnim.play("attack1");
+        await new Promise(resolve => setTimeout(resolve, 1400));
+        if (this.isAlive) {
+            GameManager.instance.showLose();
+        }
     },
 
     die() {
         this.isAlive = false;
+        AudioEngine.instance.playDeathSound();
         cc.tween(this.node)
-            .to(0.8, {
-                opacity: 0,
-                position: cc.v3(this.node.x, -2.4, this. node.z)
-            }, {easing: "sineInOut"})
+            //.by(0.2, {position: cc.v3(0, 0.5, 1)}, {easing: "cubicOut"})
+            .parallel(
+                cc.tween().to(0.8, {
+                    opacity: 0
+                }),
+                cc.tween().by(0.8, {
+                    position: cc.v3(0, 0, 0)
+                }, {easing: "sineInOut"}))
             .call(() => {
                 this.node.position = cc.v3(0, 0, 0);
                 CakePoolManager.instance.despawnGhost(this);
@@ -44,6 +79,8 @@ const GhostController = cc.Class({
                 this.node.position = cc.v3(0, 0, 0);
             })
             .start();
+
+        this.skelAnim.play("death");
         //await new Promise(resolve => setTimeout(resolve, 500));
         //CakePoolManager.instance.spawnGhost(0);
     },
