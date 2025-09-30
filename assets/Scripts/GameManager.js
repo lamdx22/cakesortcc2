@@ -93,6 +93,7 @@ const GameManager = cc.Class({
         this.col = 4;
         this.centerPos = cc.v3();
         this.ghostList = [];
+        this.isRotating = false;
 
         this.audioEngineScript.playBackground();
 
@@ -242,12 +243,14 @@ const GameManager = cc.Class({
         let cake1 = null;
         let cake2 = null;
 
-        if (id == 0) {
-           this.tableSub.eulerAngles = cc.v3(-90, -28, 0);
-        } else if (id == 1) {
-            this.tableSub.eulerAngles = cc.v3(-90, -56, 0);
-        } else {
-            this.tableSub.eulerAngles = cc.v3(-90, -84, 0);
+        if (!this.isRotating) {
+            if (id == 0) {
+            this.tableSub.eulerAngles = cc.v3(-90, -28, 0);
+            } else if (id == 1) {
+                this.tableSub.eulerAngles = cc.v3(-90, -56, 0);
+            } else {
+                this.tableSub.eulerAngles = cc.v3(-90, -84, 0);
+            }
         }
 
         if (id === 0) {
@@ -401,41 +404,68 @@ const GameManager = cc.Class({
 
     playRotateTable(id = -1) {
 
-        this.isCanMove = false;
+        //this.isCanMove = false;
+        if (this.isRotating) return;
+        this.isRotating = true;
 
         let targetRotation = null;
-        if (id === 0 || id === 1 || id === 2) {
-            targetRotation = cc.v3(0, 28, 0);
+        // if (id === 0 || id === 1 || id === 2) {
+        //     //targetRotation = cc.v3(0, 28, 0);
+        //     targetRotation = cc.v3(this.tableSub.eulerAngles.x, 0, this.tableSub.eulerAngles.z);
+        // } else {
+        //     //targetRotation = cc.v3(0, 84, 0);
+        //     targetRotation = cc.v3(this.tableSub.eulerAngles.x, 0, this.tableSub.eulerAngles.z);
+        // }
+        if (id === 0) {
+            //targetRotation = cc.v3(0, 28, 0);
+            targetRotation = cc.v3(-90, 0, 0);
+        } else if (id ===1) {
+            targetRotation = cc.v3(-90, -28, 0);
+        } else if (id === 2) {
+            targetRotation = cc.v3(-90, -56, 0);
         } else {
-            targetRotation = cc.v3(0, 84, 0);
+            //targetRotation = cc.v3(0, 84, 0);
+            targetRotation = cc.v3(this.tableSub.eulerAngles.x, 0, this.tableSub.eulerAngles.z);
         }
 
         if (targetRotation) {
             cc.tween(this.tableSub)
-                .by(this.subTableRotateDur, { eulerAngles: targetRotation })
+                .to(this.subTableRotateDur, { eulerAngles: targetRotation })
                 .call(() => {
                     for (let i = 0; i < this.cakeSub.length; i++) {
                         this.setParentKeepWorldRotation(this.cakeSub[i].node, this.subStatic[i])
                         //this.cakeSub[i].node.parent = this.subStatic[i];
                     }
                     this.isCanMove = true;
+                    this.isRotating = false;
                 })
                 .start();
         }
+    },
+
+    changeCakeParentStatic(cake) {
+        this.setParentKeepWorldRotation(cake.node, this.subStatic[cake.idSub]);
+    },
+
+    changeCakeParentRotate(cake) {
+        if (!this.isRotating) return;
+        this.setParentKeepWorldRotation(cake.node, this.spawnSlot[cake.idSub]);
     },
 
     playRotateTable1(id = -1) {
         this.tableSub.eulerAngles = cc.v3(-90, -84, 0);
 
         this.isCanMove = false;
+        this.isRotating = true;
 
         cc.log(this.tableSub.eulerAngles);
         cc.tween(this.tableSub)
-            .by(this.subTableRotateDur, { eulerAngles: cc.v3(0, 84, 0) })
+            .by(1.5, { eulerAngles: cc.v3(0, 84, 0) })
             .call(() => {
                 //this.cakeSub[0].node.parent = this.subStatic[1];
                 this.setParentKeepWorldRotation(this.cakeSub[0].node, this.subStatic[1])
                 this.isCanMove = true;
+                this.isRotating = false;
                 cc.log(this.tableSub.eulerAngles);
             })
             .start();
@@ -642,7 +672,7 @@ const GameManager = cc.Class({
 
         this.countComplete++;
         if (this.countComplete >= this.maxComplete) {
-            this.endGame();
+            //this.endGame();
         }
 
         if (this.level == 1 && this.countComplete >= 2 && !this.isGameEnd) {
@@ -676,7 +706,7 @@ const GameManager = cc.Class({
         const index = this.ghostList.indexOf(ghost);
         ghost.die();
         this.ghostList.splice(index, 1);
-        await new Promise(resolve => setTimeout(resolve, 300));
+        await new Promise(resolve => setTimeout(resolve, 400));
         this.spawnGhost();
     },
 
@@ -748,11 +778,12 @@ const GameManager = cc.Class({
 
     showLose() {
         if (this.isGameEnd) return;
-        this.endGame();
+        //this.endGame();
         this.mainUI.showPopUpLose();
     },
 
     endGame() {
+        //this.mainUI.showEndCard();
         this.isGameEnd = true;
         CONFIG.onEndGame();
         cc.log("Game End");

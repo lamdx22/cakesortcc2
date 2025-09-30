@@ -1,6 +1,6 @@
 {
   "ver": "2.3.7",
-  "uuid": "0ebccd04-5540-48bd-9dd0-1af5558c2670",
+  "uuid": "5624f5be-026c-465d-a2f1-08f033e64a0f",
   "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
@@ -14,9 +14,9 @@
   "subMetas": {
     "halloween-background-1263395465206960158": {
       "ver": "1.0.6",
-      "uuid": "49812e5b-d937-4998-9919-760e247b7ba0",
+      "uuid": "e0f68d99-b362-49d9-8028-16b9575b7871",
       "importer": "sprite-frame",
-      "rawTextureUuid": "0ebccd04-5540-48bd-9dd0-1af5558c2670",
+      "rawTextureUuid": "5624f5be-026c-465d-a2f1-08f033e64a0f",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

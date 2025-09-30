@@ -14,6 +14,7 @@ const GhostController = cc.Class({
 
 
     onLoad () {
+        this.isAttack = false;
         this.node.position = cc.v3(0, 0, 0);
         this.skelAnim = this.node.getComponent(cc.SkeletonAnimation);
         //let state = this.skelAnim.defaultClip;
@@ -41,20 +42,27 @@ const GhostController = cc.Class({
     },
 
     update (dt) {
-        if (!this.isAlive || !this.isMoving || !GameManager.instance.isGameStarted || GameManager.instance.isGameEnd) return;
+        if (!this.isAlive || !this.isMoving || !GameManager.instance.isGameStarted) return;
         let pos = this.node.position;
         pos.z += this.speed * dt;
         this.node.setPosition(pos);
+
+        if (!this.isAttack && pos.z < this.attackPos.z + 2.5) {
+            GameManager.instance.mainUI.showWarning();
+        }
+
         if (pos.z < this.attackPos.z) {
             this.attack();
         }
     },
 
     async attack() {
+        if (this.isAttack) return;
+        this.isAttack = true;
         this.isMoving = false;
         this.weapon.active = true;
         this.skelAnim.play("attack1");
-        await new Promise(resolve => setTimeout(resolve, 1400));
+        await new Promise(resolve => setTimeout(resolve, 1500));
         if (this.isAlive) {
             GameManager.instance.showLose();
         }

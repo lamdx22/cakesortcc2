@@ -207,9 +207,9 @@ let CakeController = cc.Class({
         let ran = Math.floor(Math.random() * 100) + 1;
         if (ran <= 50) {
             numberPiece = 4;
-        } else if (ran > 50 && ran <= 80) {
+        } else if (ran > 50 && ran <= 90) {
             numberPiece = 3;
-        } else if (ran > 80 && ran <= 90) {
+        } else if (ran > 90 && ran <= 95) {
             numberPiece = 2;
         }
         let newList = [];

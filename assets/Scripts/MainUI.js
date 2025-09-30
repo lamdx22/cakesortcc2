@@ -18,6 +18,8 @@ const MainUI = cc.Class({
         waterFlow: cc.Node,
         useWaterFlow: true,
         fxPlace: cc.Prefab,
+        endCard: cc.Node,
+        warningScreen: cc.Node,
     },
 
     statics: {
@@ -27,35 +29,36 @@ const MainUI = cc.Class({
     onLoad () {
         MainUI.instance = this;
         this.islandActiveIndex = 0;
+        this.isShowWarning = false;
     },
 
     start () {
-        if (!GameManager.instance.isUsingCakeProgress) {
-            this.scoreGroup.active = false;
+        // if (!GameManager.instance.isUsingCakeProgress) {
+        //     if (this.scoreGroup) this.scoreGroup.active = false;
 
-            if (GameManager.instance.isUsingIsland) {
-                this.island.active = true;
-            }
-        } else {
-            this.island.active = false;
-            this.scoreGroup.active = true;
-            this.maxScore = GameManager.instance.maxScore;
-            this.fillSprite.fillRange = this.currentScore / this.maxScore;
-            this.scoreText.string = this.currentScore + "/" + this.maxScore;
-        }
+        //     if (GameManager.instance.isUsingIsland && this.island) {
+        //         this.island.active = true;
+        //     }
+        // } else {
+        //     this.island.active = false;
+        //     this.scoreGroup.active = true;
+        //     this.maxScore = GameManager.instance.maxScore;
+        //     this.fillSprite.fillRange = this.currentScore / this.maxScore;
+        //     this.scoreText.string = this.currentScore + "/" + this.maxScore;
+        // }
 
-        if (this.useWaterFlow && this.waterFlow) {
-            let startPos = this.waterFlow.position;
-            let leftPos = startPos.clone();
-            leftPos.x -= 18;
-            let rightPos = startPos.clone();
-            rightPos.x += 18;
-            this.waterFlow.position = leftPos;
-            let flowTween = cc.tween()
-                .to(4, { position: rightPos}, { easing: "sineInOut" }) //
-                .to(4, { position: leftPos}, { easing: "sineInOut" });
-            cc.tween(this.waterFlow).repeatForever(flowTween).start();
-        }
+        // if (this.useWaterFlow && this.waterFlow) {
+        //     let startPos = this.waterFlow.position;
+        //     let leftPos = startPos.clone();
+        //     leftPos.x -= 18;
+        //     let rightPos = startPos.clone();
+        //     rightPos.x += 18;
+        //     this.waterFlow.position = leftPos;
+        //     let flowTween = cc.tween()
+        //         .to(4, { position: rightPos}, { easing: "sineInOut" }) //
+        //         .to(4, { position: leftPos}, { easing: "sineInOut" });
+        //     cc.tween(this.waterFlow).repeatForever(flowTween).start();
+        // }
 
     },
 
@@ -170,14 +173,14 @@ const MainUI = cc.Class({
     },
 
     showPopUpLose() {
-        if (!GameManager.instance.isUsingPopUp) return;
+        if (this.popUpLose.active) return;
+        this.warningScreen.active = false;
 
         // SoundManager.instance.soundBackground.stop();
         // SoundManager.instance.soundLose.play();
         AudioEngine.instance.playSoundLose();
         AudioEngine.instance.muteAudio();
 
-        GameManager.instance.endGame();
         if (this.popUpNewCake) {
             this.popUpNewCake.active = false;
         }
@@ -197,8 +200,38 @@ const MainUI = cc.Class({
                     cc.tween().to(0.5, { scale: 1 }, { easing: "backOut" }),
                     cc.tween().to(0.5, { opacity: 255 }, { easing: "quadOut" })
                 )
+                .call(() => {
+                    GameManager.instance.endGame();
+                })
                 .start();
         }
+        else {
+            GameManager.instance.endGame();
+        }
+    },
+
+    showEndCard() {
+        if (this.endCard.active || this.popUpLose.active) return;
+        this.endCard.active = true;
+        this.endCard.opacity = 3;
+    },
+
+    showWarning() {
+        if (this.isShowWarning || this.popUpLose.active) return;
+        this.warningScreen.active = true;
+        this.isShowWarning = true;
+        this.warningScreen.opacity = 0;
+        let tweenAlert = cc.tween()
+            .to(0.3, { opacity: 255 })
+            .to(0.3, { opacity: 0 });
+        cc.tween(this.warningScreen)
+            .repeat(3, tweenAlert)
+            .call(() => {
+                this.warningScreen.opacity = 0;
+                this.isShowWarning = false;
+                this.warningScreen.active = false;
+            })
+            .start();
     }
 
 

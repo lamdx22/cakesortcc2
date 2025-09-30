@@ -59,6 +59,7 @@ cc.Class({
                     let cake = parentNode.getComponent("CakeController");
                     if (cake && !cake.isInCell) {
                         this.currSelectCake = cake;
+                        GameManager.instance.changeCakeParentStatic(cake);
                         //this.currSelectCake.IEBounce();
                         //SoundManager.instance.soundPickCake.play();
                         AudioEngine.instance.playPickCake();
@@ -155,6 +156,7 @@ cc.Class({
                 GameManager.instance.onPutCake();
                 this.currSelectCake.IEBounce();
             } else {
+                //GameManager.instance.changeCakeParentRotate(this.currSelectCake);
                 this.currSelectCake.return(cc.v3(0, 0, 0));
             }
             //cc.log("Put");
