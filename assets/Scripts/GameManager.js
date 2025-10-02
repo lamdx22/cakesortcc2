@@ -706,8 +706,11 @@ const GameManager = cc.Class({
         const index = this.ghostList.indexOf(ghost);
         ghost.die();
         this.ghostList.splice(index, 1);
-        await new Promise(resolve => setTimeout(resolve, 400));
-        this.spawnGhost();
+        if (this.ghostList.length == 0) {
+            this.spawnGhost();
+        }
+        //await new Promise(resolve => setTimeout(resolve, 400));
+        //this.spawnGhost();
     },
 
     spawnGhost(waveIndex = -1) {

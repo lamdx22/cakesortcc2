@@ -1,0 +1,375 @@
+{
+  "ver": "1.1.3",
+  "uuid": "624f911a-c806-4c84-942f-9dbe090b21a0",
+  "importer": "fbx",
+  "scaleFactor": 1,
+  "boneCount": 5,
+  "precomputeJointMatrix": false,
+  "animationFrameRate": 30,
+  "subMetas": {
+    "buffer.bin": {
+      "ver": "1.0.2",
+      "uuid": "5514d174-9e49-495b-8d9c-e83c41cb52c2",
+      "importer": "buffer",
+      "name": "buffer.bin",
+      "subMetas": {}
+    },
+    "Kid_ghost_v1:Ghost_Kid_S1.mesh": {
+      "ver": "1.0.3",
+      "uuid": "efa978c9-ae45-43b1-b852-c7f42e5b27ba",
+      "importer": "mesh",
+      "verts": 366,
+      "tris": 572,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "a_joints",
+          "a_normal",
+          "a_position",
+          "a_uv0",
+          "a_weights"
+        ]
+      ],
+      "minPos": {
+        "x": -0.00684461323544383,
+        "y": -0.000757526489906013,
+        "z": -0.00626191264018416
+      },
+      "maxPos": {
+        "x": 0.00616458291187882,
+        "y": 0.0236290171742439,
+        "z": 0.00547379907220602
+      },
+      "name": "Kid_ghost_v1:Ghost_Kid_S1.mesh",
+      "subMetas": {}
+    },
+    "Kid_ghost_v1:Ghost_Kid_S2.mesh": {
+      "ver": "1.0.3",
+      "uuid": "b45fe7ef-3653-4a4f-b801-4d36e4268856",
+      "importer": "mesh",
+      "verts": 480,
+      "tris": 636,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "a_joints",
+          "a_normal",
+          "a_position",
+          "a_uv0",
+          "a_weights"
+        ]
+      ],
+      "minPos": {
+        "x": -0.00657943589612842,
+        "y": -0.000809645396657288,
+        "z": -0.0065253833308816
+      },
+      "maxPos": {
+        "x": 0.00576951121911407,
+        "y": 0.0236290898174047,
+        "z": 0.0054766945540905
+      },
+      "name": "Kid_ghost_v1:Ghost_Kid_S2.mesh",
+      "subMetas": {}
+    },
+    "Kid_ghost_v1:Axe.mesh": {
+      "ver": "1.0.3",
+      "uuid": "0e762ed4-3263-4e93-b185-c07d2926346d",
+      "importer": "mesh",
+      "verts": 472,
+      "tris": 236,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "a_normal",
+          "a_position",
+          "a_uv0"
+        ]
+      ],
+      "minPos": {
+        "x": -0.00965404976159334,
+        "y": 0.022204453125596,
+        "z": -0.00210793479345739
+      },
+      "maxPos": {
+        "x": 0.00333020673133433,
+        "y": 0.0316209085285664,
+        "z": 0.00223352434113622
+      },
+      "name": "Kid_ghost_v1:Axe.mesh",
+      "subMetas": {}
+    },
+    "Kid_ghost_v1:Devil_head1.mesh": {
+      "ver": "1.0.3",
+      "uuid": "105992e8-5d64-4a87-a7a7-30812168ece2",
+      "importer": "mesh",
+      "verts": 490,
+      "tris": 238,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "a_normal",
+          "a_position",
+          "a_uv0"
+        ]
+      ],
+      "minPos": {
+        "x": 0.00125293072778732,
+        "y": 0.021653464064002,
+        "z": -0.00149093801155686
+      },
+      "maxPos": {
+        "x": 0.00378073076717556,
+        "y": 0.0264164656400681,
+        "z": 0.000630230468232185
+      },
+      "name": "Kid_ghost_v1:Devil_head1.mesh",
+      "subMetas": {}
+    },
+    "Kid_ghost_v1:Devil_head2.mesh": {
+      "ver": "1.0.3",
+      "uuid": "5b62fd22-6b83-4364-8e57-0924a586bd44",
+      "importer": "mesh",
+      "verts": 490,
+      "tris": 238,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "a_normal",
+          "a_position",
+          "a_uv0"
+        ]
+      ],
+      "minPos": {
+        "x": -0.00320593756623566,
+        "y": 0.0216570906341076,
+        "z": -0.00141309690661728
+      },
+      "maxPos": {
+        "x": -0.000680185970850289,
+        "y": 0.0264187585562468,
+        "z": 0.000708121515344828
+      },
+      "name": "Kid_ghost_v1:Devil_head2.mesh",
+      "subMetas": {}
+    },
+    "Kid_ghost_v1:Witch_Hat.mesh": {
+      "ver": "1.0.3",
+      "uuid": "7bd4b0a5-4321-4341-aaf2-6e50bc4c07fd",
+      "importer": "mesh",
+      "verts": 1298,
+      "tris": 632,
+      "submeshes": 2,
+      "attributes": [
+        [
+          "a_normal",
+          "a_position",
+          "a_uv0"
+        ],
+        [
+          "a_normal",
+          "a_position",
+          "a_uv0"
+        ]
+      ],
+      "minPos": {
+        "x": -0.00567913521081209,
+        "y": 0.0208704676479101,
+        "z": -0.00643757451325655
+      },
+      "maxPos": {
+        "x": 0.0057565700262785,
+        "y": 0.0286253876984119,
+        "z": 0.00504469638690352
+      },
+      "name": "Kid_ghost_v1:Witch_Hat.mesh",
+      "subMetas": {}
+    },
+    "LittleGhost_LP_New-0.skeleton": {
+      "ver": "1.0.3",
+      "uuid": "672605dc-825c-4e06-8fdf-e0774267a417",
+      "importer": "skeleton",
+      "name": "LittleGhost_LP_New-0.skeleton",
+      "subMetas": {}
+    },
+    "LittleGhost_LP_New-1.skeleton": {
+      "ver": "1.0.3",
+      "uuid": "4ddb3619-e0d0-40fa-b097-1f708c4f9f75",
+      "importer": "skeleton",
+      "name": "LittleGhost_LP_New-1.skeleton",
+      "subMetas": {}
+    },
+    "JNTs|JNTs|idle_up_down|BaseLayer.sac": {
+      "ver": "1.0.3",
+      "uuid": "771de0ad-7d1a-41ca-956c-f8ca0c56ae97",
+      "importer": "skeleton-animation-clip",
+      "modelUuid": "624f911a-c806-4c84-942f-9dbe090b21a0",
+      "animationID": 0,
+      "name": "JNTs|JNTs|idle_up_down|BaseLayer.sac",
+      "maxFrameCount": 55,
+      "totalFrameCount": 162,
+      "duration": 2.4166667461395264,
+      "animationFrameRate": 30,
+      "subMetas": {}
+    },
+    "LittleGhost_LP_New.prefab": {
+      "ver": "1.3.2",
+      "uuid": "98058fd1-9794-4d12-8a56-0dc48b567f03",
+      "importer": "prefab",
+      "optimizationPolicy": "AUTO",
+      "asyncLoadAssets": false,
+      "readonly": true,
+      "content": [
+        {
+          "__type__": "cc.Prefab",
+          "_name": "",
+          "_objFlags": 0,
+          "data": {
+            "__id__": 1
+          }
+        },
+        {
+          "__type__": "cc.Node",
+          "_name": "Sprite",
+          "_objFlags": 0,
+          "_opacity": 255,
+          "_color": {
+            "__type__": "cc.Color",
+            "r": 255,
+            "g": 255,
+            "b": 255,
+            "a": 255
+          },
+          "_cascadeOpacityEnabled": true,
+          "_parent": null,
+          "_anchorPoint": {
+            "__type__": "cc.Vec2",
+            "x": 0.5,
+            "y": 0.5
+          },
+          "_contentSize": {
+            "__type__": "cc.Size",
+            "width": 40,
+            "height": 36
+          },
+          "_children": [],
+          "_skewX": 0,
+          "_skewY": 0,
+          "_localZOrder": 0,
+          "_globalZOrder": 0,
+          "_tag": -1,
+          "_opacityModifyRGB": false,
+          "_reorderChildDirty": false,
+          "_id": "",
+          "_active": true,
+          "_components": [
+            {
+              "__id__": 2
+            }
+          ],
+          "_prefab": {
+            "__id__": 3
+          },
+          "_eulerAngles": {
+            "__type__": "cc.Vec3",
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "_trs": {
+            "__type__": "TypedArray",
+            "ctor": "Float64Array",
+            "array": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "__type__": "cc.Sprite",
+          "_name": "",
+          "_objFlags": 0,
+          "node": {
+            "__id__": 1
+          },
+          "_enabled": true,
+          "_spriteFrame": {
+            "__uuid__": "8cdb44ac-a3f6-449f-b354-7cd48cf84061"
+          },
+          "_type": 0,
+          "_sizeMode": 1,
+          "_fillType": 0,
+          "_fillCenter": {
+            "__type__": "cc.Vec2",
+            "x": 0,
+            "y": 0
+          },
+          "_fillStart": 0,
+          "_fillRange": 0,
+          "_isTrimmedMode": true,
+          "_srcBlendFactor": 770,
+          "_dstBlendFactor": 771,
+          "_atlas": null
+        },
+        {
+          "__type__": "cc.PrefabInfo",
+          "root": {
+            "__id__": 1
+          },
+          "asset": null,
+          "fileId": "d7118yAG5lKybkFOAh8koPL"
+        }
+      ],
+      "name": "LittleGhost_LP_New.prefab",
+      "subMetas": {}
+    },
+    "Kid_ghost_v1:lambert10.mtl": {
+      "ver": "1.0.5",
+      "uuid": "64b2961d-4259-4995-911d-fce4a9a7cfdb",
+      "importer": "material",
+      "dataAsSubAsset": null,
+      "name": "Kid_ghost_v1:lambert10.mtl",
+      "subMetas": {}
+    },
+    "Kid_ghost_v1:lambert9.mtl": {
+      "ver": "1.0.5",
+      "uuid": "3697f786-f6a4-40ff-ac51-08813e18d036",
+      "importer": "material",
+      "dataAsSubAsset": null,
+      "name": "Kid_ghost_v1:lambert9.mtl",
+      "subMetas": {}
+    },
+    "Kid_ghost_v1:aiStandardSurface14.mtl": {
+      "ver": "1.0.5",
+      "uuid": "47cfc87c-daf1-4e0b-a6b8-d09e6b657cb3",
+      "importer": "material",
+      "dataAsSubAsset": null,
+      "name": "Kid_ghost_v1:aiStandardSurface14.mtl",
+      "subMetas": {}
+    },
+    "Kid_ghost_v1:aiStandardSurface15.mtl": {
+      "ver": "1.0.5",
+      "uuid": "02f5b5df-adfb-4d52-a348-4aeeeb25d990",
+      "importer": "material",
+      "dataAsSubAsset": null,
+      "name": "Kid_ghost_v1:aiStandardSurface15.mtl",
+      "subMetas": {}
+    },
+    "Kid_ghost_v1:body2.mtl": {
+      "ver": "1.0.5",
+      "uuid": "3d5303f9-108f-4f77-a5ed-01e4339deff6",
+      "importer": "material",
+      "dataAsSubAsset": null,
+      "name": "Kid_ghost_v1:body2.mtl",
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "4325b5c4-9487-4bea-bbe2-332a76275eb4",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 5376,
+  "height": 3072,
+  "platformSettings": {},
+  "subMetas": {
+    "cartoon-halloween-wallpaper": {
+      "ver": "1.0.6",
+      "uuid": "cf8e5ada-3351-40a3-b91b-4d2438e82e0a",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "4325b5c4-9487-4bea-bbe2-332a76275eb4",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 5376,
+      "height": 3072,
+      "rawWidth": 5376,
+      "rawHeight": 3072,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

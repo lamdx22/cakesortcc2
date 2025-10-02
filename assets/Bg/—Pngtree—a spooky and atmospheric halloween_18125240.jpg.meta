@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "ab2eb7be-e9dc-4128-a9ba-6da4888e8190",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 5000,
+  "height": 2813,
+  "platformSettings": {},
+  "subMetas": {
+    "—Pngtree—a spooky and atmospheric halloween_18125240": {
+      "ver": "1.0.6",
+      "uuid": "1f66c239-ea79-4b72-852a-f72f82b9677a",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "ab2eb7be-e9dc-4128-a9ba-6da4888e8190",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 5000,
+      "height": 2813,
+      "rawWidth": 5000,
+      "rawHeight": 2813,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

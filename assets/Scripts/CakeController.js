@@ -21,10 +21,10 @@ let CakeController = cc.Class({
         this.isInCell = false;
         
         this.lastMovingPiece = null;
-        this.cakeArounds = [],
-        this._cakePieces = [],
-        this.cakeUp = null,
-        this.cakeRight = null,
+        this.cakeArounds = [];
+        this._cakePieces = [];
+        this.cakeUp = null;
+        this.cakeRight = null;
         this.cakeDown = null;
         this.cakeLeft = null;
         this.parents = null;
@@ -462,6 +462,7 @@ let CakeController = cc.Class({
         //     this._right.SetParent(null);
         //     this._right = null;
         // }
+        this.cakeArounds = [];
         this.upEdge.active = false;
         this.rightEdge.active = false;
         this.downEdge.active = false;

@@ -10,6 +10,12 @@ const GhostController = cc.Class({
         startPos: cc.v3(0, 0, 0),
         attackPos: cc.v3(0, 0, 20),
         weapon: cc.Node,
+        walkStr: "",
+        attackStr: "",
+        dieStr: "",
+        spawnStr:"",
+        walkSpeed: 1,
+
     },
 
 
@@ -20,10 +26,10 @@ const GhostController = cc.Class({
         //let state = this.skelAnim.defaultClip;
         //state.speed = 0.8;
         // Lấy AnimationClip
-        let clip = this.skelAnim._clips.find(c => c.name === "walk");
+        let clip = this.skelAnim._clips.find(c => c.name === this.walkStr);
 
         // Chỉnh tốc độ gốc
-        clip.speed = 0.6;
+        clip.speed = this.walkSpeed;
     },
 
     start () {
@@ -31,12 +37,12 @@ const GhostController = cc.Class({
     },
 
     onEnable() {
-        this.weapon.active = false;
+        if (this.weapon) this.weapon.active = false;
         this.isTargeted = false;
         this.isAlive = true;
-        this.skelAnim.play("spawn");
+        this.skelAnim.play(this.spawnStr);
         this.scheduleOnce(() => {
-            this.skelAnim.play("walk");
+            this.skelAnim.play(this.walkStr);
             this.isMoving = true;
         }, 1.2);
     },
@@ -60,8 +66,8 @@ const GhostController = cc.Class({
         if (this.isAttack) return;
         this.isAttack = true;
         this.isMoving = false;
-        this.weapon.active = true;
-        this.skelAnim.play("attack1");
+        if (this.weapon) this.weapon.active = true;
+        this.skelAnim.play(this.attackStr);
         await new Promise(resolve => setTimeout(resolve, 1500));
         if (this.isAlive) {
             GameManager.instance.showLose();
@@ -74,7 +80,7 @@ const GhostController = cc.Class({
         cc.tween(this.node)
             //.by(0.2, {position: cc.v3(0, 0.5, 1)}, {easing: "cubicOut"})
             .parallel(
-                cc.tween().to(0.8, {
+                cc.tween().to(0.6, {
                     opacity: 0
                 }),
                 cc.tween().by(0.8, {
@@ -88,9 +94,8 @@ const GhostController = cc.Class({
             })
             .start();
 
-        this.skelAnim.play("death");
+        this.skelAnim.play(this.dieStr);
         //await new Promise(resolve => setTimeout(resolve, 500));
-        //CakePoolManager.instance.spawnGhost(0);
     },
 
     setTargeted() {

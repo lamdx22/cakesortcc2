@@ -23,14 +23,14 @@
         "emissiveColor": {
           "__type__": "cc.Color",
           "r": 0,
-          "g": 102,
-          "b": 255,
+          "g": 3,
+          "b": 44,
           "a": 255
         }
       },
       "defines": {
         "USE_DIFFUSE_TEXTURE": true,
-        "USE_EMISSIVE": true
+        "USE_EMISSIVE": false
       }
     }
   }

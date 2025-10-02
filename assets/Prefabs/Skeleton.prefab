@@ -2376,6 +2376,11 @@
     "weapon": {
       "__id__": 56
     },
+    "walkStr": "walk",
+    "attackStr": "attack1",
+    "dieStr": "death",
+    "spawnStr": "spawn",
+    "walkSpeed": 0.6,
     "_id": ""
   },
   {

@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "47d7f7b5-3ac6-4a66-8d75-7520597e8dc1",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 1920,
+  "height": 1076,
+  "platformSettings": {},
+  "subMetas": {
+    "—Pngtree—spooky 3d illustration full moon_11062183": {
+      "ver": "1.0.6",
+      "uuid": "91c4e89c-0eed-4768-baa0-8134b7de3a47",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "47d7f7b5-3ac6-4a66-8d75-7520597e8dc1",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 1920,
+      "height": 1076,
+      "rawWidth": 1920,
+      "rawHeight": 1076,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

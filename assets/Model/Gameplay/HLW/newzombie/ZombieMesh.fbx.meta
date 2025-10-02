@@ -1,0 +1,313 @@
+{
+  "ver": "1.1.3",
+  "uuid": "606d1d64-5248-4189-82ce-f4ef81f4cb5a",
+  "importer": "fbx",
+  "scaleFactor": 1,
+  "boneCount": 102,
+  "precomputeJointMatrix": false,
+  "animationFrameRate": 30,
+  "subMetas": {
+    "buffer.bin": {
+      "ver": "1.0.2",
+      "uuid": "c4adf6f6-1a4d-4b30-aded-9cdc4944bd98",
+      "importer": "buffer",
+      "name": "buffer.bin",
+      "subMetas": {}
+    },
+    "ZombieMesh_1.mesh": {
+      "ver": "1.0.3",
+      "uuid": "d94799e6-1264-4fc7-8e8f-d5e00279a86e",
+      "importer": "mesh",
+      "verts": 4398,
+      "tris": 6336,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "a_color0",
+          "a_joints",
+          "a_normal",
+          "a_position",
+          "a_tangent",
+          "a_uv0",
+          "a_weights"
+        ]
+      ],
+      "minPos": {
+        "x": -0.605804324150085,
+        "y": -0.828327000141144,
+        "z": -0.202472016215324
+      },
+      "maxPos": {
+        "x": 0.605804324150085,
+        "y": 0.828327000141144,
+        "z": 0.202472001314163
+      },
+      "name": "ZombieMesh_1.mesh",
+      "subMetas": {}
+    },
+    "ZombieMesh-0.skeleton": {
+      "ver": "1.0.3",
+      "uuid": "7ece212b-a2fd-4dd1-8c66-d8df701e03dd",
+      "importer": "skeleton",
+      "name": "ZombieMesh-0.skeleton",
+      "subMetas": {}
+    },
+    "ZombieRig|Attack1.sac": {
+      "ver": "1.0.3",
+      "uuid": "b42a013f-3aa5-4ecf-9b4b-42193c46aafb",
+      "importer": "skeleton-animation-clip",
+      "modelUuid": "606d1d64-5248-4189-82ce-f4ef81f4cb5a",
+      "animationID": 0,
+      "name": "ZombieRig|Attack1.sac",
+      "maxFrameCount": 20,
+      "totalFrameCount": 767,
+      "duration": 0.7916666865348816,
+      "animationFrameRate": 30,
+      "subMetas": {}
+    },
+    "ZombieRig|Attack2.sac": {
+      "ver": "1.0.3",
+      "uuid": "6ec9b6cd-b328-495f-93b6-7c92fa1873f9",
+      "importer": "skeleton-animation-clip",
+      "modelUuid": "606d1d64-5248-4189-82ce-f4ef81f4cb5a",
+      "animationID": 1,
+      "name": "ZombieRig|Attack2.sac",
+      "maxFrameCount": 27,
+      "totalFrameCount": 1065,
+      "duration": 1.0833333730697632,
+      "animationFrameRate": 30,
+      "subMetas": {}
+    },
+    "ZombieRig|Idle.sac": {
+      "ver": "1.0.3",
+      "uuid": "da150363-b55b-4189-8912-110beade21f2",
+      "importer": "skeleton-animation-clip",
+      "modelUuid": "606d1d64-5248-4189-82ce-f4ef81f4cb5a",
+      "animationID": 2,
+      "name": "ZombieRig|Idle.sac",
+      "maxFrameCount": 86,
+      "totalFrameCount": 1983,
+      "duration": 4.166666507720947,
+      "animationFrameRate": 30,
+      "subMetas": {}
+    },
+    "ZombieRig|IdleLookLeft.sac": {
+      "ver": "1.0.3",
+      "uuid": "e79094c6-86c4-4822-a55b-5ac6ddd35231",
+      "importer": "skeleton-animation-clip",
+      "modelUuid": "606d1d64-5248-4189-82ce-f4ef81f4cb5a",
+      "animationID": 3,
+      "name": "ZombieRig|IdleLookLeft.sac",
+      "maxFrameCount": 73,
+      "totalFrameCount": 2102,
+      "duration": 3,
+      "animationFrameRate": 30,
+      "subMetas": {}
+    },
+    "ZombieRig|WalkBWD.sac": {
+      "ver": "1.0.3",
+      "uuid": "2df3a4f9-ac21-4831-8a8e-d6f7df889f0d",
+      "importer": "skeleton-animation-clip",
+      "modelUuid": "606d1d64-5248-4189-82ce-f4ef81f4cb5a",
+      "animationID": 4,
+      "name": "ZombieRig|WalkBWD.sac",
+      "maxFrameCount": 49,
+      "totalFrameCount": 1071,
+      "duration": 2,
+      "animationFrameRate": 30,
+      "subMetas": {}
+    },
+    "ZombieRig|WalkFastFWD.sac": {
+      "ver": "1.0.3",
+      "uuid": "61f297e6-46ab-4bfd-a4d9-0383dda52489",
+      "importer": "skeleton-animation-clip",
+      "modelUuid": "606d1d64-5248-4189-82ce-f4ef81f4cb5a",
+      "animationID": 5,
+      "name": "ZombieRig|WalkFastFWD.sac",
+      "maxFrameCount": 49,
+      "totalFrameCount": 2220,
+      "duration": 2,
+      "animationFrameRate": 30,
+      "subMetas": {}
+    },
+    "ZombieRig|WalkFWD.sac": {
+      "ver": "1.0.3",
+      "uuid": "515b6e38-8615-4ecc-8da2-c4bb4bb50367",
+      "importer": "skeleton-animation-clip",
+      "modelUuid": "606d1d64-5248-4189-82ce-f4ef81f4cb5a",
+      "animationID": 6,
+      "name": "ZombieRig|WalkFWD.sac",
+      "maxFrameCount": 49,
+      "totalFrameCount": 1239,
+      "duration": 2,
+      "animationFrameRate": 30,
+      "subMetas": {}
+    },
+    "ZombieRig|IdleLookRight.sac": {
+      "ver": "1.0.3",
+      "uuid": "66ca4a1b-3c37-4049-b837-d0d6b342220c",
+      "importer": "skeleton-animation-clip",
+      "modelUuid": "606d1d64-5248-4189-82ce-f4ef81f4cb5a",
+      "animationID": 7,
+      "name": "ZombieRig|IdleLookRight.sac",
+      "maxFrameCount": 58,
+      "totalFrameCount": 2057,
+      "duration": 2.375,
+      "animationFrameRate": 30,
+      "subMetas": {}
+    },
+    "ZombieRig|TakeDamage.sac": {
+      "ver": "1.0.3",
+      "uuid": "d4f22c82-51eb-4b95-b9d4-0c60e040026c",
+      "importer": "skeleton-animation-clip",
+      "modelUuid": "606d1d64-5248-4189-82ce-f4ef81f4cb5a",
+      "animationID": 8,
+      "name": "ZombieRig|TakeDamage.sac",
+      "maxFrameCount": 18,
+      "totalFrameCount": 480,
+      "duration": 0.7083333134651184,
+      "animationFrameRate": 30,
+      "subMetas": {}
+    },
+    "ZombieRig|Die.sac": {
+      "ver": "1.0.3",
+      "uuid": "bea60794-fbae-4cdf-8115-08e30169743b",
+      "importer": "skeleton-animation-clip",
+      "modelUuid": "606d1d64-5248-4189-82ce-f4ef81f4cb5a",
+      "animationID": 9,
+      "name": "ZombieRig|Die.sac",
+      "maxFrameCount": 18,
+      "totalFrameCount": 681,
+      "duration": 0.7083333134651184,
+      "animationFrameRate": 30,
+      "subMetas": {}
+    },
+    "ZombieMesh.prefab": {
+      "ver": "1.3.2",
+      "uuid": "539f1f9f-32ff-4c08-b2e7-3af6df231d3d",
+      "importer": "prefab",
+      "optimizationPolicy": "AUTO",
+      "asyncLoadAssets": false,
+      "readonly": true,
+      "content": [
+        {
+          "__type__": "cc.Prefab",
+          "_name": "",
+          "_objFlags": 0,
+          "data": {
+            "__id__": 1
+          }
+        },
+        {
+          "__type__": "cc.Node",
+          "_name": "Sprite",
+          "_objFlags": 0,
+          "_opacity": 255,
+          "_color": {
+            "__type__": "cc.Color",
+            "r": 255,
+            "g": 255,
+            "b": 255,
+            "a": 255
+          },
+          "_cascadeOpacityEnabled": true,
+          "_parent": null,
+          "_anchorPoint": {
+            "__type__": "cc.Vec2",
+            "x": 0.5,
+            "y": 0.5
+          },
+          "_contentSize": {
+            "__type__": "cc.Size",
+            "width": 40,
+            "height": 36
+          },
+          "_children": [],
+          "_skewX": 0,
+          "_skewY": 0,
+          "_localZOrder": 0,
+          "_globalZOrder": 0,
+          "_tag": -1,
+          "_opacityModifyRGB": false,
+          "_reorderChildDirty": false,
+          "_id": "",
+          "_active": true,
+          "_components": [
+            {
+              "__id__": 2
+            }
+          ],
+          "_prefab": {
+            "__id__": 3
+          },
+          "_eulerAngles": {
+            "__type__": "cc.Vec3",
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "_trs": {
+            "__type__": "TypedArray",
+            "ctor": "Float64Array",
+            "array": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "__type__": "cc.Sprite",
+          "_name": "",
+          "_objFlags": 0,
+          "node": {
+            "__id__": 1
+          },
+          "_enabled": true,
+          "_spriteFrame": {
+            "__uuid__": "8cdb44ac-a3f6-449f-b354-7cd48cf84061"
+          },
+          "_type": 0,
+          "_sizeMode": 1,
+          "_fillType": 0,
+          "_fillCenter": {
+            "__type__": "cc.Vec2",
+            "x": 0,
+            "y": 0
+          },
+          "_fillStart": 0,
+          "_fillRange": 0,
+          "_isTrimmedMode": true,
+          "_srcBlendFactor": 770,
+          "_dstBlendFactor": 771,
+          "_atlas": null
+        },
+        {
+          "__type__": "cc.PrefabInfo",
+          "root": {
+            "__id__": 1
+          },
+          "asset": null,
+          "fileId": "d7118yAG5lKybkFOAh8koPL"
+        }
+      ],
+      "name": "ZombieMesh.prefab",
+      "subMetas": {}
+    },
+    "ZombieMaterial.mtl": {
+      "ver": "1.0.5",
+      "uuid": "06721be1-3240-4863-b34d-2e8abec70003",
+      "importer": "material",
+      "dataAsSubAsset": "{\n  \"__type__\": \"cc.Material\",\n  \"_name\": \"\",\n  \"_objFlags\": 0,\n  \"_native\": \"\",\n  \"_effectAsset\": {\n    \"__uuid__\": \"6d91e591-4ce0-465c-809f-610ec95019c6\"\n  },\n  \"_techniqueIndex\": 0,\n  \"_techniqueData\": {\n    \"0\": {\n      \"props\": {\n        \"diffuseColor\": {\n          \"__type__\": \"cc.Color\",\n          \"r\": 255,\n          \"g\": 255,\n          \"b\": 255,\n          \"a\": 255\n        },\n        \"diffuseTexture\": {\n          \"__uuid__\": \"42bd2bd9-6757-40b5-8c30-e0bebcc4ef36\"\n        }\n      },\n      \"defines\": {\n        \"USE_DIFFUSE_TEXTURE\": true\n      }\n    }\n  }\n}",
+      "name": "ZombieMaterial.mtl",
+      "subMetas": {}
+    }
+  }
+}

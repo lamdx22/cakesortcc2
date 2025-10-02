@@ -18,7 +18,7 @@
           "a": 255
         },
         "diffuseTexture": {
-          "__uuid__": "028e9b4d-a090-4522-89fd-5f2e84f363ed"
+          "__uuid__": "ba7c403a-ef77-4012-88de-c96f79be0b10"
         },
         "emissiveColor": {
           "__type__": "cc.Color",
@@ -30,7 +30,7 @@
       },
       "defines": {
         "USE_DIFFUSE_TEXTURE": true,
-        "USE_EMISSIVE": true,
+        "USE_EMISSIVE": false,
         "USE_EMISSIVE_TEXTURE": false
       }
     }
